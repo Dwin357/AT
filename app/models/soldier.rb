@@ -1,3 +1,5 @@
 class Soldier < ActiveRecord::Base
-  # Remember to create a migration!
+  has_many  :trucks
+  has_many  :passengers
+  has_many :resource_statuses, as: :classification
 end

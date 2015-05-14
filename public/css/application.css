@@ -7,3 +7,17 @@
 th {
   text-align: left;
 }
+
+#map-canvas {
+  width: 500px;
+  height: 400px;
+  background-color: #CCC
+}
+
+#add_truck {
+  padding:0px 20px 20px 20px;
+}
+
+#add_passenger {
+  padding:0px 20px 20px 20px;
+}

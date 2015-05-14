@@ -1,3 +1,5 @@
 class Mission < ActiveRecord::Base
-  # Remember to create a migration!
+  has_many :rest_points
+  has_many :passengers
+  has_many :dispatches
 end

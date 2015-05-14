@@ -1,0 +1,35 @@
+<div class='container'>
+  <h3>Make Assignments</h3>
+
+  <form id='create_mission'>
+  <table>
+    <tr>
+      <td><input type="text" name="mission[name]" placeholder="mission"></td>
+      <td><input type="text" name="mission[unit_serviced]" placeholder="for"></td>
+    </tr><tr>
+      <td><h5>Start Time</h5></td>
+      <td><input type="date" name="mission[step_off_date]"></td>
+      <td><input type="time" name="mission[step_off_time]"></td>
+    </tr><tr>
+      <td><h5>Return Time</h5></td>
+      <td><input type="date" name="mission[return_date]"></td>
+      <td><input type="time" name="mission[return_time]"></td>
+    </tr>
+
+    <div id="add_truck">
+      <% i=0 %>
+      <%= erb :'/partials/_add_truck' %>
+    </div>
+
+    <div id="add_passenger">
+      <% y=0 %>
+      <%= erb :'/partials/_add_passenger' %>
+    </div>
+
+    <input type="submit" name="add_truck" value="Add Truck">
+  </table>
+  </form>
+  <br>
+  <input type="submit" name="add_truck" value="Add Truck">
+  <input type="submit" name="add_passenger" value="Add Passenger">
+</div>
