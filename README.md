@@ -39,3 +39,19 @@ AauIwt have driver & a-driver miles update upon competion of a mission
 AauIwt be able to look at when / how long ago a soldier last completed a mission (sleep/rest monitor)
 
 AauIwt be able to look at the names & last completed for all soldiers on a given mission
+
+AauIwt be able to generate rest-points for a missions
+
+AauIwt have rest-points know: location, mission 
+
+#######################
+
+AauIwt have the UX and UI of the ap be such that non-native technology users are able & comfortable using it
+
+AauIwt check avalibility of resources dynamically w/out reloading the page
+
+##### given internet access ######
+
+AauIwt view a mission's rest-points using a map API (given interact)
+
+AauIwt be able to set rest-points by dropping a pin
