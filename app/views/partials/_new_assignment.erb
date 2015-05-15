@@ -3,9 +3,9 @@
 
   <form id='create_mission' action="/mission" method="post">
     <input type="submit" value="Submit">
-  <table>
+  <table id='assignment_table'>
     <tr>
-      <td><input type="text" name="mission[name]" placeholder="mission"></td>
+      <td><input type="text" name="mission[name]" placeholder="mission" ></td>
       <td><input type="text" name="mission[unit_serviced]" placeholder="for"></td>
     </tr><tr>
       <td><h5>Start Time</h5></td>
@@ -18,19 +18,21 @@
     </tr>
 
     <!-- <div id="add_truck"> -->
-      <%# i=0 %>
-      <%= erb :'/partials/_add_truck' %>
-    <!-- </div> -->
+
+      <%= erb :'/partials/_add_truck'%>
+<!--     </div> -->
 
     <!-- <div id="add_passenger"> -->
       <%# y=0 %>
-      <%= erb :'/partials/_add_passenger' %>
+      <%#= erb :'/partials/_add_passenger' %>
     <!-- </div> -->
 
 
   </table>
   </form>
   <br>
-<!--   <input type="submit" name="add_truck" value="Add Truck">
-  <input type="submit" name="add_passenger" value="Add Passenger"> -->
+  <form id='add_truck' action="/mission/add_truck" method="get">
+    <input type="submit" value="Add Truck">
+  </form>
+<!--   <input type="submit" name="add_passenger" value="Add Passenger"> -->
 </div>

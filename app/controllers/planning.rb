@@ -1,12 +1,16 @@
 get '/mission/new' do
-   @personnel #= this provides currently avaliable ppl, it is off-line until the 'prevent double booking' validation is added to the model
+   #this should only provide currently avaliable ppl,
+   #off-line until the 'prevent double booking' validation is added
+   @personnel = Soldier.all
 
-   @trucks #= this is off-line as w/ ppl
+   #as w/ ppl
+   @trucks = Truck.all
 
   erb :'planning/new_mission'
 end
 
 post '/mission' do
+  puts params
   # if mission = Mission.create(params[:mission])
   # "#{params}"
   # "you made it"
@@ -14,10 +18,12 @@ post '/mission' do
   Mission.transaction do
     mission = Mission.create!(params[:mission])
     dispatches = []
-    params[:trucks].each do |truck_params|
-      truck = Truck.find_by!(number: truck_params[:number])
-      dispatches << Dispatch.create!(truck: truck, driver_id: driver_id,
-        a_driver_id: a_driver_id)
+    params[:truck].each do |dispatch_params|
+      truck = Truck.find_by!(name: dispatch_params[:truck_name])
+      driver = Soldier.find_by!(name: dispatch_params[:driver_name])
+      a_driver = Soldier.find_by!(name: dispatch_params[:a_driver_name])
+      dispatches << Dispatch.create!(truck: truck, driver_id: driver.id,
+        a_driver_id: a_driver.id)
     end
     mission.dispatches = dispatches
     mission.save!
@@ -27,9 +33,9 @@ post '/mission' do
 end
 
 
-# get '/mission/truck_form/:last_i' do
-#   erb :'planning/add_truck', { locals: { i: params[:last_index]+1 }}
-# end
+get '/mission/add_truck' do
+  erb :'partials/_add_truck'
+end
 
 
 

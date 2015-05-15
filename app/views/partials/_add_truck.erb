@@ -1,16 +1,9 @@
-    <tr>
-      <td><input type="text" name="truck[number]" placeholder="truck"></td>
-      <td><input type="text" name="truck[driver_id]" placeholder="driver"></td>
-      <td><input type="text" name="truck[a_driver_id]" placeholder="A-driver"></td>
+    <tr class='truck_input'>
+      <td><input type="text" name="truck[][truck_name]" placeholder="truck"></td>
+      <td><input type="text" name="truck[][driver_name]" placeholder="driver's name"></td>
+      <td><input type="text" name="truck[][a_driver_name]" placeholder="A-driver's name"></td>
     </tr>
 
 
-<!-- the bellow is a theoretical implementation for a nested array of trucks w/in the mission form
 
-  both the HTTP and ruby are commneted
- -->
-<!--     <tr>
-      <td><input type="text" name="trucks[<%#= i %>][number]" placeholder="truck"></td>
-      <td><input type="text" name="trucks[<%#= i %>][driver_id]" placeholder="driver"></td>
-      <td><input type="text" name="trucks[<%#= i %>][a_driver_id]" placeholder="A-driver"></td>
-    </tr> -->
+

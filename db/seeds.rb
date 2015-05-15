@@ -1,0 +1,12 @@
+Truck.create(name: "E2", model: "HMV")
+Truck.create(name: "E3", model: "HMV")
+Truck.create(name: "E41", model: "LHS")
+Truck.create(name: "E52", model: "LMTV")
+Truck.create(name: "E53", model: "LMTV")
+Truck.create(name: "E54", model: "LMTV")
+
+Soldier.create(name: "Steinmetz", phone_number: "630.880.8271", rank: "e4")
+Soldier.create(name: "Sosebe", phone_number: "630.880.8271", rank: "e4")
+Soldier.create(name: "Ramierez", phone_number: "630.880.8271", rank: "e4")
+Soldier.create(name: "Wojo", phone_number: "630.880.8271", rank: "e4")
+Soldier.create(name: "Smith", phone_number: "630.880.8271", rank: "e5")

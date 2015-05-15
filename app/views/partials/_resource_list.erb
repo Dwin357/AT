@@ -2,8 +2,21 @@
 <h3>Currently Avaliable Resources</h3>
 <h5>Trucks</h5>
 
-
-
-
+<% if trucks.length == 0 %>
+  <h5>No trucks currently avaliable</h5>
+<%else%>
+  <% trucks.each do |truck| %>
+    <p><%= "#{truck.name} - #{truck.model}" %></p>
+  <%end%>
+<%end%>
+<br>
+<br>
 <h5>Personnel</h5>
+<% if personnel.length == 0 %>
+  <h5>No soldiers currently avaliable</h5>
+<%else%>
+  <% personnel.each do |soldier| %>
+    <p><%= "#{soldier.name} - #{soldier.rank}" %></p>
+  <%end%>
+<%end%>
 </div>
