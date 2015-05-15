@@ -1,7 +1,8 @@
 <div class='container'>
   <h3>Make Assignments</h3>
 
-  <form id='create_mission'>
+  <form id='create_mission' action="/mission" method="post">
+    <input type="submit" value="Submit">
   <table>
     <tr>
       <td><input type="text" name="mission[name]" placeholder="mission"></td>
@@ -16,20 +17,20 @@
       <td><input type="time" name="mission[return_time]"></td>
     </tr>
 
-    <div id="add_truck">
-      <% i=0 %>
+    <!-- <div id="add_truck"> -->
+      <%# i=0 %>
       <%= erb :'/partials/_add_truck' %>
-    </div>
+    <!-- </div> -->
 
-    <div id="add_passenger">
-      <% y=0 %>
+    <!-- <div id="add_passenger"> -->
+      <%# y=0 %>
       <%= erb :'/partials/_add_passenger' %>
-    </div>
+    <!-- </div> -->
 
-    <input type="submit" name="add_truck" value="Add Truck">
+
   </table>
   </form>
   <br>
-  <input type="submit" name="add_truck" value="Add Truck">
-  <input type="submit" name="add_passenger" value="Add Passenger">
+<!--   <input type="submit" name="add_truck" value="Add Truck">
+  <input type="submit" name="add_passenger" value="Add Passenger"> -->
 </div>
