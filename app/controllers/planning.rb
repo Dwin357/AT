@@ -7,9 +7,14 @@ get '/mission/new' do
   erb :'planning/new_mission'
 end
 
+
 post '/mission' do
   Mission.transaction do
+
+    #this params[:mission] part is not currently working
     mission = Mission.create!(params[:mission])
+
+    # this is clearly a method; needs refactoring
     dispatches = []
     params[:truck].each do |dispatch_params|
       truck = Truck.find_by!(name: dispatch_params[:truck_name])
@@ -19,8 +24,19 @@ post '/mission' do
         a_driver_id: a_driver.id)
     end
     mission.dispatches = dispatches
+
+    # this is also another method; needs refactoring
+    if params[:passengers]
+      passenger_list = []
+      params[:passengers].each do |passenger|
+        soldier = Soldier.find_by!(name: passenger[:name])
+        passenger_list << Passenger.create!(soldier: soldier)
+      end
+    end
+
     mission.save!
   end
+  redirect '/'
 end
 
 

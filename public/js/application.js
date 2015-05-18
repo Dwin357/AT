@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
-  // hijack the form submit
+  // lots of repitition here :: not sure how to refactor ajax
+
   $('#add_truck').click(function(event){
     event.preventDefault();
     var request = $.ajax({
@@ -17,6 +18,30 @@ $('#add_passenger').click(function(event){
     event.preventDefault();
     var request = $.ajax({
       url: '/mission/add_passenger',
+      method: 'post'
+    });
+    request.done(function(response){
+      $('#assignment_table').append(response)
+    }); // closes response
+  }); // closes .click
+
+
+$('#add_trailer').click(function(event){
+    event.preventDefault();
+    var request = $.ajax({
+      url: '/mission/add_trailer',
+      method: 'post'
+    });
+    request.done(function(response){
+      $('#assignment_table').append(response)
+    }); // closes response
+  }); // closes .click
+
+
+$('#add_load').click(function(event){
+    event.preventDefault();
+    var request = $.ajax({
+      url: '/mission/add_load',
       method: 'post'
     });
     request.done(function(response){

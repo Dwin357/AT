@@ -1,11 +1,9 @@
 class CreateLoads < ActiveRecord::Migration
   def change
     create_table :loads do |t|
-      t.string :name
-      t.string :phone_number
-      t.string :weapon_number
-      t.string :rank
-      t.integer :miles
+      t.string :load
+      t.integer :vehicle_id
+      t.string :vehicle_type
 
       t.timestamps
     end
