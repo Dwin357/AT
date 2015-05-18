@@ -1,38 +1,41 @@
 <div class='container'>
   <h3>Make Assignments</h3>
 
-  <form id='create_mission' action="/mission" method="post">
-    <input type="submit" value="Submit">
-  <table id='assignment_table'>
+  <table>
     <tr>
-      <td><input type="text" name="mission[name]" placeholder="mission" ></td>
-      <td><input type="text" name="mission[unit_serviced]" placeholder="for"></td>
-    </tr><tr>
-      <td><h5>Start Time</h5></td>
-      <td><input type="date" name="mission[step_off_date]"></td>
-      <td><input type="time" name="mission[step_off_time]"></td>
-    </tr><tr>
-      <td><h5>Return Time</h5></td>
-      <td><input type="date" name="mission[return_date]"></td>
-      <td><input type="time" name="mission[return_time]"></td>
+      <td>
+        <form id='add_truck'>
+          <input type="submit" value="Add Truck">
+        </form>
+      </td>
+      <td>
+        <form id='add_passenger'>
+          <input type="submit" value="Add Passenger">
+        </form>
+      </td>
     </tr>
-
-    <!-- <div id="add_truck"> -->
-
-      <%= erb :'/partials/_add_truck'%>
-<!--     </div> -->
-
-    <!-- <div id="add_passenger"> -->
-      <%# y=0 %>
-      <%#= erb :'/partials/_add_passenger' %>
-    <!-- </div> -->
-
-
   </table>
+
+  <form id='create_mission' action="/mission" method="post">
+
+    <table id='assignment_table'>
+      <tr>
+        <td><input type="text" name="mission[name]" placeholder="mission" ></td>
+        <td><input type="text" name="mission[unit_serviced]" placeholder="for"></td>
+      </tr>
+      <tr><th>Start Date</th><th>Start Time</th><th>Return Date</th><th>Return Time</th></tr>
+      <tr>
+        <td><input type="date" name="mission[step_off_date]"></td>
+        <td><input type="time" name="mission[step_off_time]"></td>
+        <td><input type="date" name="mission[return_date]"></td>
+        <td><input type="time" name="mission[return_time]"></td>
+      </tr>
+
+        <%= erb :'/partials/_add_truck'%>
+
+    </table>
+    <input type="submit" value="Submit">
   </form>
   <br>
-  <form id='add_truck' action="/mission/add_truck" method="get">
-    <input type="submit" value="Add Truck">
-  </form>
-<!--   <input type="submit" name="add_passenger" value="Add Passenger"> -->
+
 </div>

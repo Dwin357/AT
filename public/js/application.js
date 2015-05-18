@@ -3,7 +3,6 @@ $(document).ready(function() {
   // hijack the form submit
   $('#add_truck').click(function(event){
     event.preventDefault();
-
     var request = $.ajax({
       url: '/mission/add_truck',
       method: 'post'
@@ -12,6 +11,22 @@ $(document).ready(function() {
       $('#assignment_table').append(response)
     }); // closes response
   }); // closes .click
+
+
+$('#add_passenger').click(function(event){
+    event.preventDefault();
+    var request = $.ajax({
+      url: '/mission/add_passenger',
+      method: 'post'
+    });
+    request.done(function(response){
+      $('#assignment_table').append(response)
+    }); // closes response
+  }); // closes .click
+
+
+
+
 }) // closes doc.ready
 
 

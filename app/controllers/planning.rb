@@ -26,12 +26,13 @@ end
 
 post '/mission/add_truck' do
   # supports ajax to append a new truck field to the mission form
-  erb :'partials/_add_truck'
+  erb :'partials/_add_truck', {layout: false}
 end
 
 
 post '/mission/add_passenger' do
   # support ajax to append a new passenger field to the mission form
+  erb :'partials/_add_passenger', {layout: false}
 end
 
 
