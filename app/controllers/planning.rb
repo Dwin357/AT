@@ -1,20 +1,13 @@
 get '/mission/new' do
-   #this should only provide currently avaliable ppl,
-   #off-line until the 'prevent double booking' validation is added
-   @personnel = Soldier.all
-
-   #as w/ ppl
-   @trucks = Truck.all
-
+  #this should only provide currently avaliable ppl,
+  #off-line until the 'prevent double booking' validation is added
+  @personnel = Soldier.all
+  #as w/ ppl
+  @trucks = Truck.all
   erb :'planning/new_mission'
 end
 
 post '/mission' do
-  puts params
-  # if mission = Mission.create(params[:mission])
-  # "#{params}"
-  # "you made it"
-  # end
   Mission.transaction do
     mission = Mission.create!(params[:mission])
     dispatches = []
@@ -28,38 +21,30 @@ post '/mission' do
     mission.dispatches = dispatches
     mission.save!
   end
-
-
 end
 
 
-get '/mission/add_truck' do
+post '/mission/add_truck' do
+  # supports ajax to append a new truck field to the mission form
   erb :'partials/_add_truck'
 end
 
 
-
-# def create_mission_details
-# #this method is to
-
-#   Mission.transaction do
-#     mission = Mission.create!(params[:mission])
-      #     # <input name='trucks[0][number]' />
-      #     # <input name='trucks[0][driver_id] />'
-      #     # <input name='trucks[1][number]' />
-      #     # <input name='trucks[1][driver_id] />'
-      #     dispatches = []
-#     params[:trucks].each do |truck_params|
-#       truck = Truck.find_by!(number: truck_params[:number])
-#       dispatches << Dispatch.create!(truck: truck, mission: mission)
-#     end
-
-#     mission.dispatches = dispatches
-#     mission.save!
-#   end
-# end
+post '/mission/add_passenger' do
+  # support ajax to append a new passenger field to the mission form
+end
 
 
 post '/rp' do
+  # saves a new rest point to the database, then displays map w/ new rp on it
+end
 
+
+delete '/rp' do
+  # as it says
+end
+
+
+put '/rp' do
+  # as it says
 end
