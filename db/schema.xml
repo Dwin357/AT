@@ -189,7 +189,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="385" y="225" name="loads">
+<table x="385" y="225" name="payloads">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>

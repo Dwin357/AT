@@ -1,51 +1,85 @@
-<div class='container'>
-  <h3>Make Assignments</h3>
-
-  <table>
-    <tr>
-      <td>
-        <form id='add_truck'>
-          <input type="submit" value="Add Truck">
-        </form>
-      </td>
-      <td>
-        <form id='add_passenger'>
-          <input type="submit" value="Add Passenger">
-        </form>
-      </td>
-      <td>
-        <form id='add_trailer'>
-          <input type="submit" value="Add Trailer">
-        </form>
-      </td>
-      <td>
-        <form id='add_load'>
-          <input type="submit" value="Add Load">
-        </form>
-      </td>
-    </tr>
-  </table>
+<div class='container' id='assignment_table'>
+  <div class='row'>
+    <div class='col-xs-12'>
+      <h3>Make Assignments</h3>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-xs-4'>
+      <input type="submit" value="Submit">
+    </div>
+    <div class='col-xs-2'>
+      <form id='add_truck'>
+        <input type="submit" value="Add Truck">
+      </form>
+    </div>
+    <div class='col-xs-2'>
+      <form id='add_passenger'>
+        <input type="submit" value="Add Passenger">
+      </form>
+    </div>
+    <div class='col-xs-2'>
+      <form id='add_trailer'>
+        <input type="submit" value="Add Trailer">
+      </form>
+    </div>
+    <div class='col-xs-2'>
+      <form id='add_payload'>
+        <input type="submit" value="Add Payload">
+      </form>
+    </div>
+  </div> <!-- closes button row -->
 
   <form id='create_mission' action="/mission" method="post">
 
-    <table id='assignment_table'>
-      <tr>
-        <td><input type="text" name="mission[name]" placeholder="mission" ></td>
-        <td><input type="text" name="mission[unit_serviced]" placeholder="for"></td>
-      </tr>
-      <tr><th>Start Date</th><th>Start Time</th><th>Return Date</th><th>Return Time</th></tr>
-      <tr>
-        <td><input type="date" name="mission[step_off_date]"></td>
-        <td><input type="time" name="mission[step_off_time]"></td>
-        <td><input type="date" name="mission[return_date]"></td>
-        <td><input type="time" name="mission[return_time]"></td>
-      </tr>
+    <!-- <div id='assignment_table' class='container'> -->
+      <div class='row'>
+        <div class='col-xs-4'>
+          <h5>Mission Type</h5>
+        </div>
+        <div class='col-xs-4'>
+          <h5>Unit Serviced</h5>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-4'>
+          <input type="text" name="mission[name]" placeholder="mission" >
+        </div>
+        <div class='col-xs-4'>
+          <input type="text" name="mission[unit_serviced]" placeholder="for">
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-3'>
+          <h5>Start Date</h5>
+        </div>
+        <div class='col-xs-3'>
+          <h5>Start Time</h5>
+        </div>
+        <div class='col-xs-3'>
+          <h5>Return Date</h5>
+        </div>
+        <div class='col-xs-3'>
+          <h5>Return Time</h5>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-xs-3'>
+          <input type="date" name="mission[step_off_date]">
+        </div>
+        <div class='col-xs-3'>
+          <input type="time" name="mission[step_off_time]">
+        </div>
+        <div class='col-xs-3'>
+          <input type="date" name="mission[return_date]">
+        </div>
+        <div class='col-xs-3'>
+          <input type="time" name="mission[return_time]">
+        </div>
+      </div>
+
 
         <%= erb :'/partials/_add_truck'%>
-
-    </table>
-    <input type="submit" value="Submit">
+    <!-- </div> -->
   </form>
-  <br>
-
 </div>

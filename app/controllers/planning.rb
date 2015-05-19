@@ -4,6 +4,7 @@ get '/mission/new' do
   @personnel = Soldier.all
   #as w/ ppl
   @trucks = Truck.all
+  @trailers = Trailer.all
   erb :'planning/new_mission'
 end
 
@@ -37,12 +38,12 @@ post '/mission' do
 
         # this is also another method; needs refactoring
     if params[:trailers]
-      trailer_list = []
+      trailer_dispatch = []
       params[:trailers].each do |trailer|
         trailer = Trailer.find_by!(number: trailer[:number])
-        trailer_list << Passenger.create!(soldier: soldier)
+        trailer_list << TrailerDispatch.create!(trailer: trailer)
       end
-      mission.passengers = passengers
+      mission.trailers = trailers
     end
 
         # this is also another method; needs refactoring

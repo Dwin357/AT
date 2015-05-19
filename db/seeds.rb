@@ -21,4 +21,7 @@ Soldier.create(name: "Young", rank: "e4")
 Soldier.create(name: "Reyes", rank: "e5")
 Soldier.create(name: "Scrogins", rank: "e6")
 
+Trailer.create(name: "TL100")
+Trailer.create(name: "TL102")
+
 

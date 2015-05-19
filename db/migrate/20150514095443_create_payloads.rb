@@ -1,7 +1,7 @@
-class CreateLoads < ActiveRecord::Migration
+class CreatePayloads < ActiveRecord::Migration
   def change
-    create_table :loads do |t|
-      t.string :load
+    create_table :payloads do |t|
+      t.string :payload
       t.integer :vehicle_id
       t.string :vehicle_type
 

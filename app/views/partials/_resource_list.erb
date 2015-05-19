@@ -1,21 +1,52 @@
 <div class='container' class='resource_list'>
-<h3>Currently Avaliable Resources</h3>
-<h5>Trucks</h5>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Currently Avaliable Resources</h3>
+    </div>
+  </div>
 
-<% if trucks.length == 0 %>
-  <h5>No trucks currently avaliable</h5>
-<%else%>
-  <% trucks.each do |truck| %>
-    <p><%= "#{truck.name} - #{truck.model}" %></p>
-  <%end%>
-<%end%>
-<br>
-<h5>Personnel</h5>
-<% if personnel.length == 0 %>
-  <h5>No soldiers currently avaliable</h5>
-<%else%>
-  <% personnel.each do |soldier| %>
-    <p><%= "#{soldier.name} - #{soldier.rank}" %></p>
-  <%end%>
-<%end%>
+  <div class='truck_display' class="row">
+    <div class="col-xs-2">
+      <h5>Trucks</h5>
+    </div>
+    <div class="col-xs-10">
+      <% if trucks.length == 0 %>
+        <h5>No trucks currently avaliable</h5>
+      <%else%>
+        <% trucks.each do |truck| %>
+          <p><%= "#{truck.name} - #{truck.model}" %></p>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+
+  <div class='personnel_display' class="row">
+    <div class="col-xs-2">
+      <h5>Personnel</h5>
+    </div>
+    <div class="col-xs-10">
+      <% if personnel.length == 0 %>
+        <h5>No soldiers currently avaliable</h5>
+      <%else%>
+        <% personnel.each do |soldier| %>
+          <p><%= "#{soldier.name} - #{soldier.rank}" %></p>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+
+  <div class='trailer_display' class="row">
+    <div class="col-xs-2">
+      <h5>Trailers</h5>
+    </div>
+    <div class="col-xs-10">
+      <% if trailers.length == 0 %>
+        <h5>No trailers currently avaliable</h5>
+      <%else%>
+        <% trailers.each do |trailer| %>
+          <p><%= "#{trailer.name}" %></p>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
 </div>

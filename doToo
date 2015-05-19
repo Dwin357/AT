@@ -21,3 +21,5 @@
 
 * - refactor the add passenger & add truck features to be able to work w/out ajax
 
+- get nav bar working (no clear idea of what it needs)
+
