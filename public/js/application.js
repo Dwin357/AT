@@ -1,6 +1,29 @@
 $(document).ready(function() {
 
-  // lots of repitition here :: not sure how to refactor ajax
+
+//not sure why this doesn't work(no error);
+// is the variable assignment swallowing the return?
+
+  // var assignment = function(unit){
+  //   $('#add_'+unit).click(function(event){
+  //     event.preventDefault();
+  //     var request = $.ajax({
+  //       url: '/mission/add_'+unit,
+  //       method: 'post'
+  //     });
+  //     request.done(function(response){
+  //       $('assignment_table').append(response)
+  //     }); // closes response
+  //   }); // closes .click
+  // };
+
+  // assignment('truck');
+  // assignment('passenger');
+  // assignment('trailer');
+  // assignment('load');
+
+
+// lots of repitition here :: not sure how to refactor ajax, see above
 
   $('#add_truck').click(function(event){
     event.preventDefault();

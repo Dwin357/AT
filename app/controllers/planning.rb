@@ -32,7 +32,30 @@ post '/mission' do
         soldier = Soldier.find_by!(name: passenger[:name])
         passenger_list << Passenger.create!(soldier: soldier)
       end
+      mission.passengers = passengers
     end
+
+        # this is also another method; needs refactoring
+    if params[:trailers]
+      trailer_list = []
+      params[:trailers].each do |trailer|
+        trailer = Trailer.find_by!(number: trailer[:number])
+        trailer_list << Passenger.create!(soldier: soldier)
+      end
+      mission.passengers = passengers
+    end
+
+        # this is also another method; needs refactoring
+        # trailers will have the TL prefix while trucks will be G
+        # how can I grab this to determine vehicle type?
+    # if params[:passengers]
+    #   passenger_list = []
+    #   params[:passengers].each do |passenger|
+    #     soldier = Soldier.find_by!(name: passenger[:name])
+    #     passenger_list << Passenger.create!(soldier: soldier)
+    #   end
+    #   mission.passengers = passengers
+    # end
 
     mission.save!
   end
@@ -49,6 +72,14 @@ end
 post '/mission/add_passenger' do
   # support ajax to append a new passenger field to the mission form
   erb :'partials/_add_passenger', {layout: false}
+end
+
+post '/mission/add_load' do
+  erb :'partials/_add_load', {layout: false}
+end
+
+post '/mission/add_trailer' do
+  erb :'partials/_add_trailer', {layout: false}
 end
 
 
