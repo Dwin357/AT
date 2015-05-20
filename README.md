@@ -1,6 +1,6 @@
 User Stories
 
-As a user I want to (AauIwt) create missions 
+As a user I want to (AauIwt) create missions  
 
 AauIwt have a roster of soldiers
 
