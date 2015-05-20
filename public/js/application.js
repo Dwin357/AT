@@ -20,7 +20,7 @@ $(document).ready(function() {
   // assignment('truck');
   // assignment('passenger');
   // assignment('trailer');
-  // assignment('load');
+  // assignment('payload');
 ///////////////////////////////////////////////
 
 
@@ -63,10 +63,10 @@ $('#add_trailer').click(function(event){
   }); // closes .click
 
 
-$('#add_load').click(function(event){
+$('#add_payload').click(function(event){
     event.preventDefault();
     var request = $.ajax({
-      url: '/mission/add_load',
+      url: '/mission/add_payload',
       method: 'post'
     });
     request.done(function(response){
