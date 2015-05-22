@@ -5,74 +5,74 @@ $(document).ready(function() {
 // immediately loads (which is unexpected and not explained)
 
 // var unit
-  // var assignment = function(unit){
-  //   $('#add_'+unit).click(function(event){
-  //     console.log("hello")
-  //     var request = $.ajax({
-  //       url: '/mission/add_'+unit,
-  //       method: 'post'
-  //     });
-  //     request.done(function(response){
-  //       $('#assignment_table').append(response)
-  //     }); // closes response
-  //   }); // closes .click
-  // };
-  // assignment('truck');
-  // assignment('passenger');
-  // assignment('trailer');
-  // assignment('payload');
+  var assignment = function(unit){
+    $('#add_'+unit).click(function(event){
+      event.preventDefault();
+      var request = $.ajax({
+        url: '/mission/add_'+unit,
+        method: 'post'
+      });
+      request.done(function(response){
+        $('#assignment_table').append(response)
+      }); // closes response
+    }); // closes .click
+  };
+  assignment('truck');
+  assignment('passenger');
+  assignment('trailer');
+  assignment('payload');
 ///////////////////////////////////////////////
 
 
 // lots of repitition here :: not sure how to refactor ajax, see above
 
-  $('#add_truck').click(function(event){
-    event.preventDefault();
-    var request = $.ajax({
-      url: '/mission/add_truck',
-      method: 'post'
-    });
-    request.done(function(response){
-      $('#assignment_table').append(response)
-    }); // closes response
-    console.log("made it")
-  }); // closes .click
+//   $('#add_truck').click(function(event){
+//     event.preventDefault();
+//     var request = $.ajax({
+//       url: '/mission/add_truck',
+//       method: 'post'
+//     });
+//     request.done(function(response){
+//       $('#assignment_table').append(response)
+//     }); // closes response
+//     console.log("made it")
+//   }); // closes .click
 
 
-$('#add_passenger').click(function(event){
-    event.preventDefault();
-    var request = $.ajax({
-      url: '/mission/add_passenger',
-      method: 'post'
-    });
-    request.done(function(response){
-      $('#assignment_table').append(response)
-    }); // closes response
-  }); // closes .click
+// $('#add_passenger').click(function(event){
+//     event.preventDefault();
+//     var request = $.ajax({
+//       url: '/mission/add_passenger',
+//       method: 'post'
+//     });
+//     request.done(function(response){
+//       $('#assignment_table').append(response)
+//     }); // closes response
+//   }); // closes .click
 
 
-$('#add_trailer').click(function(event){
-    event.preventDefault();
-    var request = $.ajax({
-      url: '/mission/add_trailer',
-      method: 'post'
-    });
-    request.done(function(response){
-      $('#assignment_table').append(response)
-    }); // closes response
-  }); // closes .click
+// $('#add_trailer').click(function(event){
+//     event.preventDefault();
+//     var request = $.ajax({
+//       url: '/mission/add_trailer',
+//       method: 'post'
+//     });
+//     request.done(function(response){
+//       $('#assignment_table').append(response)
+//     }); // closes response
+//   }); // closes .click
 
 
-$('#add_payload').click(function(event){
-    event.preventDefault();
-    var request = $.ajax({
-      url: '/mission/add_payload',
-      method: 'post'
-    });
-    request.done(function(response){
-      $('#assignment_table').append(response)
-    }); // closes response
-  }); // closes .click
+// $('#add_payload').click(function(event){
+//     event.preventDefault();
+//     var request = $.ajax({
+//       url: '/mission/add_payload',
+//       method: 'post'
+//     });
+//     request.done(function(response){
+//       $('#assignment_table').append(response)
+//     }); // closes response
+//   }); // closes .click
 
 
 
