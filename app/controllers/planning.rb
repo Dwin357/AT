@@ -33,7 +33,7 @@ post '/mission' do
     mission.dispatches = dispatches
 
     # this is also another method; needs refactoring
-    if params[:passengers].length > 0
+    if params[:passengers]
       passenger_list = []
       params[:passengers].each do |passenger|
         soldier = Soldier.find_by!(name: passenger[:name])
@@ -43,7 +43,7 @@ post '/mission' do
     end
 
         # this is also another method; needs refactoring
-    if params[:trailers].length > 0
+    if params[:trailers]
       trailer_dispatches = []
       params[:trailers].each do |trailer|
         trailer = Trailer.find_by!(name: trailer[:trailer_name])
@@ -52,7 +52,7 @@ post '/mission' do
       mission.trailer_dispatches = trailer_dispatches
     end
 
-    if params[:payloads].length > 0 
+    if params[:payloads]
       params[:payloads].each do |payload|
         if /^TL.*/.match(payload[:vehicle_name])
           Payload.create!(

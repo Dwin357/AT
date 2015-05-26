@@ -1,15 +1,37 @@
 <div class="container">
-  <h1>Open Missions</h1>
+  
+  <div class='jumbotron'>
+		<div class='panel panel-default'>
 
-  <!-- this ruby logic feels like it should live elsewhere -->
-  <% if @current_missions.length == 0 %>
-    <h5>No missions currently queued</h5>
-  <%else%>
-<!--   I want this to sort missions first by date, then by time (display chronological), and then only display things that have not occured yet.  I am thinking the .sort or .sort_by ruby methods, but I am not clear on how these work with multiple sorts and it might be better to do this on the DB end.
- -->
-    <% @current_missions.sort_by {|mission| mission.step_off}.each do |mission| %>
-      <p><%= "#{mission.step_off}:  #{mission.name} - #{mission.unit_serviced}" %></p>
-    <%end%>
-  <%end%>
+			<div class='panel-heading'>
+				The Mission
+			</div>
+			
+		  <% if @missions.length == 0 %>
+		  	<div class='panel-body'>
+		  		<h5>Awaiting Orders</h5>
+	  		</div>
+	  	<%else%>
+	  		<% @missions.each do |mission| %>
+	  			<div class='panel-body'>
+	  			<% if mission.completed %>
+	  				<p><del>
+	  					<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+	  				</del></p>
+	  			<% elsif mission.initiated %>
+	  				<p class='text-success'>
+	  					<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+	  				</p>
+	  			<%else%>
+	  				<p>
+	  					<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+	  				</p>
+	  			<%end%>
+	  			</div>
+	  		<%end%>
+  		<%end%>
+  	</div>
+  </div>
 
 </div>
+

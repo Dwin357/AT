@@ -1,6 +1,36 @@
-get '' do 
+get '/mission' do 
+	# this is turning out to be remarkably similar to the index
+
+
 	# view current missions and upcoming 
 	# missions (2 partials)
+	# presented w/ btn to mrk mission start
+
+	unresolved_missions = Mission.where(completed: false).sort_by{|mission| mission.step_off}
+
+	@active_missions = unresolved_missions.select do |mission| 
+		mission.initiated 
+	end
+
+	@upcoming_missions = unresolved_missions.reject do |mission| 
+		mission.initiated 
+	end
+
+
+# new idea have a list of all uncompleted missions
+	# green: initiated 
+	# red:   uninitiated  where ST > Time.now
+	# black: uninitiated where ST < Time.now
+
+	erb :'dispatch/forecast'
+end
+
+
+get	'/mission/:id' do 
+	"you landed on GET /mission/#{params[:id]}"
+	# view a specific mission
+	# presented with the buttons to close dispathes
+
 end
 
 
@@ -13,13 +43,16 @@ get '' do
 	# view a specific soldier
 	# include all mission went on
 	# include ph#, wep#, any statuses
+	# presented w/ btn to chng status
 end
 
 
 get '' do 
 	# view a specific truck
 	# include all missions
-	# include radio#, any diffencies + statuses
+	# include radio#, any deffencies + statuses
+	# presented with btn to chng defficiences / status
+
 end
 
 
@@ -30,7 +63,8 @@ post '' do
 end
 
 
-post '' do 
+post '/mission/:id' do 
+	"you landed on POST /mission/#{params[:id]}"
 	# mark a truck/soldier as leaving wire
 end
 
