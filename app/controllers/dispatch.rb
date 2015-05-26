@@ -38,6 +38,8 @@ end
 post '' do 
 	# mark a truck/soldier as returned
 	# throws a pop-up for miles, gal+, oil+, confirm keys
+	# auto update soldiers miles
+	# auto update truck miles/gal/oil
 end
 
 
@@ -46,8 +48,18 @@ post '' do
 end
 
 
+delete '' do
+	# delete deficiency
+end
+
+
 post '' do 
 	# add status to truck/trailer/soldier
+end
+
+
+delete '' do 
+	# delete status
 end
 
 
