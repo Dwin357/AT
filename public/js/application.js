@@ -17,31 +17,12 @@ $(document).ready(function() {
   assignment('passenger');
   assignment('trailer');
   assignment('payload');
+
+
 }) // closes doc.ready
 
 
-$(document).ready(function() {
-    var date = new Date();
 
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = year + "-" + month + "-" + day;
-    var now = hours + ":" + minutes;
-    $("#startDate").attr("value", today);
-    $("#startTime").attr("value", now);
-    $("#returnDate").attr("value", today);
-    $("#returnTime").attr("value", now);
-
-
-
-});
 
 
 

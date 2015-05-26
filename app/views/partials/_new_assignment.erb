@@ -10,20 +10,10 @@
     <div class='row'>
       <div class='col-xs-12'>
         <div class="btn-group inline">
-
-          <button type="button" class="btn btn-default" id='add_truck'>
-            Add Truck
-          </button>
-          <button type="button" class="btn btn-default" id='add_passenger'>
-            Add Passenger
-          </button>
-          <button type="button" class="btn btn-default" id='add_trailer'>
-            Add Trailer
-          </button>
-          <button type="button" class="btn btn-default" id='add_payload'>
-            Add Payload
-          </button>
-
+          <button type="button" class="btn btn-default" id='add_truck'>Add Truck</button>
+          <button type="button" class="btn btn-default" id='add_passenger'>Add Passenger</button>
+          <button type="button" class="btn btn-default" id='add_trailer'>Add Trailer</button>
+          <button type="button" class="btn btn-default" id='add_payload'>Add Payload</button>
         </div> 
       </div>
     </div>
@@ -42,15 +32,23 @@
           </div>
 
           <div class="form-group">
-            <label for="startDate">Step Off</label>
-            <input type="date" name="mission[step_off_date]" id="startDate">
-            <input type="time" name="mission[step_off_time]" id="startTime">
+            <% me = Time.now %>
+            <%  def ti(me)
+                  if me / 10 == 0
+                    "0#{me}"
+                  else
+                    "#{me}"
+                  end
+                end %>
+            <label for="startDate">Step Off </label>
+            <input type="date" name="mission[step_off_date]" id="startDate" value=<%="#{me.year}-#{ti(me.month)}-#{ti(me.day)}" %>>
+            <input type="time" name="mission[step_off_time]" id="startTime" value=<%="#{ti(me.hour)}:#{ti(me.min)}"%>>
           </div>
 
           <div class="form-group">
             <label for="returnDate">Return</label>
-            <input type="date" name="mission[return_date]" id="returnDate">
-            <input type="time" name="mission[return_time]" id="returnTime">
+            <input type="date" name="mission[return_date]" id="returnDate" value=<%="#{me.year}-#{ti(me.month)}-#{ti(me.day)}" %>>
+            <input type="time" name="mission[return_time]" id="returnTime" value=<%="#{ti(me.hour)}:#{ti(me.min)}"%>>
           </div>
         
         </div>
