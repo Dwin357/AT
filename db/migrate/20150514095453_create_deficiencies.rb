@@ -4,7 +4,7 @@ class CreateDeficiencies < ActiveRecord::Migration
       t.integer :vehicle_id
       t.string  :vehicle_type
       t.string  :deficiency
-      t.integer :deadlined
+      t.boolean :deadlined, default: false
 
       t.timestamps
     end

@@ -11,7 +11,6 @@ end
 
 post '/mission' do
  
-
   Mission.transaction do
 
     mission = Mission.new 
@@ -68,8 +67,6 @@ post '/mission' do
         end
       end
     end
-
-
     mission.save!
   end
   redirect '/'

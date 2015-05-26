@@ -4,6 +4,7 @@ class CreatePayloads < ActiveRecord::Migration
       t.string :payload
       t.integer :vehicle_id
       t.string :vehicle_type
+      t.boolean :downloaded, default: false
 
       t.timestamps
     end
