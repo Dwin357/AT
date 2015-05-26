@@ -7,13 +7,9 @@
   <%else%>
 <!--   I want this to sort missions first by date, then by time (display chronological), and then only display things that have not occured yet.  I am thinking the .sort or .sort_by ruby methods, but I am not clear on how these work with multiple sorts and it might be better to do this on the DB end.
  -->
-    <% @current_missions.each do |mission| %>
-      <p><%= "#{mission.step_off_time} - #{mission.step_off_date}:  #{mission.name} - #{mission.unit_serviced}" %></p>
+    <% @current_missions.sort_by {|mission| mission.step_off}.each do |mission| %>
+      <p><%= "#{mission.step_off}:  #{mission.name} - #{mission.unit_serviced}" %></p>
     <%end%>
   <%end%>
-
-  <a href='/mission/new'>plan new mission</a>
-  <br>
-  <a href=''>dispatch mode( #unimplemented)</a>
 
 </div>

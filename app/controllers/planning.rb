@@ -10,10 +10,17 @@ end
 
 
 post '/mission' do
+ 
+
   Mission.transaction do
 
-    #this params[:mission] part is not currently working
-    mission = Mission.create!(params[:mission])
+    mission = Mission.new 
+
+    mission.step_off      ="#{params[:mission][:step_off_date]+" "+params[:mission][:step_off_time]+":00"}"
+    mission.return        ="#{params[:mission][:return_date]+" "+params[:mission][:return_time]+":00"}"
+    mission.name          = params[:mission][:name]
+    mission.unit_serviced = params[:mission][:unit_serviced]
+
 
     # this is clearly a method; needs refactoring
     dispatches = []
@@ -27,36 +34,41 @@ post '/mission' do
     mission.dispatches = dispatches
 
     # this is also another method; needs refactoring
-    if params[:passengers]
+    if params[:passengers].length > 0
       passenger_list = []
       params[:passengers].each do |passenger|
         soldier = Soldier.find_by!(name: passenger[:name])
         passenger_list << Passenger.create!(soldier: soldier)
       end
-      mission.passengers = passengers
+      mission.passengers = passenger_list
     end
 
         # this is also another method; needs refactoring
-    if params[:trailers]
-      trailer_dispatch = []
+    if params[:trailers].length > 0
+      trailer_dispatches = []
       params[:trailers].each do |trailer|
-        trailer = Trailer.find_by!(number: trailer[:number])
-        trailer_list << TrailerDispatch.create!(trailer: trailer)
+        trailer = Trailer.find_by!(name: trailer[:trailer_name])
+        trailer_dispatches << TrailerDispatch.create!(trailer: trailer)
       end
-      mission.trailers = trailers
+      mission.trailer_dispatches = trailer_dispatches
     end
 
-        # this is also another method; needs refactoring
-        # trailers will have the TL prefix while trucks will be G
-        # how can I grab this to determine vehicle type?
-    # if params[:passengers]
-    #   passenger_list = []
-    #   params[:passengers].each do |passenger|
-    #     soldier = Soldier.find_by!(name: passenger[:name])
-    #     passenger_list << Passenger.create!(soldier: soldier)
-    #   end
-    #   mission.passengers = passengers
-    # end
+    if params[:payloads].length > 0 
+      params[:payloads].each do |payload|
+        if /^TL.*/.match(payload[:vehicle_name])
+          Payload.create!(
+            payload: payload[:payload],
+            vehicle_type: "Trailer",
+            vehicle_id: Trailer.find_by!(name: payload[:vehicle_name]).id)
+        else
+          Payload.create!(
+            payload: payload[:payload],
+            vehicle_type: "Truck",
+            vehicle_id: Truck.find_by!(name: payload[:vehicle_name]).id)
+        end
+      end
+    end
+
 
     mission.save!
   end
@@ -65,19 +77,18 @@ end
 
 
 post '/mission/add_truck' do
-  # supports ajax to append a new truck field to the mission form
   erb :'partials/_add_truck', {layout: false}
 end
 
 
 post '/mission/add_passenger' do
-  # support ajax to append a new passenger field to the mission form
   erb :'partials/_add_passenger', {layout: false}
 end
 
-post '/mission/add_load' do
-  erb :'partials/_add_load', {layout: false}
+post '/mission/add_payload' do
+  erb :'partials/_add_payload', {layout: false}
 end
+
 
 post '/mission/add_trailer' do
   erb :'partials/_add_trailer', {layout: false}
