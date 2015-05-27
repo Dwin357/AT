@@ -1,24 +1,24 @@
-get '/mission' do 
+get '/mission' do
 	# this is turning out to be remarkably similar to the index
 
 
-	# view current missions and upcoming 
+	# view current missions and upcoming
 	# missions (2 partials)
 	# presented w/ btn to mrk mission start
 
 	unresolved_missions = Mission.where(completed: false).sort_by{|mission| mission.step_off}
 
-	@active_missions = unresolved_missions.select do |mission| 
-		mission.initiated 
+	@active_missions = unresolved_missions.select do |mission|
+		mission.initiated
 	end
 
-	@upcoming_missions = unresolved_missions.reject do |mission| 
-		mission.initiated 
+	@upcoming_missions = unresolved_missions.reject do |mission|
+		mission.initiated
 	end
 
 
 # new idea have a list of all uncompleted missions
-	# green: initiated 
+	# green: initiated
 	# red:   uninitiated  where ST > Time.now
 	# black: uninitiated where ST < Time.now
 
@@ -26,20 +26,19 @@ get '/mission' do
 end
 
 
-get	'/mission/:id' do 
-	"you landed on GET /mission/#{params[:id]}"
-	# view a specific mission
-	# presented with the buttons to close dispathes
+# get	'/mission/:id' do
+# 	"you landed on GET /mission/#{params[:id]}"
+# 	# view a specific mission
+# 	# presented with the buttons to close dispathes
+# end
 
-end
 
-
-get '' do 
+get '' do
 	# view payloads
 end
 
 
-get '' do 
+get '' do
 	# view a specific soldier
 	# include all mission went on
 	# include ph#, wep#, any statuses
@@ -47,7 +46,7 @@ get '' do
 end
 
 
-get '' do 
+get '' do
 	# view a specific truck
 	# include all missions
 	# include radio#, any deffencies + statuses
@@ -56,20 +55,20 @@ get '' do
 end
 
 
-post '' do 
+post '' do
 	# mark a mission as completed...
 	# this could be automatic when last pass/tk
 	# returns though...
 end
 
 
-post '/mission/:id' do 
+post '/mission/:id' do
 	"you landed on POST /mission/#{params[:id]}"
 	# mark a truck/soldier as leaving wire
 end
 
 
-post '' do 
+post '' do
 	# mark a truck/soldier as returned
 	# throws a pop-up for miles, gal+, oil+, confirm keys
 	# auto update soldiers miles
@@ -77,7 +76,7 @@ post '' do
 end
 
 
-post '' do 
+post '' do
 	# add a deficiency to a truck/trailer
 end
 
@@ -87,21 +86,21 @@ delete '' do
 end
 
 
-post '' do 
+post '' do
 	# add status to truck/trailer/soldier
 end
 
 
-delete '' do 
+delete '' do
 	# delete status
 end
 
 
-post '' do 
-	# add a new soldier 
+post '' do
+	# add a new soldier
 end
 
 
-post '' do 
-	# add a new truck 
+post '' do
+	# add a new truck
 end

@@ -3,8 +3,8 @@ $(document).ready(function() {
     $('#add_'+unit).click(function(event){
       event.preventDefault();
       var request = $.ajax({
-        url: '/mission/add_'+unit,
-        method: 'post'
+        url: '/mission/forms/add_'+unit,
+        method: 'get'
       });
 
       request.done(function(response){
