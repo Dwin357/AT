@@ -4,7 +4,7 @@ class Dispatch < ActiveRecord::Base
   belongs_to  :driver, class_name: "Soldier"
   belongs_to  :a_driver, class_name: "Soldier"
 
-  def self.wrangle_stuff(params)
+  def self.check_out_truck(params)
     dispatch = self.new
 
     truck = Truck.find_by!(name: params[:truck_name])

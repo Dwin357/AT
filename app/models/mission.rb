@@ -17,45 +17,27 @@ class Mission < ActiveRecord::Base
 
       mission.dispatches << self.set_up_dispatches(params[:trucks])
       mission.passengers << self.set_up_passengers(params[:passengers])
+      mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])
 
-          # this is also another method; needs refactoring
-      if params[:trailers]
-        trailer_dispatches = []
-        params[:trailers].each do |trailer|
-          trailer = Trailer.find_by!(name: trailer[:trailer_name])
-          trailer_dispatches << TrailerDispatch.create!(trailer: trailer)
-        end
-        mission.trailer_dispatches = trailer_dispatches
-      end
-
-      if params[:payloads]
-        params[:payloads].each do |payload|
-          if /^TL.*/.match(payload[:vehicle_name])
-            Payload.create!(
-              payload: payload[:payload],
-              vehicle_type: "Trailer",
-              vehicle_id: Trailer.find_by!(name: payload[:vehicle_name]).id)
-          else
-            Payload.create!(
-              payload: payload[:payload],
-              vehicle_type: "Truck",
-              vehicle_id: Truck.find_by!(name: payload[:vehicle_name]).id)
-          end
-        end
-      end
+      Payload.assign_payloads(params[:payloads]) if params[:payloads]
       mission.save!
     end
   end
 
   def self.set_up_dispatches(trucks)
     trucks.map do |dispatch_params|
-      Dispatch.wrangle_stuff(dispatch_params)
+      Dispatch.check_out_truck(dispatch_params)
     end
   end
 
   def self.set_up_passengers(passengers)
     return [] unless !!passengers
     Passenger.create_passenger_list(passengers)
+  end
+
+  def self.set_up_trailer_dispatches(trailers)
+    return [] unless !!trailers
+    TrailerDispatch.check_out_trailer(trailers)
   end
 
   def self.unresolved_missions

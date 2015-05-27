@@ -4,8 +4,7 @@ class Passenger < ActiveRecord::Base
 
   def self.create_passenger_list(passengers)
     passengers.map do |passenger|
-
-      self.new(Soldier.find_by_name(passengers["name"]))
+      self.new(soldier: Soldier.find_by_name(passenger["name"]))
     end
   end
 end
