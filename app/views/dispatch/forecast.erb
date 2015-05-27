@@ -41,6 +41,7 @@
 				<% else %>
 					<% @unresolved_missions[:uninitiated].each do |mission| %>
 						<form action=<%="/mission/#{mission.id}"%> method='post'>
+						<input type="hidden" name="_method" value="put"/>
 						<% if mission.step_off < Time.now %>
 							<div class='panel-body'>
 								<p class="text-danger">

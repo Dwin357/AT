@@ -18,40 +18,20 @@ get '/mission/forms/:type' do
 end
 
 get '/mission' do
-
   @unresolved_missions = Mission.unresolved_missions
-
-
   erb :'dispatch/forecast'
 end
 
-
-# get '/mission/:id' do
-#   "you landed on GET /mission/#{params[:id]}"
-#   # view a specific mission
-#   # presented with the buttons to close dispathes
-# end
-
-
-get '' do
-  # view payloads
+put '/mission/:id' do
+  "you landed on PUT /mission/#{params[:id]}"
+  # mark a truck/soldier as leaving wire
 end
 
 
-get '' do
-  # view a specific soldier
-  # include all mission went on
-  # include ph#, wep#, any statuses
-  # presented w/ btn to chng status
-end
-
-
-get '' do
-  # view a specific truck
-  # include all missions
-  # include radio#, any deffencies + statuses
-  # presented with btn to chng defficiences / status
-
+get '/mission/:id' do
+  "you landed on GET /mission/#{params[:id]}"
+  # view a specific mission
+  # presented with the buttons to close dispathes
 end
 
 
@@ -61,8 +41,17 @@ post '' do
   # returns though...
 end
 
-
-put '/mission/:id' do
-  "you landed on POST /mission/#{params[:id]}"
-  # mark a truck/soldier as leaving wire
+post '/rp' do
+  # saves a new rest point to the database, then displays map w/ new rp on it
 end
+
+
+delete '/rp' do
+  # as it says
+end
+
+
+put '/rp' do
+  # as it says
+end
+

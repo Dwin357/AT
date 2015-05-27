@@ -19,8 +19,7 @@
 
   X - refactor the ajax to be more dry
 
-...refactor the add passenger & add truck features to be able to work w/out ajax
-(survey says: this would be painful to do and disappointing if successful)
+  ...refactor the add passenger & add truck features to be able to work w/out ajax (survey says: this would be painful to do and disappointing if successful)
 
   X - get nav bar working (no clear idea of what it needs)
 
