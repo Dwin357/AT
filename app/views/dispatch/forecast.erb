@@ -6,12 +6,12 @@
 				<div class='panel-heading'>
 					Active Missions
 				</div>
-				<% if @active_missions.length == 0 %>
+				<% unless @unresolved_missions[:initiated] %>
 					<div class='panel-body'>
 						<h5>No trucks out</h5>
 					</div>
 				<% else %>
-					<% @active_missions.each do |mission| %>
+					<% @unresolved_missions[:initiated].each do |mission| %>
 						<div class='panel-body'>
 							<p class="text-success">
 								<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
@@ -20,7 +20,7 @@
 								<button type="button" class="btn btn-default">
 									View
 								</button>
-							</a>	
+							</a>
 						</div>
 					<%end%>
 				<%end%>
@@ -34,12 +34,12 @@
 				<div class='panel-heading'>
 					Upcoming Missions
 				</div>
-				<% if @upcoming_missions.length == 0 %>
+				<% unless @unresolved_missions[:uninitiated] %>
 					<div class='panel-body'>
 						<h5>Nothing Planned</h5>
 					</div>
 				<% else %>
-					<% @upcoming_missions.each do |mission| %>
+					<% @unresolved_missions[:uninitiated].each do |mission| %>
 						<form action=<%="/mission/#{mission.id}"%> method='post'>
 						<% if mission.step_off < Time.now %>
 							<div class='panel-body'>
@@ -49,12 +49,12 @@
 							<div class='panel-body' class='success'>
 								<p class='text-info'>
 								<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
-						<%end%>		
+						<%end%>
 								<button type="submit" class="btn btn-default">
 									Leaving
-								</button></p>	
-							</div>	
-						</form>		
+								</button></p>
+							</div>
+						</form>
 					<%end%>
 				<%end%>
 			</div>

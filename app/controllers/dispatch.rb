@@ -1,36 +1,3 @@
-get '/mission' do
-	# this is turning out to be remarkably similar to the index
-
-
-	# view current missions and upcoming
-	# missions (2 partials)
-	# presented w/ btn to mrk mission start
-
-	unresolved_missions = Mission.where(completed: false).sort_by{|mission| mission.step_off}
-
-	@active_missions = unresolved_missions.select do |mission|
-		mission.initiated
-	end
-
-	@upcoming_missions = unresolved_missions.reject do |mission|
-		mission.initiated
-	end
-
-
-# new idea have a list of all uncompleted missions
-	# green: initiated
-	# red:   uninitiated  where ST > Time.now
-	# black: uninitiated where ST < Time.now
-
-	erb :'dispatch/forecast'
-end
-
-
-# get	'/mission/:id' do
-# 	"you landed on GET /mission/#{params[:id]}"
-# 	# view a specific mission
-# 	# presented with the buttons to close dispathes
-# end
 
 
 get '' do

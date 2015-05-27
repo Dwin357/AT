@@ -9,7 +9,7 @@ get '/mission/new' do
 end
 
 post '/mission' do
-  @mission = Mission.create_new(params)
+  Mission.create_new(params)
   redirect '/'
 end
 
@@ -18,30 +18,9 @@ get '/mission/forms/:type' do
 end
 
 get '/mission' do
-  # this is turning out to be remarkably similar to the index
-
-
-  # view current missions and upcoming
-  # missions (2 partials)
-  # presented w/ btn to mrk mission start
 
   @unresolved_missions = Mission.unresolved_missions
 
-  # => unresolved_missions = {true: [mission, mission..], false: [mission, mission...]}
-
-  # @active_missions = unresolved_missions.select do |mission|
-  #   mission.initiated
-  # end
-
-  # @upcoming_missions = unresolved_missions.reject do |mission|
-  #   mission.initiated
-  # end
-
-
-# new idea have a list of all uncompleted missions
-  # green: initiated
-  # red:   uninitiated  where ST > Time.now
-  # black: uninitiated where ST < Time.now
 
   erb :'dispatch/forecast'
 end

@@ -20,18 +20,18 @@
   X - refactor the ajax to be more dry
 
 ...refactor the add passenger & add truck features to be able to work w/out ajax
-(spirits say, this would be painful to do, and disappointing even if successful)
+(survey says: this would be painful to do and disappointing if successful)
 
   X - get nav bar working (no clear idea of what it needs)
 
-- break programs dependancy on internet (just JQuerey I think)
+  X - break programs dependancy on internet (just JQuerey I think)
 
 - get program working as a desktop program (shoes..?)
 
-- fix the information passes which broke due to mentor refactoring
+  X - fix the information passes which broke due to mentor refactoring
   (something in passengers I think)
 
-- finish the refactoring pattern (trailers and loads I think)
+  X - finish the refactoring pattern (trailers and loads I think)
 
 - get dispatch working
   - initiate mission
