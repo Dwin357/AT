@@ -7,4 +7,17 @@ class Passenger < ActiveRecord::Base
       self.new(soldier: Soldier.find_by_name(passenger["name"]))
     end
   end
+
+  def leave_wire
+    self.out_wire = true
+    self.save
+    # if this gets wrapped in a transaction, chng sv to !
+  end
+
+  def safe_return
+    self.returned = true
+    self.save
+    # if this gets wrapped in a transaction, chng sv to !
+  end
+
 end

@@ -8,4 +8,16 @@ class TrailerDispatch < ActiveRecord::Base
     end
   end
 
+  def leave_wire
+    self.out_wire = true
+    self.save
+    # if this gets wrapped in a transaction, chng sv to !
+  end
+
+  def safe_return
+    self.returned = true
+    self.save
+    # if this gets wrapped in a transaction, chng sv to !
+  end
+
 end

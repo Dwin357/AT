@@ -17,5 +17,12 @@ class Dispatch < ActiveRecord::Base
     driver_names.map {|driver| Soldier.find_by_name(driver)}
   end
 
+  def leave_wire
+    self.out_wire = true
+    self.save
+    # if this gets wrapped in a transaction, chng sv to !
+  end
+
+
 
 end

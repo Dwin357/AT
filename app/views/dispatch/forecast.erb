@@ -15,12 +15,12 @@
 						<div class='panel-body'>
 							<p class="text-success">
 								<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+								<a href=<%="/mission/#{mission.id}"%>>
+									<button type="button" class="btn btn-default">
+										View
+									</button>
+								</a>
 							</p>
-							<a href=<%="/mission/#{mission.id}"%>>
-								<button type="button" class="btn btn-default">
-									View
-								</button>
-							</a>
 						</div>
 					<%end%>
 				<%end%>

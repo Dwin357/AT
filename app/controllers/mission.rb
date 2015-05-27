@@ -23,13 +23,17 @@ get '/mission' do
 end
 
 put '/mission/:id' do
-  "you landed on PUT /mission/#{params[:id]}"
-  # mark a truck/soldier as leaving wire
+  Mission.find_by_id(params[:id]).leave_wire
+  redirect '/mission'
 end
 
 
 get '/mission/:id' do
-  "you landed on GET /mission/#{params[:id]}"
+  @mission = Mission.find_by_id(params[:id])
+  @passengers = @mission.passengers
+  @dispatches = @mission.dispatches
+  @trailer_dispatches = @mission.trailer_dispatches
+  erb :'dispatch/mission_display'
   # view a specific mission
   # presented with the buttons to close dispathes
 end

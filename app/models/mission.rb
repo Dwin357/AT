@@ -5,11 +5,9 @@ class Mission < ActiveRecord::Base
   has_many :trailer_dispatches
 
   def self.create_new(params)
-
     self.transaction do
 
       mission = self.new
-
       mission.step_off      ="#{params[:mission][:step_off_date]+" "+params[:mission][:step_off_time]+":00"}"
       mission.return        ="#{params[:mission][:return_date]+" "+params[:mission][:return_time]+":00"}"
       mission.name          = params[:mission][:name]
@@ -52,5 +50,25 @@ class Mission < ActiveRecord::Base
   	 t = self.step_off.to_s.chars
   	 "#{t[11..12].join}:#{t[14..15].join} - #{t[5..6].join}/#{t[8..9].join}"
   	# self.step_off
+  end
+
+  def leave_wire
+    # similar to create, I want to wrap all of this in a transaction... how
+      self.initiated = true
+      self.save
+
+      # I want leave_wire to be refactored out of models... but error
+      self.passengers.each do |soldier|
+        soldier.leave_wire
+      end
+
+      self.dispatches.each do |truck|
+        truck.leave_wire
+      end
+
+      self.trailer_dispatches do |trailer|
+        trailer.leave_wire
+      end
+    #end
   end
 end
