@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3>Currently Avaliable Resources</h3>
+  </div>
+</div>
+
+<div class='display' class="row">
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Trucks</div>
+      <% if trucks.length == 0 %>
+        <h5>No trucks currently avaliable</h5>
+      <%else%>
+        <% trucks.each do |truck| %>
+          <div class="panel-body">
+            <%= "#{truck.name} - #{truck.model}" %>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Personnel</div>
+      <% if personnel.length == 0 %>
+        <h5>No soldiers currently avaliable</h5>
+      <%else%>
+        <% personnel.each do |soldier| %>
+          <div class="panel-body">
+            <%= "#{soldier.name} - #{soldier.rank}" %>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Trailers</div>
+      <% if trailers.length == 0 %>
+        <h5>No trailers currently avaliable</h5>
+      <%else%>
+        <% trailers.each do |trailer| %>
+          <div class="panel-body">
+            <%= "#{trailer.name}" %>
+          </div>
+        <%end%>
+      <%end%>
+    </div>
+  </div>
+</div> 

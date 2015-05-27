@@ -1,4 +1,4 @@
-.container {
+/*.container {
   margin: 20px auto;
   width: 600px;
   padding: 0px 20px 20px 20px;
@@ -6,4 +6,11 @@
 }
 th {
   text-align: left;
+}*/
+
+#map-canvas {
+  width: 500px;
+  height: 400px;
+  background-color: #CCC
 }
+

@@ -1,0 +1,66 @@
+<form id='create_mission' action="/mission" method="post">
+  <fieldset>
+
+    <div class='row'>
+      <div class='col-xs-12'>
+        <h3>Assign Mission</h3>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class="btn-group inline">
+          <button type="button" class="btn btn-default" id='add_truck'>Add Truck</button>
+          <button type="button" class="btn btn-default" id='add_passenger'>Add Passenger</button>
+          <button type="button" class="btn btn-default" id='add_trailer'>Add Trailer</button>
+          <button type="button" class="btn btn-default" id='add_payload'>Add Payload</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class='row'>
+      <div class='col-xs-12'>
+        <div class="form">
+
+          <div class="form-group">
+            <label for="missionName">Mission Type</label>
+            <input type="text" id="missionName" name="mission[name]" placeholder="Chow / Ammo / TrX / RR">
+          </div>
+          <div class="form-group">
+            <label for='unitServiced'>Unit Serviced</label>
+            <input type="text" name="mission[unit_serviced]" placeholder="Alpha / Bravo / Golf" id='unitServiced'>
+          </div>
+
+          <div class="form-group">
+            <label for="startDate">Step Off </label>
+            <input type="date" name="mission[step_off_date]" id="startDate" value=<%= mission_date %>>
+            <input type="time" name="mission[step_off_time]" id="startTime" value=<%= mission_time %>>
+          </div>
+
+          <div class="form-group">
+            <label for="returnDate">Return</label>
+            <input type="date" name="mission[return_date]" id="returnDate" value=<%= mission_date %>>
+            <input type="time" name="mission[return_time]" id="returnTime" value=<%= mission_time %>>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class='row'>
+      <div class='panel panel-default' id='assignment_table'>
+        <%= erb :'/partials/_add_truck'%>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-xs-12'>
+        <input type="submit" class='btn btn-default' value="Submit">
+        <hr>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
+

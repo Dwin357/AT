@@ -1,23 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 
-    normalize.css removes cross-browser differences in defaults, e.g.,
-    differences in how form elements appear between Firefox and IE
-    See: http://necolas.github.com/normalize.css/
-  -->
-  <link rel="stylesheet" href="/css/normalize.css">
-  <!--
-    application.css is where you put your styles
-  -->
-  <link rel="stylesheet" href="/css/application.css">
 
+
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/application.css">
+  <!--make sure using min or reg as appropriate for bootstrap-->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <!-- JQuery and ajax, both are needed for bootstrap to work -->
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- custom JS file -->
   <script src="/js/application.js"></script>
 
+  <!--make sure using min or reg as appropriate for bootstrap-->
+  <script src="/js/bootstrap.min.js"></script>
+
+  <!-- needed to allow auto-scaling as sizing shifts -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- for the google map API -->
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+
+
+
   <title></title>
+
+
+
+
 </head>
 <body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Golf</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/mission/new">Assign Mission</a></li>
+        <li class="active"><a href="/mission">Dispatch</a></li> 
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Resource Management <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">#Soldiers</a></li>
+            <li class="divider"></li>
+            <li><a href="#">#Trucks</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
   <%= yield %>
 </body>
 </html>

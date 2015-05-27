@@ -1,0 +1,25 @@
+- add model validations (double booking)
+
+-add sorting feature so that
+  only uncompleted missions are displayed
+  missions are displayed based upon start time
+
+-add default values to create mission so that
+
+	X - be able to append a trailer/load to a truck
+	X - be able to append a load to a trailer
+  (generate polymorphic associations)
+  (append the button to the row in question)
+  (have the button specifically referance on thing it is by)
+  (modify the controler logic to also create these things on mission)
+
+- get the "add rp" feature up and running
+  (figure out how to add pins to the map)
+  (figure out the data type for storing this info: geo-object?)
+
+	X - refactor the ajax to be more dry
+
+	X - refactor the add passenger & add truck features to be able to work w/out ajax
+
+- get nav bar working (no clear idea of what it needs)
+

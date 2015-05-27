@@ -3,11 +3,13 @@ class CreateSoldiers < ActiveRecord::Migration
     create_table :soldiers do |t|
       t.string :name
       t.string :rank
-      t.boolean :hazmat
-      t.string  :phone
-      t.string  :weapon
+      t.string  :phone_number
+      t.string  :weapon_number
+      t.integer :miles
 
       t.timestamps
     end
   end
 end
+
+
