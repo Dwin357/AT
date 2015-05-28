@@ -49,15 +49,14 @@ class Mission < ActiveRecord::Base
 
 ############################### ^-class  v-instance ##############
 
-  def show_out_dateTime
-	 t = self.step_off.to_s.chars
-	 "#{t[11..12].join}:#{t[14..15].join}::#{t[5..6].join}/#{t[8..9].join}"
-  	# self.step_off
+  def show_out_datetime
+    step_off.strftime("%H:%M::%m/%d")
   end
 
-  def show_return_dateTime
-   t = self.return.to_s.chars
-   "#{t[11..12].join}:#{t[14..15].join}::#{t[5..6].join}/#{t[8..9].join}"
+  # return_at
+  # return_on
+  def show_return_datetime
+    self.return.strftime("%H:%M::%m/%d")
   end
 
   def leave_wire
@@ -65,22 +64,12 @@ class Mission < ActiveRecord::Base
       self.initiated = true
       self.save
 
-      # I want leave_wire to be refactored out of models... but error
-      self.passengers.each do |soldier|
-        soldier.leave_wire
+      mission_resources.each do |resource|
+        resource.leave_wire
       end
-
-      self.dispatches.each do |truck|
-        truck.leave_wire
-      end
-
-      self.trailer_dispatches do |trailer|
-        trailer.leave_wire
-      end
-    #end
   end
 
-  def generateDisplay
+  def generate_display
     trucks = self.dispatches.map{ |d| d.generate_truck }
     soldiers = self.passengers.map{ |p| p.generate_soldier }
     trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
@@ -88,18 +77,13 @@ class Mission < ActiveRecord::Base
   end
 
   def accountability_check
-    roll_call = []
-    roll_call << self.dispatches.reject{ |d| d.returned }
-    roll_call << self.passengers.reject{ |p| p.returned }
-    roll_call << self.trailer_dispatches.reject{ |td| td.returned }
-
-    if roll_call.flatten.length == 0
+    if mission_resources.all?(&:returned)
       self.completed = true
       self.save
     end
   end
 
-
-
-
+  def mission_resources
+    dispatches + passengers + trailer_dispatches
+  end
 end

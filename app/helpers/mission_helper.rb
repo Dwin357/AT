@@ -15,12 +15,15 @@ helpers do
     end
   end
 
+  def stoplight_class(checked_in)
+    checked_in ? 'text-success' : 'text-danger'
+  end
+
   def check_in_btn(boolean)
     if !boolean
       "<button type='submit' class='btn btn-default'> Check In</button>"
     end
   end
-
 end
 
 

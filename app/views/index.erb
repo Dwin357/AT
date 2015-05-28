@@ -16,15 +16,15 @@
 	  			<div class='panel-body'>
 	  			<% if mission.completed %>
 	  				<p><del>
-	  					<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
+	  					<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 	  				</del></p>
 	  			<% elsif mission.initiated %>
 	  				<p class='text-success'>
-	  					<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
+	  					<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 	  				</p>
 	  			<%else%>
 	  				<p>
-	  					<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
+	  					<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 	  				</p>
 	  			<%end%>
 	  			</div>

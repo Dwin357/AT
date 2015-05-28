@@ -35,7 +35,7 @@ end
 
 
 get '/missions/:id' do
-  @mission_display = Mission.find_by_id(params[:id]).generateDisplay
+  @mission_display = Mission.find_by_id(params[:id]).generate_display
   erb :'dispatch/mission_display'
 end
 

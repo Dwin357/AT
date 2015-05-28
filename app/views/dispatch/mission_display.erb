@@ -14,14 +14,13 @@
         <%=stoplight(is_comp)%> Unfinished </span>
       <%end%>
     </h2>
-    <h3>Planned for <%="#{@mission_display[:mission].show_out_dateTime} - #{@mission_display[:mission].show_return_dateTime}"%></h3>
+    <h3>Planned for <%="#{@mission_display[:mission].show_out_datetime} - #{@mission_display[:mission].show_return_datetime}"%></h3>
   </div>
 
   <div class='row'>
 
     <div class='col-sm-6'>
       <div class='panel panel-default'>
-
         <% @mission_display[:trucks].each do |truck| %>
           <div class='panel-body'>
             <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Dispatch/#{truck[:dispatch_id]}"%> method='post'>
@@ -34,26 +33,26 @@
           </div>
         <%end%>
 
-        <% if @mission_display[:trailers].length == 0 %>
+        <%# if @mission_display[:trailers].length == 0 %>
           <% @mission_display[:trailers].each do |trailer| %>
             <div class='panel-body'>
               <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/TrailerDispatch/#{trailer[:dispatch_id]}"%> method='post'>
               <input type='hidden' name='_method' value='put'>
                 <%= stoplight( trailer[:returned] ) %>
-                  <%= "#{trailer[:trailer].name}" %>
+                  <%= "#{trailer[:dispatch].inspect}" %>
                   <%= check_in_btn( trailer[:returned] ) %>
                 </span>
               </form>
             </div>
           <%end%>
-        <%end%>
+        <%#end%>
 
       </div>
     </div>
     <div class='col-sm-6'>
       <div class='panel panel-default'>
 
-        <% if @mission_display[:trailers].length == 0 %>
+        <% if @mission_display[:soldiers].length == 0 %>
           <% @mission_display[:soldiers].each do |soldier| %>
             <div class='panel-body'>
               <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Passenger/#{soldier[:passenger_id]}"%> method='post'>
