@@ -19,9 +19,7 @@ class TrailerDispatch < ActiveRecord::Base
   end
 
   def generate_trailer
-    # trailer = Trailer.find_by_id(self.trailer)
-    {trailer: trailer, returned: self.returned, dispatch_id: self.id, dispatch: self}
-    # trailer is a null object, not sure why?
+    {trailer: trailer, returned: self.returned, dispatch_id: self.id}
   end
 
 end

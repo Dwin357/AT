@@ -33,7 +33,6 @@
           </div>
         <%end%>
 
-        <%# if @mission_display[:trailers].length == 0 %>
           <% @mission_display[:trailers].each do |trailer| %>
             <div class='panel-body'>
               <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/TrailerDispatch/#{trailer[:dispatch_id]}"%> method='post'>
@@ -45,14 +44,12 @@
               </form>
             </div>
           <%end%>
-        <%#end%>
 
       </div>
     </div>
     <div class='col-sm-6'>
       <div class='panel panel-default'>
 
-        <% if @mission_display[:soldiers].length == 0 %>
           <% @mission_display[:soldiers].each do |soldier| %>
             <div class='panel-body'>
               <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Passenger/#{soldier[:passenger_id]}"%> method='post'>
@@ -64,7 +61,6 @@
               </form>
             </div>
           <%end%>
-        <%end%>
 
       </div>
     </div>
