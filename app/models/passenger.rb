@@ -16,7 +16,6 @@ class Passenger < ActiveRecord::Base
   def leave_wire
     self.out_wire = true
     self.save
-    # if this gets wrapped in a transaction, chng sv to !
   end
 
   def safe_return

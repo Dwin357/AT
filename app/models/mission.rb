@@ -53,17 +53,13 @@ class Mission < ActiveRecord::Base
     step_off.strftime("%H:%M::%m/%d")
   end
 
-  # return_at
-  # return_on
   def show_return_datetime
     self.return.strftime("%H:%M::%m/%d")
   end
 
   def leave_wire
-    # similar to create, I want to wrap all of this in a transaction... how
       self.initiated = true
       self.save
-
       mission_resources.each do |resource|
         resource.leave_wire
       end

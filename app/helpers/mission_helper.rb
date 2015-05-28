@@ -15,6 +15,7 @@ helpers do
     end
   end
 
+  # try to refactor stoplight into stoplight_class
   def stoplight_class(checked_in)
     checked_in ? 'text-success' : 'text-danger'
   end
