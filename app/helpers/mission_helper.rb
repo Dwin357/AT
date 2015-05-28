@@ -8,7 +8,7 @@ helpers do
   end
 
   def stoplight(boolean)
-    if !boolean
+    if boolean
       "<span class='text-success'> "
     else
       "<span class='text-danger'> "
@@ -17,7 +17,7 @@ helpers do
 
   def check_in_btn(boolean)
     if !boolean
-      "<button type='button' class='btn btn-default'> Check In</button>"
+      "<button type='submit' class='btn btn-default'> Check In</button>"
     end
   end
 

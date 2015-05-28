@@ -27,20 +27,16 @@ put '/missions/leave_wire/:id' do
   redirect '/missions'
 end
 
-put '/missions/safe_return/:type/:id' do
-  # I want to make this a polymorphic rounte
-  # "/missions/safe_return/:type/:id", so then I can call
-  # params[:type].constantize.find_by_id(params[:id]).safe_return
-
+put '/missions/safe_return/:mission_id/:type/:type_id' do
+  params[:type].constantize.find_by_id(params[:type_id]).safe_return
+  Mission.find_by_id(params[:mission_id]).accountability_check
+  redirect "/missions/#{params[:mission_id]}"
 end
 
 
 get '/missions/:id' do
   @mission_display = Mission.find_by_id(params[:id]).generateDisplay
-  p @mission_display[:mission]
   erb :'dispatch/mission_display'
-  # view a specific mission
-  # presented with the buttons to close dispathes
 end
 
 
