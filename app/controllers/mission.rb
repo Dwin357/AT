@@ -1,4 +1,4 @@
-get '/mission/new' do
+get '/missions/new' do
   #this should only provide currently avaliable ppl,
   #off-line until the 'prevent double booking' validation is added
   @personnel = Soldier.all
@@ -8,41 +8,47 @@ get '/mission/new' do
   erb :'planning/new_mission'
 end
 
-post '/mission' do
+post '/missions' do
   Mission.create_new(params)
   redirect '/'
 end
 
-get '/mission/forms/:type' do
+get '/missions/forms/:type' do
   erb :"partials/_#{params[:type]}", {layout: false}
 end
 
-get '/mission' do
+get '/missions' do
   @unresolved_missions = Mission.unresolved_missions
   erb :'dispatch/forecast'
 end
 
-put '/mission/:id' do
+put '/missions/leave_wire/:id' do
   Mission.find_by_id(params[:id]).leave_wire
-  redirect '/mission'
+  redirect '/missions'
+end
+
+put '/missions/safe_return/:type/:id' do
+  # I want to make this a polymorphic rounte
+  # "/missions/safe_return/:type/:id", so then I can call
+  # params[:type].constantize.find_by_id(params[:id]).safe_return
+
 end
 
 
-get '/mission/:id' do
-  @mission = Mission.find_by_id(params[:id])
-  @passengers = @mission.passengers
-  @dispatches = @mission.dispatches
-  @trailer_dispatches = @mission.trailer_dispatches
+get '/missions/:id' do
+  @mission_display = Mission.find_by_id(params[:id]).generateDisplay
+  p @mission_display[:mission]
   erb :'dispatch/mission_display'
   # view a specific mission
   # presented with the buttons to close dispathes
 end
 
 
-post '' do
+put '' do
   # mark a mission as completed...
-  # this could be automatic when last pass/tk
-  # returns though...
+  # like the PUT /missions/:id above but calling a different meth
+  # this should also be automatic when last pass/tk returns
+  #
 end
 
 post '/rp' do

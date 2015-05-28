@@ -46,10 +46,15 @@ class Mission < ActiveRecord::Base
     missions
   end
 
-  def dateTime
-  	 t = self.step_off.to_s.chars
-  	 "#{t[11..12].join}:#{t[14..15].join} - #{t[5..6].join}/#{t[8..9].join}"
+  def show_out_dateTime
+	 t = self.step_off.to_s.chars
+	 "#{t[11..12].join}:#{t[14..15].join}::#{t[5..6].join}/#{t[8..9].join}"
   	# self.step_off
+  end
+
+  def show_return_dateTime
+   t = self.return.to_s.chars
+   "#{t[11..12].join}:#{t[14..15].join}::#{t[5..6].join}/#{t[8..9].join}"
   end
 
   def leave_wire
@@ -73,6 +78,13 @@ class Mission < ActiveRecord::Base
   end
 
   def generateDisplay
-
+    trucks = self.dispatches.map{ |d| d.generate_truck }
+    soldiers = self.passengers.map{ |p| p.generate_soldier }
+    trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
+    {mission: self, trucks: trucks, soldiers: soldiers, trailers: trailers}
   end
+
+
+
+
 end

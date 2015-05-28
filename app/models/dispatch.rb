@@ -23,6 +23,22 @@ class Dispatch < ActiveRecord::Base
     # if this gets wrapped in a transaction, chng sv to !
   end
 
+  def safe_return
+    self.returned = true
+    self.save
+  end
+
+  def generate_truck
+    truck = Truck.find_by_id( self.truck )
+    driver = Soldier.find_by_id( self.driver )
+    a_driver = Soldier.find_by_id( self.a_driver )
+    {truck:         truck,
+      driver:       driver,
+      a_driver:     a_driver,
+      returned:     self.returned,
+      dispatch_id:  self.id}
+  end
+
 
 
 end

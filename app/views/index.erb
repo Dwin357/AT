@@ -1,12 +1,12 @@
 <div class="container">
-  
+
   <div class='jumbotron'>
 		<div class='panel panel-default'>
 
 			<div class='panel-heading'>
 				The Mission
 			</div>
-			
+
 		  <% if @missions.length == 0 %>
 		  	<div class='panel-body'>
 		  		<h5>Awaiting Orders</h5>
@@ -16,15 +16,15 @@
 	  			<div class='panel-body'>
 	  			<% if mission.completed %>
 	  				<p><del>
-	  					<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+	  					<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
 	  				</del></p>
 	  			<% elsif mission.initiated %>
 	  				<p class='text-success'>
-	  					<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+	  					<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
 	  				</p>
 	  			<%else%>
 	  				<p>
-	  					<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+	  					<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
 	  				</p>
 	  			<%end%>
 	  			</div>

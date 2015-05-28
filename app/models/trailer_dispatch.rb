@@ -17,7 +17,11 @@ class TrailerDispatch < ActiveRecord::Base
   def safe_return
     self.returned = true
     self.save
-    # if this gets wrapped in a transaction, chng sv to !
+  end
+
+  def generate_trailer
+    trailer = Trailer.find_by_id(self.trailer)
+    {trailer: trailer, returned: self.returned, dispatch_id: self.id}
   end
 
 end

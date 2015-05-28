@@ -8,6 +8,11 @@ class Passenger < ActiveRecord::Base
     end
   end
 
+  def generate_soldier
+    soldier = Soldier.find_by_id(self.soldier)
+    {soldier: soldier, returned: self.returned, passenger_id: self.id}
+  end
+
   def leave_wire
     self.out_wire = true
     self.save
@@ -17,7 +22,6 @@ class Passenger < ActiveRecord::Base
   def safe_return
     self.returned = true
     self.save
-    # if this gets wrapped in a transaction, chng sv to !
   end
 
 end

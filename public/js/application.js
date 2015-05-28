@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#add_'+unit).click(function(event){
       event.preventDefault();
       var request = $.ajax({
-        url: '/mission/forms/add_'+unit,
+        url: '/missions/forms/add_'+unit,
         method: 'get'
       });
 

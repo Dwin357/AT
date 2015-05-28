@@ -1,7 +1,7 @@
 <div class="container">
 
 	<div class='row'>
-		<div class='col-xs-12'>
+		<div class='col-sm-6'>
 			<div class='panel panel-default'>
 				<div class='panel-heading'>
 					Active Missions
@@ -14,8 +14,8 @@
 					<% @unresolved_missions[:initiated].each do |mission| %>
 						<div class='panel-body'>
 							<p class="text-success">
-								<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
-								<a href=<%="/mission/#{mission.id}"%>>
+								<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
+								<a href=<%="/missions/#{mission.id}"%>>
 									<button type="button" class="btn btn-default">
 										View
 									</button>
@@ -26,10 +26,8 @@
 				<%end%>
 			</div>
 		</div>
-	</div>
 
-	<div class='row'>
-		<div class='col-xs-12'>
+		<div class='col-sm-6'>
 			<div class='panel panel-default'>
 				<div class='panel-heading'>
 					Upcoming Missions
@@ -40,16 +38,16 @@
 					</div>
 				<% else %>
 					<% @unresolved_missions[:uninitiated].each do |mission| %>
-						<form action=<%="/mission/#{mission.id}"%> method='post'>
+						<form action=<%="/missions/leave_wire/#{mission.id}"%> method='post'>
 						<input type="hidden" name="_method" value="put"/>
 						<% if mission.step_off < Time.now %>
 							<div class='panel-body'>
 								<p class="text-danger">
-									<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+									<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
 						<%else%>
 							<div class='panel-body' class='success'>
 								<p class='text-info'>
-								<%= "#{mission.dateTime} :: #{mission.name} #{mission.unit_serviced}" %>
+								<%= "#{mission.show_out_dateTime} - #{mission.name} #{mission.unit_serviced}" %>
 						<%end%>
 								<button type="submit" class="btn btn-default">
 									Leaving
