@@ -71,4 +71,8 @@ class Mission < ActiveRecord::Base
       end
     #end
   end
+
+  def generateDisplay
+
+  end
 end
