@@ -3,16 +3,10 @@ class Passenger < ActiveRecord::Base
   belongs_to :soldier
 
   validates :mission, presence: true
-  validates :soldier, presence: true
+  validates :soldier, presence: true, uniqueness: {scope: :mission}
 
   def self.create_passenger_list(passengers)
     passengers.map do |passenger|
-      # puts "**************************"
-      # puts "**************************"
-      # puts "the params creating a soldier off of"
-      # p passenger
-      # puts "**************************"
-      # puts "**************************"
       self.create(soldier: Soldier.find_by_name(passenger["name"]))
     end
   end

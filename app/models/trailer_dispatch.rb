@@ -3,7 +3,7 @@ class TrailerDispatch < ActiveRecord::Base
   belongs_to :mission
 
   validates :mission, presence: true
-  validates :trailer, presence: true
+  validates :trailer, presence: true, uniqueness: {scope: :mission}
 
   def self.check_out_trailer(trailers)
     trailers.map do |trailer|

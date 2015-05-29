@@ -10,6 +10,15 @@ class Mission < ActiveRecord::Base
   validates :step_off_at, presence: true
   validates :return_at, presence: true
 
+  validate  :no_time_travel
+
+
+  def no_time_travel
+    if return_at < step_off_at
+      errors.add(:return_at, "Returning before you left?!?")
+    end
+  end
+
 
   def self.create_new(params)
     self.transaction do

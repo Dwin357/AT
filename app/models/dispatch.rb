@@ -4,11 +4,19 @@ class Dispatch < ActiveRecord::Base
   belongs_to  :driver, class_name: "Soldier"
   belongs_to  :a_driver, class_name: "Soldier"
 
-  validates :truck, presence: true
+  validates :truck, presence: true, uniqueness: {scope: :mission}
   validates :mission, presence: true
-  validates :driver, presence: true
-  validates :a_driver, presence: true
+  validates :driver, presence: true, uniqueness: {scope: :mission}
+  validates :a_driver, presence: true, uniqueness: {scope: :mission}
   validates :miles_at_dispatch, presence: true
+
+  validate :moving_forward, on: :update
+
+  def moving_forward
+    if miles_at_return && miles_at_dispatch < miles_at_return
+      errors.add(:miles_at_return, "someone tampered with your odometer, check that shit")
+    end
+  end
 
   def self.check_out_truck(params)
     dispatch = self.new

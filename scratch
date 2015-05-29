@@ -1,4 +1,10 @@
 ...k, so
 
-the problem I am trying to solve is that 
-	-in order to display
+I want a validation that tells me if a given resoruce (soldier/truck/trailer) has any other missions ....
+
+so, given a [soldier + mission], I want to validate
+  generate a list:  list = soldier.missions.all
+    (^-not actually a thing, but maybe it should be)
+  if list.any?{ |m|  m.return_at > soldier.mission.step_off_at } || list.any?{ |m|  m.step_of_at < soldier.mission.return_at }
+    errors.add(:soldier, "double booking, #{resource.name} already on mission during this time")
+  end
