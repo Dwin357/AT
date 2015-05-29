@@ -4,6 +4,11 @@ class Mission < ActiveRecord::Base
   has_many :dispatches
   has_many :trailer_dispatches
 
+  #these are not doing what I am expecting...
+  # has_many :soldiers, through: :dispatches, source: :driver
+  # has_many :soldiers, through: :dispatches, source: :a_driver
+  # has_many :soldiers, through: :passengers
+
   validates :name, presence: true
   validates :unit_serviced, presence: true
 
@@ -35,7 +40,6 @@ class Mission < ActiveRecord::Base
       Payload.assign_payloads(params[:payloads]) if params[:payloads]
 
       mission.save!
-      # p mission.errors.full_messages
     end
   end
 

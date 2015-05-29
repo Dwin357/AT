@@ -4,6 +4,7 @@ class Dispatch < ActiveRecord::Base
   belongs_to  :driver, class_name: "Soldier"
   belongs_to  :a_driver, class_name: "Soldier"
 
+
   validates :truck, presence: true, uniqueness: {scope: :mission}
   validates :mission, presence: true
   validates :driver, presence: true, uniqueness: {scope: :mission}
@@ -11,6 +12,13 @@ class Dispatch < ActiveRecord::Base
   validates :miles_at_dispatch, presence: true
 
   validate :moving_forward, on: :update
+  # validate :two_to_a_truck, on: :create
+
+  def two_to_a_truck
+    if driver == a_driver
+      errors.add(:a_driver, "need 2 to a truck")
+    end
+  end
 
   def moving_forward
     if miles_at_return && miles_at_dispatch < miles_at_return

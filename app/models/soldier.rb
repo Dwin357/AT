@@ -2,7 +2,11 @@ class Soldier < ActiveRecord::Base
   has_many  :dispatches
   has_many  :passengers
   has_many :resource_statuses, as: :classification
-  # has_many :missions, through: :
+
+# these are not doing what I expect
+  #has_many :missions, through: :passengers
+  #has_many :missions, through: :dispatches
+
 
   validates :name, presence: true
   validates :rank, presence: true
@@ -14,7 +18,7 @@ class Soldier < ActiveRecord::Base
   end
 
   def list_missions
-    missions.
+    missions
   end
 
 end
