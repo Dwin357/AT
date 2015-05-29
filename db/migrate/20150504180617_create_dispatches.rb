@@ -8,7 +8,7 @@ class CreateDispatches < ActiveRecord::Migration
       t.boolean :out_wire, default: false
       t.boolean :returned, default: false
       t.integer :miles_at_return
-      t.integer :miles_out
+      t.integer :miles_at_dispatch
 
       t.timestamps
     end

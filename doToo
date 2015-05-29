@@ -1,4 +1,32 @@
-- add model validations (double booking)
+- add model validations (double booking guard)
+
+- be able to pass intelligent (custom) errors to user when create mission fails (stretch::repopulate the form w/ old param after a failed submit)
+
+- gather ck in data from TK ck in via a pop-up window (JQuery..?)
+
+- have a red "X" that removes dynamic fields from the form
+
+- improve seed data (ehh) and/or write rspec tests
+
+- get program working as a desktop program (shoes..?)
+
+- refactor "index" & "_resource_list" to use display objects (like mission_display and forecast)
+
+- refactor "mission_display" and "forecast" to use more partials (like new_mission)
+
+- get the "add rp" feature up and running
+  (figure out how to add pins to the map)
+  (figure out the data type for storing this info: geo-object?)
+
+- on individual mission page, have google map populate with RPs
+
+- have /soldiers & /soldiers/:id pages (in R-side drop down)
+- have /trucks & /trucks/:id pages (in R-side drop down)
+- have /trailers & /trailers/:id pages (in R-side drop down)
+  - be able to add/download payloads from TK & TL pages
+  - be able to add/edit deficiencies from TK & TL pages
+  - be able to add/edit statuses from any of the pages
+
 
   X - add sorting feature so that
   only uncompleted missions are displayed
@@ -13,10 +41,6 @@
   (have the button specifically referance on thing it is by)
   (modify the controler logic to also create these things on mission)
 
-- get the "add rp" feature up and running
-  (figure out how to add pins to the map)
-  (figure out the data type for storing this info: geo-object?)
-
   X - refactor the ajax to be more dry
 
   ...refactor the add passenger & add truck features to be able to work w/out ajax (survey says: this would be painful to do and disappointing if successful)
@@ -25,17 +49,15 @@
 
   X - break programs dependancy on internet (just JQuerey I think)
 
-- get program working as a desktop program (shoes..?)
-
   X - fix the information passes which broke due to mentor refactoring
   (something in passengers I think)
 
   X - finish the refactoring pattern (trailers and loads I think)
 
-- get dispatch working
-  - initiate mission
-  - ck in tk / passenger
-  - driver miles, tk miles, tk gallons, tk oil update upon tk ck in
-  - mission auto-completes when last tk cks in
+X - get dispatch working
+  X - initiate mission
+  X - ck in tk / passenger !!! still need to collect miles data
+  ~ - driver miles, tk miles, tk gallons, tk oil update upon tk ck in
+  X - mission auto-completes when last tk cks in
 
 

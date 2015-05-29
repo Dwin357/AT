@@ -8,8 +8,9 @@ class Dispatch < ActiveRecord::Base
     dispatch = self.new
 
     truck = Truck.find_by!(name: params[:truck_name])
+    odometer = truck.dispatches.last.miles_at_return || 0
     drivers = self.find_drivers([params[:driver_name], params[:a_driver_name]])
-    dispatch.update_attributes(truck: truck, driver: drivers[0], a_driver: drivers[1])
+    dispatch.update_attributes(truck: truck, driver: drivers[0], a_driver: drivers[1], miles_at_dispatch: odometer)
     dispatch
   end
 
@@ -22,10 +23,21 @@ class Dispatch < ActiveRecord::Base
     self.save
   end
 
-  def safe_return
+  def safe_return#(params[:ck_in_tk])
+    # self.check_in_truck(params)
     self.returned = true
     self.save
   end
+
+  # def check_in_truck(params)
+  #   # to be flipped on when able to gather data at tk ck in
+  #   miles_at_return = params[:miles]
+  #   self.save
+
+  #   driven_miles = miles_at_return - miles_at_dispatch
+  #   Soldier.find_by_id(self.driver).update_miles(driven_miles)
+  #   Soldier.find_by_id(self.a_driver).update_miles(driven_miles)
+  # end
 
   def generate_truck
     truck = Truck.find_by_id( self.truck )

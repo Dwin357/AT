@@ -14,11 +14,8 @@
 					<% @unresolved_missions[:initiated].each do |mission| %>
 						<div class='panel-body'>
 							<p class="text-success">
-								<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 								<a href=<%="/missions/#{mission.id}"%>>
-									<button type="button" class="btn btn-default">
-										View
-									</button>
+									<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 								</a>
 							</p>
 						</div>
@@ -43,12 +40,15 @@
 						<% if mission.step_off < Time.now %>
 							<div class='panel-body'>
 								<p class="text-danger">
-									<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
+									<a href=<%="/missions/#{mission.id}"%>>
+										<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 						<%else%>
 							<div class='panel-body' class='success'>
 								<p class='text-info'>
-								<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
+									<a href=<%="/missions/#{mission.id}"%>>
+										<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 						<%end%>
+									</a>
 								<button type="submit" class="btn btn-default">
 									Leaving
 								</button></p>

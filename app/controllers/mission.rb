@@ -10,7 +10,7 @@ end
 
 post '/missions' do
   Mission.create_new(params)
-  redirect '/'
+  redirect '/missions'
 end
 
 get '/missions/forms/:type' do
