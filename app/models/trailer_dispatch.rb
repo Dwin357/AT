@@ -2,9 +2,12 @@ class TrailerDispatch < ActiveRecord::Base
   belongs_to :trailer
   belongs_to :mission
 
+  validates :mission, presence: true
+  validates :trailer, presence: true
+
   def self.check_out_trailer(trailers)
     trailers.map do |trailer|
-      self.new(trailer: Trailer.find_by_name(trailer["trailer_name"]))
+      self.create(trailer: Trailer.find_by_name(trailer["trailer_name"]))
     end
   end
 

@@ -4,13 +4,21 @@ class Dispatch < ActiveRecord::Base
   belongs_to  :driver, class_name: "Soldier"
   belongs_to  :a_driver, class_name: "Soldier"
 
+  validates :truck, presence: true
+  validates :mission, presence: true
+  validates :driver, presence: true
+  validates :a_driver, presence: true
+  validates :miles_at_dispatch, presence: true
+
   def self.check_out_truck(params)
     dispatch = self.new
 
     truck = Truck.find_by!(name: params[:truck_name])
-    odometer = truck.dispatches.last.miles_at_return || 0
     drivers = self.find_drivers([params[:driver_name], params[:a_driver_name]])
-    dispatch.update_attributes(truck: truck, driver: drivers[0], a_driver: drivers[1], miles_at_dispatch: odometer)
+    dispatch.update_attributes(truck: truck,
+                              driver: drivers[0],
+                              a_driver: drivers[1],
+                              miles_at_dispatch: truck.odometer)
     dispatch
   end
 

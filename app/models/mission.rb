@@ -4,12 +4,19 @@ class Mission < ActiveRecord::Base
   has_many :dispatches
   has_many :trailer_dispatches
 
+  validates :name, presence: true
+  validates :unit_serviced, presence: true
+
+  validates :step_off_at, presence: true
+  validates :return_at, presence: true
+
+
   def self.create_new(params)
     self.transaction do
 
       mission = self.new
-      mission.step_off      ="#{params[:mission][:step_off_date]+" "+params[:mission][:step_off_time]+":00"}"
-      mission.return        ="#{params[:mission][:return_date]+" "+params[:mission][:return_time]+":00"}"
+      mission.step_off_at      ="#{params[:mission][:step_off_date]+" "+params[:mission][:step_off_time]+":00"}"
+      mission.return_at        ="#{params[:mission][:return_date]+" "+params[:mission][:return_time]+":00"}"
       mission.name          = params[:mission][:name]
       mission.unit_serviced = params[:mission][:unit_serviced]
 
@@ -19,6 +26,7 @@ class Mission < ActiveRecord::Base
       Payload.assign_payloads(params[:payloads]) if params[:payloads]
 
       mission.save!
+      # p mission.errors.full_messages
     end
   end
 
@@ -40,7 +48,7 @@ class Mission < ActiveRecord::Base
 
   def self.unresolved_missions
     missions = Hash.new
-    unresolved = self.where(completed: false).sort_by{|mission| mission.step_off}.group_by {|mission| mission.initiated}
+    unresolved = self.where(completed: false).sort_by{|mission| mission.step_off_at}.group_by {|mission| mission.initiated}
     missions[:uninitiated] = unresolved[false]
     missions[:initiated] = unresolved[true]
     missions
@@ -50,11 +58,11 @@ class Mission < ActiveRecord::Base
 ############################### ^-class  v-instance ##############
 
   def show_out_datetime
-    step_off.strftime("%H:%M::%m/%d")
+    step_off_at.strftime("%H:%M::%m/%d")
   end
 
   def show_return_datetime
-    self.return.strftime("%H:%M::%m/%d")
+    self.return_at.strftime("%H:%M::%m/%d")
   end
 
   def leave_wire
