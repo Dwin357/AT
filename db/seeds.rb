@@ -84,8 +84,8 @@ example_missions = ["Chow", "TrX", "Ammo", "RR"]
 
 #     soldier_assignment: [ {soldier_name:  }
 
-    ]
-  }
+  #   ]
+  # }
 #   Mission.create_new(mission_params)
 # end
 5.times do
