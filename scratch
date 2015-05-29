@@ -1,5 +1,10 @@
 ...k, so
 
+active_support (when required)
+  #.days.from_now => spits out the time object w/ appropriate calculation
+
+  #.minutes.ago
+
 I want a validation that tells me if a given resoruce (soldier/truck/trailer) has any other missions ....
 
 so, given a [soldier + mission], I want to validate
@@ -8,3 +13,34 @@ so, given a [soldier + mission], I want to validate
   if list.any?{ |m|  m.return_at > soldier.mission.step_off_at } || list.any?{ |m|  m.step_of_at < soldier.mission.return_at }
     errors.add(:soldier, "double booking, #{resource.name} already on mission during this time")
   end
+
+
+class Soldier
+  has_many :assignemnts, class_name: "SoldierAssignment"
+
+  def assignments_as_passenger
+    assignments.as_passenger
+  end
+
+  def assignments_as_driver
+    assignments.as_driver
+  end
+
+  def assignments_as_assistant_driver
+    assignments.as_assistant_driver
+  end
+end
+
+class SoldierAssignment
+  def self.as_passenger
+    where(role: "passenger")
+  end
+
+  def self.as_driver
+    where(role: "driver")
+  end
+
+  def self.as_assistant_driver
+    where(role: "assistant driver")
+  end
+end

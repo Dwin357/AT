@@ -12,7 +12,7 @@ class Mission < ActiveRecord::Base
   validates :name, presence: true
   validates :unit_serviced, presence: true
 
-  validates :step_off_at, presence: true
+  validates :strftimeep_off_at, presence: true
   validates :return_at, presence: true
 
   validate  :no_time_travel
@@ -30,12 +30,12 @@ class Mission < ActiveRecord::Base
 
       mission = self.new
       mission.step_off_at      ="#{params[:mission][:step_off_date]+" "+params[:mission][:step_off_time]+":00"}"
-      mission.return_at        ="#{params[:mission][:return_date]+" "+params[:mission][:return_time]+":00"}"
+      mission.return_at        ="#{params[:mission][:return_date]} #{params[:mission][:return_time]}:00"
       mission.name          = params[:mission][:name]
       mission.unit_serviced = params[:mission][:unit_serviced]
 
       mission.dispatches << self.set_up_dispatches(params[:trucks])
-      mission.passengers << self.set_up_passengers(params[:passengers])
+      # mission.passengers << self.set_up_passengers(params[:passengers])
       mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])
       Payload.assign_payloads(params[:payloads]) if params[:payloads]
 
@@ -49,9 +49,8 @@ class Mission < ActiveRecord::Base
     end
   end
 
-  def self.set_up_passengers(passengers)
-    return [] unless !!passengers
-    Passenger.create_passenger_list(passengers)
+  def self.set_up_assignments(passengers)
+    SoldierAssignment.create_roster(passengers, "Passenger")
   end
 
   def self.set_up_trailer_dispatches(trailers)
@@ -61,10 +60,18 @@ class Mission < ActiveRecord::Base
 
   def self.unresolved_missions
     missions = Hash.new
-    unresolved = self.where(completed: false).sort_by{|mission| mission.step_off_at}.group_by {|mission| mission.initiated}
+    unresolved = self.uncompleted.sort_by{|mission| mission.step_off_at}.group_by {|mission| mission.initiated}
     missions[:uninitiated] = unresolved[false]
     missions[:initiated] = unresolved[true]
     missions
+  end
+
+  def self.uncompleted
+    self.where(completed: false)
+  end
+
+  def self.active
+    self.where(completed: false, out_wire: true)
   end
 
 
@@ -102,5 +109,9 @@ class Mission < ActiveRecord::Base
 
   def mission_resources
     dispatches + passengers + trailer_dispatches
+  end
+
+  def active_time_window
+    (self.step_off_at..self.return_at)
   end
 end

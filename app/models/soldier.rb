@@ -22,4 +22,8 @@ class Soldier < ActiveRecord::Base
     missions
   end
 
+  def future_assignment_time_ranges
+    self.mission_assignments.where(completed: false).map(&:active_time_range)
+  end
+
 end

@@ -1,9 +1,9 @@
 class Dispatch < ActiveRecord::Base
   belongs_to  :truck
   belongs_to  :mission
-  belongs_to  :driver, class_name: "Soldier"
-  belongs_to  :a_driver, class_name: "Soldier"
-
+  # belongs_to  :driver, class_name: "Soldier"
+  # belongs_to  :a_driver, class_name: "Soldier"
+  has_many :soldiers, through: :soldier_assignment
 
   validates :truck, presence: true, uniqueness: {scope: :mission}
   validates :mission, presence: true
@@ -74,6 +74,9 @@ class Dispatch < ActiveRecord::Base
       dispatch_id:  self.id}
   end
 
+  def active_time
+    self.mission.active_time_window
+  end
 
 
 end

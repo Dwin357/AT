@@ -1,6 +1,6 @@
-class CreateTruckAssignments < ActiveRecord::Migration
+class CreateSoldierAssignments < ActiveRecord::Migration
   def change
-    create_table :truck_assignments do |t|
+    create_table :soldier_assignments do |t|
       t.integer :soldier_id
       t.integer :mission_id
       t.string  :role
