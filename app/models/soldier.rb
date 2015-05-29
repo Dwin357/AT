@@ -1,9 +1,10 @@
 class Soldier < ActiveRecord::Base
-  has_many  :dispatches
+  has_many  :dispatches, foreign_key: :driver_id
+
   has_many  :passengers
   has_many :resource_statuses, as: :classification
 
-# these are not doing what I expect
+# these are not doing what I expect and this is what I care about
   #has_many :missions, through: :passengers
   #has_many :missions, through: :dispatches
 

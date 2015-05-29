@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- SQL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
-<!-- Active URL: https://socrates.devbootcamp.com/sql.html -->
+<!-- Active URL: https://socrates.devbootcamp.com/sql -->
 <sql>
 <datatypes db="mysql">
   <group label="Numeric" color="rgb(238,238,170)">
@@ -32,7 +32,7 @@
     <type label="SET" length="1" sql="SET" quote=""/>
     <type label="Bit" length="0" sql="bit" quote=""/>
   </group>
-</datatypes><table x="753" y="422" name="trucks">
+</datatypes><table x="699" y="430" name="trucks">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -45,11 +45,14 @@
 <row name="radio_NSN" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
+<row name="odometer" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="1245" y="558" name="soldiers">
+<table x="550" y="709" name="soldiers">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -72,7 +75,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1213" y="205" name="missions">
+<table x="1200" y="457" name="missions">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -82,23 +85,17 @@
 <row name="unit_serviced" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="step_off_date" null="1" autoincrement="0">
+<row name="step_off_at" null="1" autoincrement="0">
 <datatype>DATETIME</datatype>
 <default>NULL</default></row>
-<row name="step_off_time" null="1" autoincrement="0">
-<datatype>DATETIME</datatype>
-<default>NULL</default></row>
-<row name="return_date" null="1" autoincrement="0">
-<datatype>DATETIME</datatype>
-<default>NULL</default></row>
-<row name="return_time" null="1" autoincrement="0">
+<row name="return_at" null="1" autoincrement="0">
 <datatype>DATETIME</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="1471" y="130" name="rest_points">
+<table x="951" y="746" name="rest_points">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -113,7 +110,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1533" y="381" name="passengers">
+<table x="724" y="639" name="truck_assignments">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -121,15 +118,24 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="soldiers" row="id" />
 </row>
-<row name="missions_id" null="1" autoincrement="0">
+<row name="truck_dispatch_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="missions" row="id" />
+<default>NULL</default><relation table="dispatches" row="id" />
 </row>
+<row name="role" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="out_wire" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="safe_return" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="955" y="384" name="dispatches">
+<table x="969" y="474" name="dispatches">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -141,28 +147,23 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="missions" row="id" />
 </row>
-<row name="driver_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="soldiers" row="id" />
-</row>
-<row name="a_driver_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="soldiers" row="id" />
-</row>
-<row name="closed" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="miles_out" null="1" autoincrement="0">
+<row name="miles_at_dispatch" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="miles_at_return" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="out_wire" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="safe_return" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="904" y="222" name="trailer_dispatchs">
+<table x="895" y="289" name="trailer_dispatchs">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -170,15 +171,21 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="missions" row="id" />
 </row>
-<row name="trailers_id" null="1" autoincrement="0">
+<row name="trailer_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="trailers" row="id" />
 </row>
+<row name="out_wire" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="safe_return" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="676" y="203" name="trailers">
+<table x="681" y="250" name="trailers">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -189,7 +196,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="385" y="225" name="payloads">
+<table x="378" y="255" name="payloads">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -201,8 +208,11 @@
 <row name="vehicle_type" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="load" null="1" autoincrement="0">
+<row name="payload" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="downloaded" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -230,7 +240,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="353" y="665" name="resource_statuses">
+<table x="306" y="672" name="resource_statuses">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>

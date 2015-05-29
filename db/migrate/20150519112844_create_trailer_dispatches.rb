@@ -4,7 +4,7 @@ class CreateTrailerDispatches < ActiveRecord::Migration
       t.integer   :mission_id
       t.integer   :trailer_id
       t.boolean :out_wire, default: false
-      t.boolean :returned, default: false
+      t.boolean :safe_return, default: false
       t.timestamps
     end
   end
