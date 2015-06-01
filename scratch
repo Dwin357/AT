@@ -1,5 +1,13 @@
 ...k, so
 
+thinking out loud
+
+I want to bring the website back online (a task)
+
+This is proving to be a really hard problem having to do with nesting...
+
+
+
 active_support (when required)
   #.days.from_now => spits out the time object w/ appropriate calculation
 

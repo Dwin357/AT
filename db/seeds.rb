@@ -39,74 +39,74 @@ Trailer.create(name: "TL106")
 units = ["Alpha", "Bravo", "Charlie", "Delta", "Golf", "HHC"]
 example_missions = ["Chow", "TrX", "Ammo", "RR"]
 
-# # 5.times do
-# # 	soldier_list = Soldier.all
-# #   truck_list = Truck.all
-# #   trailer_list = Trailer.all
-# #   mission_params = {
-#     mission: {step_off_date: Time.now.strftime("%Y-%m-%d"),
-#               step_off_time:  Time.now.strftime("%H:%M"),
-#               return_date:    Time.now.strftime("%Y-%m-%d"),
-#               return_time:    Time.now.strftime("%H:%M"),
-#               name:           example_missions.sample,
-#               unit_serviced:  units.sample },
+# 5.times do
+	# soldier_list = Soldier.all
+ #  truck_list = Truck.all
+ #  trailer_list = Trailer.all
+ #  mission_params = {
+ #    mission: {step_off_date: Time.now.strftime("%Y-%m-%d"),
+ #              step_off_time:  Time.now.strftime("%H:%M"),
+ #              return_date:    Time.now.strftime("%Y-%m-%d"),
+ #              return_time:    Time.now.strftime("%H:%M"),
+ #              name:           example_missions.sample,
+ #              unit_serviced:  units.sample },
 
 
-#     trailers: [{"trailer_name" => trailer_list.shuffle.pop.name,
-#                 "truck_name" =>   truck_list.sample.name},
+ #    trailers: [{"trailer_name" => trailer_list.shuffle.pop.name,
+ #                "truck_name" =>   truck_list.sample.name},
 
-#                 {"trailer_name" => trailer_list.shuffle.pop.name,
-#                 "truck_name" =>   truck_list.sample.name},
+ #                {"trailer_name" => trailer_list.shuffle.pop.name,
+ #                "truck_name" =>   truck_list.sample.name},
 
-#                 {"trailer_name" => trailer_list.shuffle.pop.name,
-#                 "truck_name" =>   truck_list.sample.name}],
-
-
-#     payloads: [{vehicle_name: truck_list.sample.name,
-#                 payload: "Stuff and Things and more Stuff"},
-
-#                 {vehicle_name: trailer_list.sample.name,
-#                  payload: "Peas and ^, they are more important than you think"}],
+ #                {"trailer_name" => trailer_list.shuffle.pop.name,
+ #                "truck_name" =>   truck_list.sample.name}],
 
 
-#     trucks: [ {truck_name:     truck_list.shuffle.pop.name,
-#                 # driver_name:   soldier_list.shuffle.pop.name,
-#                 # a_driver_name: soldier_list.shuffle.pop.name },
+ #    payloads: [{vehicle_name: truck_list.sample.name,
+ #                payload: "Stuff and Things and more Stuff"},
 
-#                 {truck_name:   truck_list.shuffle.pop.name,
-#                  # driver_name:   soldier_list.shuffle.pop.name,
-#                  # a_driver_name: soldier_list.shuffle.pop.name } ],
+ #                {vehicle_name: trailer_list.sample.name,
+ #                 payload: "Peas and ^, they are more important than you think"}],
 
 
-#     # passengers: [{"name" => soldier_list.shuffle.pop.name},
-#     #              {"name" => soldier_list.shuffle.pop.name},
-#     #              {"name" => soldier_list.shuffle.pop.name} ]
+ #    trucks: [ {truck_name:   truck_list.shuffle.pop.name
+ #              } ]#,
 
-#     soldier_assignment: [ {soldier_name:  }
 
-  #   ]
-  # }
-#   Mission.create_new(mission_params)
+ #    # soldier_assignment: [ {soldier_name:  something,
+ #    #                         role:         something},
+
+ #    #                         {soldier_name:  something,
+ #    #                         role:         something} ]
+ #  }
+ #  Mission.create_new(mission_params)
 # end
-5.times do
-  trucks = Truck.all
-  mission = Mission.new
 
-  mission.step_off_at = Time.now
-  mission.return_at = Time.now
-  mission.name  =         example_missions.sample
-  mission.unit_serviced = units.sample
+# 5.times do
+#   trucks = Truck.all
+#   mission = Mission.new
+#   soldiers = Soldier.all
 
-  soldiers = Soldier.all
-  (1..3).to_a.sample.times do
-    dispatch = mission.dispatches.build
-    dispatch.truck = trucks.shuffle.pop
-    (2..5).to_a.sample.times do |i|
-      roles = ["driver", "a_driver"] << "passenger" * 3
-      assignment = dispatch.soldier_assignment.build
-      assignment.soldier = soldiers.shuffle.pop
-      assignment.role = roles.shift
-    end
-  end
-  mission.save
-end
+#   mission.step_off_at = Time.now
+#   mission.return_at = Time.now
+#   mission.name  =         example_missions.sample
+#   mission.unit_serviced = units.sample
+
+
+#   (1..3).to_a.sample.times do
+#     dispatch = Dispatch.new 
+#     # dispatch = mission.dispatches.build
+#     dispatch.truck = trucks.shuffle.pop
+#     (2..5).to_a.sample.times do |i|
+#       roles = ["driver", "a_driver"] << "passenger" * 3
+#       assignment = SoldierAssignment.new
+#       assignment.soldier_id = soldiers.shuffle.pop
+#       assignment = dispatch.soldier_assignments.build
+#       assignment.soldier = soldiers.shuffle.pop
+#       assignment.role = roles.shift
+#     end
+#     mission.dispatches << dispatch
+#   end
+  
+#   mission.save
+# end

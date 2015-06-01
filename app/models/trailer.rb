@@ -4,5 +4,5 @@ class Trailer < ActiveRecord::Base
   has_many :resource_statuses, as: :classification
   has_many :trailer_dispatches
 
-  validates :name, presence: true
+  # validates :name, presence: true
 end

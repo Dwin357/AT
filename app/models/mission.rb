@@ -1,21 +1,26 @@
 class Mission < ActiveRecord::Base
   has_many :rest_points
-  has_many :passengers
   has_many :dispatches
   has_many :trailer_dispatches
+
+  has_many :trucks, through: :dispatches
+  has_many :trailers, through: :trailer_dispatches
+  has_many :soldier_assignments, through: :dispatches
+
+  has_many :soldiers, through: :soldier_assignments
 
   #these are not doing what I am expecting...
   # has_many :soldiers, through: :dispatches, source: :driver
   # has_many :soldiers, through: :dispatches, source: :a_driver
   # has_many :soldiers, through: :passengers
 
-  validates :name, presence: true
-  validates :unit_serviced, presence: true
+  # validates :name, presence: true
+  # validates :unit_serviced, presence: true
 
-  validates :strftimeep_off_at, presence: true
-  validates :return_at, presence: true
+  # validates :strftimeep_off_at, presence: true
+  # validates :return_at, presence: true
 
-  validate  :no_time_travel
+  # validate  :no_time_travel
 
 
   def no_time_travel
@@ -35,12 +40,29 @@ class Mission < ActiveRecord::Base
       mission.unit_serviced = params[:mission][:unit_serviced]
 
       mission.dispatches << self.set_up_dispatches(params[:trucks])
-      # mission.passengers << self.set_up_passengers(params[:passengers])
       mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])
+
+      SoldierAssignment.set_up_roster(params[:passengers]) if params[:passengers]
       Payload.assign_payloads(params[:payloads]) if params[:payloads]
 
       mission.save!
     end
+  end
+
+  # !!! this is something to be refactored later, after the site is working
+  # def self.resources(option)
+  #   case option
+  #   when :all
+  #     build "resource object" w/ all resources listed
+  #   when :avaliable
+  #     build "resource object" w/ only avaliable resources listed
+  #   end
+  # end
+
+  def self.set_up_roster(passengers)
+      passengers.each do |assignment_params|
+        SoldierAssignment.assign_passengers(assignment_params)
+      end
   end
 
   def self.set_up_dispatches(trucks)
@@ -49,9 +71,9 @@ class Mission < ActiveRecord::Base
     end
   end
 
-  def self.set_up_assignments(passengers)
-    SoldierAssignment.create_roster(passengers, "Passenger")
-  end
+  # def self.set_up_assignments(passengers)
+  #   SoldierAssignment.create_roster(passengers, "Passenger")
+  # end
 
   def self.set_up_trailer_dispatches(trailers)
     return [] unless !!trailers
