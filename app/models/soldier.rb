@@ -1,8 +1,9 @@
 class Soldier < ActiveRecord::Base
   has_many  :soldier_assignments
-  has_many :resource_statuses, as: :classification 
+  has_many  :resource_statuses, as: :classification 
   
   has_many  :dispatches, through: :soldier_assignments
+  has_many  :missions, through: :dispatches
 
 
 # these are not doing what I expect and this is what I care about

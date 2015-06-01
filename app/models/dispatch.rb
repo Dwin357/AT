@@ -69,7 +69,7 @@ class Dispatch < ActiveRecord::Base
   end
 
   def self.add_trailer(params)
-    tl= TrailerAssignment.generate_assignment({name: params[:name]})
+    tl= TrailerAssignment.generate_assignment({name: params[:trailer_name]})
     find_by(truck: Truck.find_by_name(params[:truck_name])).trailer_assignments << tl
   end
 

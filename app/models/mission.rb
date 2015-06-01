@@ -43,7 +43,9 @@ class Mission < ActiveRecord::Base
       # mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])
 
       SoldierAssignment.assign_passengers(params[:passengers]) if params[:passengers]
+
       TrailerAssignment.assign_trailers(params[:trailers]) if params[:trailers]
+      
       Payload.assign_payloads(params[:payloads]) if params[:payloads]
 
       mission.save!
