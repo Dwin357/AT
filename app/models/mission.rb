@@ -33,11 +33,11 @@ class Mission < ActiveRecord::Base
   def self.create_new(params)
     self.transaction do
 
-      mission = self.new
-      mission.step_off_at      ="#{params[:mission][:step_off_date]+" "+params[:mission][:step_off_time]+":00"}"
-      mission.return_at        ="#{params[:mission][:return_date]} #{params[:mission][:return_time]}:00"
-      mission.name          = params[:mission][:name]
-      mission.unit_serviced = params[:mission][:unit_serviced]
+      mission = self.create!(
+      step_off_at:  "#{params[:mission][:step_off_date]+" "+params[:mission][:step_off_time]+":00"}",
+      return_at:    "#{params[:mission][:return_date]} #{params[:mission][:return_time]}:00",
+      name:          params[:mission][:name],
+      unit_serviced: params[:mission][:unit_serviced])
 
       mission.dispatches << self.set_up_dispatches(params[:trucks])
       mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])

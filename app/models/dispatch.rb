@@ -32,22 +32,22 @@ class Dispatch < ActiveRecord::Base
     dispatch = self.create!(truck: truck,
                             miles_at_dispatch: truck.odometer)
 
-    dispatch.soldier_assignments << SoldierAssignment.generate_assignment({ name:     params[:driver_name],
-                                            role:     "Driver"})
+    dispatch.soldier_assignments << SoldierAssignment.generate_assignment({ name: params[:driver_name],
+                                            role: "Driver"})
 
-    dispatch.soldier_assignments << SoldierAssignment.generate_assignment({ name:     params[:a_driver_name],
-                                            role:     "A-Driver"})
+    dispatch.soldier_assignments << SoldierAssignment.generate_assignment({ name: params[:a_driver_name],
+                                            role: "A-Driver"})
 
     # I want to build a hash where
     # soldier is the soldier
     # role is the param key name
-
+    # dispatch.save!
     dispatch
   end
 
-  def self.find_drivers(driver_names)
-    driver_names.map {|driver| Soldier.find_by_name(driver)}
-  end
+  # def self.find_drivers(driver_names)
+  #   driver_names.map {|driver| Soldier.find_by_name(driver)}
+  # end
 
   def leave_wire
     self.out_wire = true

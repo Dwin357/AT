@@ -5,34 +5,35 @@ class SoldierAssignment < ActiveRecord::Base
   # validates :mission, presence: true
   # validates :soldier, presence: true, uniqueness: {scope: :mission}
 
-  def self.assign_passengers(params)
-    soldiers.map do |soldier|
-      self.create(soldier: Soldier.find_by_name(passenger["name"]))
-    end
-  end
+  # !!! off line while dealing with broke stuff
+  # def self.assign_passengers(params)
+  #   soldiers.map do |soldier|
+  #     self.create(soldier: Soldier.find_by_name(passenger["name"]))
+  #   end
+  # end
 
-  def self.set_up_roster(passengers, mission_id)
-    # work on this after you are able to adjust for the tk
-    passengers.each do |assignment_params|
-      params = { name: assignment_params[:passenger_name],
-                 dispatch: assignment_params[:truck_name],
-                 # need a "Dispatch.triangulate(truck_name, mission_id)"
-                 role: "Passenger" }
+  # !!! off line while dealing with broke stuff
+  # def self.set_up_roster(passengers, mission_id)
+  #   # work on this after you are able to adjust for the tk
+  #   passengers.each do |assignment_params|
+  #     params = { name: assignment_params[:passenger_name],
+  #                dispatch: assignment_params[:truck_name],
+  #                # need a "Dispatch.triangulate(truck_name, mission_id)"
+  #                role: "Passenger" }
 
-      self.generate_assignment(params)
-    end
-  end
+  #     self.generate_assignment(params)
+  #   end
+  # end
 
-  def generate_soldier
-    soldier = Soldier.find_by_id(self.soldier)
-    {soldier: soldier, returned: self.returned, passenger_id: self.id}
-  end
+  # def generate_soldier
+  #   soldier = Soldier.find_by_id(self.soldier)
+  #   {soldier: soldier, returned: self.returned, passenger_id: self.id}
+  # end
 
   def self.generate_assignment(params)
     soldier = Soldier.find_by_name(params[:name])
-    self.create!(soldier:   soldier, 
-                  dispatch: params[:dispatch], 
-                  role:     params[:role])
+    self.new(soldier:   soldier, 
+             role:     params[:role])
   end
 
   # def leave_wire
