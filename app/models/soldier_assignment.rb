@@ -1,29 +1,15 @@
 class SoldierAssignment < ActiveRecord::Base
   belongs_to :dispatch
   belongs_to :soldier
+  # belongs_to :mission, through: :dispatch
 
-  # validates :mission, presence: true
-  # validates :soldier, presence: true, uniqueness: {scope: :mission}
+  validates :dispatch, presence: true
+  validates :soldier, presence: true 
 
-  # !!! off line while dealing with broke stuff
-  # def self.assign_passengers(params)
-  #   soldiers.map do |soldier|
-  #     self.create(soldier: Soldier.find_by_name(passenger["name"]))
-  #   end
-  # end
+  # I want to validate that a soldier is only appearing on a mission once
+  # I want to validate that a soldier is not appearing on multiple overlapping missions
 
-  # !!! off line while dealing with broke stuff
-  # def self.set_up_roster(passengers, mission_id)
-  #   # work on this after you are able to adjust for the tk
-  #   passengers.each do |assignment_params|
-  #     params = { name: assignment_params[:passenger_name],
-  #                dispatch: assignment_params[:truck_name],
-  #                # need a "Dispatch.triangulate(truck_name, mission_id)"
-  #                role: "Passenger" }
 
-  #     self.generate_assignment(params)
-  #   end
-  # end
 
   # def generate_soldier
   #   soldier = Soldier.find_by_id(self.soldier)
@@ -36,15 +22,21 @@ class SoldierAssignment < ActiveRecord::Base
              role:     params[:role])
   end
 
-  # def leave_wire
-  #   self.out_wire = true
-  #   self.save
-  # end
+  def self.set_up_roster(passengers)
+    passengers.each do |assignment_params|
+      Dispatch.add_passenger(assignment_params)
+    end
+  end
 
-  # def safe_return
-  #   self.returned = true
-  #   self.save
-  # end
+  def leave_wire
+    self.out_wire = true
+    self.save
+  end
+
+  def safe_return
+    self.returned = true
+    self.save
+  end
 
   # def active_time_range
   #   self.dispatch.active_time_range

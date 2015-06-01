@@ -2,13 +2,11 @@ class Dispatch < ActiveRecord::Base
   belongs_to  :truck
   belongs_to  :mission
   has_many    :soldier_assignments
-  has_many :soldiers, through: :soldier_assignments
+  has_many    :soldiers, through: :soldier_assignments
 
-  # validates :truck, presence: true, uniqueness: {scope: :mission}
-  # validates :mission, presence: true
-  # validates :driver, presence: true, uniqueness: {scope: :mission}
-  # validates :a_driver, presence: true, uniqueness: {scope: :mission}
-  # validates :miles_at_dispatch, presence: true
+  validates :truck, presence: true, uniqueness: {scope: :mission}
+  #validates :mission, presence: true
+  validates :miles_at_dispatch, presence: true
 
   # validate :moving_forward, on: :update
   # validate :two_to_a_truck, on: :create
@@ -20,7 +18,7 @@ class Dispatch < ActiveRecord::Base
   # end
 
   # def moving_forward
-  #   if miles_at_return && miles_at_dispatch < miles_at_return
+  #   if miles_at_return && miles_at_dispatch <= miles_at_return
   #     errors.add(:miles_at_return, "someone tampered with your odometer, check that shit")
   #   end
   # end
@@ -48,6 +46,11 @@ class Dispatch < ActiveRecord::Base
   # def self.find_drivers(driver_names)
   #   driver_names.map {|driver| Soldier.find_by_name(driver)}
   # end
+
+  def self.add_passenger(params)
+    find_by(truck: Truck.find_by_name(params[:truck_name])).soldier_assignments << SoldierAssignment.generate_assignment({ name: params[:passenger_name],
+                                            role: "Passenger"})
+  end
 
   def leave_wire
     self.out_wire = true
@@ -81,9 +84,9 @@ class Dispatch < ActiveRecord::Base
   #     dispatch_id:  self.id}
   # end
 
-  def active_time
-    self.mission.active_time_window
-  end
+  # def active_time
+  #   self.mission.active_time_window
+  # end
 
 
 end

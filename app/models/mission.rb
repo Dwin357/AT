@@ -14,13 +14,13 @@ class Mission < ActiveRecord::Base
   # has_many :soldiers, through: :dispatches, source: :a_driver
   # has_many :soldiers, through: :passengers
 
-  # validates :name, presence: true
-  # validates :unit_serviced, presence: true
+  validates :name, presence: true
+  validates :unit_serviced, presence: true
 
-  # validates :strftimeep_off_at, presence: true
-  # validates :return_at, presence: true
+  validates :step_off_at, presence: true
+  validates :return_at, presence: true
 
-  # validate  :no_time_travel
+  validate  :no_time_travel
 
 
   def no_time_travel
@@ -59,11 +59,7 @@ class Mission < ActiveRecord::Base
   #   end
   # end
 
-  def self.set_up_roster(passengers)
-      passengers.each do |assignment_params|
-        SoldierAssignment.assign_passengers(assignment_params)
-      end
-  end
+
 
   def self.set_up_dispatches(trucks)
     trucks.map do |dispatch_params|
@@ -71,9 +67,6 @@ class Mission < ActiveRecord::Base
     end
   end
 
-  # def self.set_up_assignments(passengers)
-  #   SoldierAssignment.create_roster(passengers, "Passenger")
-  # end
 
   def self.set_up_trailer_dispatches(trailers)
     return [] unless !!trailers
@@ -115,12 +108,12 @@ class Mission < ActiveRecord::Base
       end
   end
 
-  def generate_display
-    trucks = self.dispatches.map{ |d| d.generate_truck }
-    soldiers = self.passengers.map{ |p| p.generate_soldier }
-    trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
-    {mission: self, trucks: trucks, soldiers: soldiers, trailers: trailers}
-  end
+  # def generate_display
+  #   trucks = self.dispatches.map{ |d| d.generate_truck }
+  #   soldiers = self.passengers.map{ |p| p.generate_soldier }
+  #   trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
+  #   {mission: self, trucks: trucks, soldiers: soldiers, trailers: trailers}
+  # end
 
   def accountability_check
     if mission_resources.all?(&:returned)
@@ -130,10 +123,10 @@ class Mission < ActiveRecord::Base
   end
 
   def mission_resources
-    dispatches + passengers + trailer_dispatches
+    dispatches + soldier_assignments + trailer_dispatches
   end
 
-  def active_time_window
-    (self.step_off_at..self.return_at)
-  end
+  # def active_time_window
+  #   (self.step_off_at..self.return_at)
+  # end
 end
