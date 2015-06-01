@@ -3,18 +3,27 @@ class Dispatch < ActiveRecord::Base
   belongs_to  :mission
   has_many    :soldier_assignments
   has_many    :soldiers, through: :soldier_assignments
+  has_many    :trailer_assignments
+  has_many    :trailers, through: :trailer_assignments
 
   validates :truck, presence: true, uniqueness: {scope: :mission}
   #validates :mission, presence: true
   validates :miles_at_dispatch, presence: true
 
   # validate :has_driver
+  # validate :has_co_driver
   # validate :moving_forward, on: :update
   # validate :two_to_a_truck, on: :create
 
   # def has_driver
-  #   if soldier_assignments.find_by(role: "Driver")
+  #   if self.soldier_assignments.find_by(role: "Driver")
   #     errors.add(:soldier_assignments, "no driver")
+  #   end
+  # end
+
+  # def has_co_driver
+  #   if self.soldier_assignments.find_by(role: "A-Driver")
+  #     errors.add(:soldier_assignments, "no co-driver")
   #   end
   # end
 
@@ -42,25 +51,26 @@ class Dispatch < ActiveRecord::Base
     # (so soldierAssignment can have the ID) and depend upon the fact that create mission is 
     # wraped in a transaction which will roll-back everything if the mission doesn't go through,
     # ...but I still don't like it.
-    dispatch = self.create!(truck: truck,
+    dispatch = self.create!(truck:             truck,
                             miles_at_dispatch: truck.odometer)
 
-    dispatch.soldier_assignments << SoldierAssignment.generate_assignment({ name: params[:driver_name],
-                                            role: "Driver"})
+    driver = {name: params[:driver_name], role: "Driver"}
+    dispatch.soldier_assignments << SoldierAssignment.generate_assignment(driver)
 
-    dispatch.soldier_assignments << SoldierAssignment.generate_assignment({ name: params[:a_driver_name],
-                                            role: "A-Driver"})
+    co_driver = {name: params[:a_driver_name], role: "A-Driver"}
+    dispatch.soldier_assignments << SoldierAssignment.generate_assignment(co_driver)
 
     dispatch
   end
 
-  # def self.find_drivers(driver_names)
-  #   driver_names.map {|driver| Soldier.find_by_name(driver)}
-  # end
-
   def self.add_passenger(params)
-    find_by(truck: Truck.find_by_name(params[:truck_name])).soldier_assignments << SoldierAssignment.generate_assignment({ name: params[:passenger_name],
-                                            role: "Passenger"})
+    tr= SoldierAssignment.generate_assignment({name:params[:passenger_name],role:"Passenger"})
+    find_by(truck:Truck.find_by_name(params[:truck_name])).soldier_assignments << tr
+  end
+
+  def self.add_trailer(params)
+    tl= TrailerAssignment.generate_assignment({name: params[:name]})
+    find_by(truck: Truck.find_by_name(params[:truck_name])).trailer_assignments << tl
   end
 
   def leave_wire

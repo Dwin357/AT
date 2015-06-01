@@ -1,13 +1,13 @@
 class Mission < ActiveRecord::Base
   has_many :rest_points
   has_many :dispatches
-  has_many :trailer_dispatches
 
   has_many :trucks, through: :dispatches
-  has_many :trailers, through: :trailer_dispatches
+  has_many :trailer_assignments, through: :dispatches
   has_many :soldier_assignments, through: :dispatches
 
   has_many :soldiers, through: :soldier_assignments
+  has_many :trailers, through: :trailer_assignments
 
   #these are not doing what I am expecting...
   # has_many :soldiers, through: :dispatches, source: :driver
@@ -40,9 +40,10 @@ class Mission < ActiveRecord::Base
       unit_serviced: params[:mission][:unit_serviced])
 
       mission.dispatches << self.set_up_dispatches(params[:trucks])
-      mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])
+      # mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])
 
-      SoldierAssignment.set_up_roster(params[:passengers]) if params[:passengers]
+      SoldierAssignment.assign_passengers(params[:passengers]) if params[:passengers]
+      TrailerAssignment.assign_trailers(params[:trailers]) if params[:trailers]
       Payload.assign_payloads(params[:payloads]) if params[:payloads]
 
       mission.save!
@@ -108,12 +109,12 @@ class Mission < ActiveRecord::Base
       end
   end
 
-  # def generate_display
-  #   trucks = self.dispatches.map{ |d| d.generate_truck }
-  #   soldiers = self.passengers.map{ |p| p.generate_soldier }
-  #   trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
-  #   {mission: self, trucks: trucks, soldiers: soldiers, trailers: trailers}
-  # end
+  def generate_display
+    trucks = self.dispatches.map{ |d| d.generate_truck }
+    soldiers = self.passengers.map{ |p| p.generate_soldier }
+    trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
+    {mission: self, trucks: trucks, soldiers: soldiers, trailers: trailers}
+  end
 
   def accountability_check
     if mission_resources.all?(&:returned)

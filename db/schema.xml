@@ -75,7 +75,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1200" y="457" name="missions">
+<table x="1193" y="536" name="missions">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -95,7 +95,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="951" y="746" name="rest_points">
+<table x="976" y="698" name="rest_points">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -135,7 +135,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="969" y="474" name="dispatches">
+<table x="977" y="459" name="dispatches">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -163,13 +163,13 @@
 <part>id</part>
 </key>
 </table>
-<table x="895" y="289" name="trailer_dispatchs">
+<table x="750" y="274" name="trailer_assignments">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="missions_id" null="1" autoincrement="0">
+<row name="dispatch_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="missions" row="id" />
+<default>NULL</default><relation table="dispatches" row="id" />
 </row>
 <row name="trailer_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -185,7 +185,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="681" y="250" name="trailers">
+<table x="604" y="259" name="trailers">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>

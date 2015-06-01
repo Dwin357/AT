@@ -22,7 +22,7 @@ class SoldierAssignment < ActiveRecord::Base
              role:     params[:role])
   end
 
-  def self.set_up_roster(passengers)
+  def self.assign_passengers(passengers)
     passengers.each do |assignment_params|
       Dispatch.add_passenger(assignment_params)
     end
