@@ -26,41 +26,53 @@
             <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Dispatch/#{truck[:dispatch_id]}"%> method='post'>
             <input type='hidden' name='_method' value='put'>
               <%= stoplight( truck[:returned] ) %>
-                <%= "#{truck[:truck].name} - #{truck[:driver].name} #{truck[:driver].rank}, #{truck[:a_driver].name} #{truck[:a_driver].rank}" %>
+                <p>
+                  <%= "#{truck[:truck].name} - #{truck[:driver].name} #{truck[:driver].rank}, #{truck[:a_driver].name} #{truck[:a_driver].rank}" %>
+                </p>
+                <p>
+                  <% truck[:passengers].each do |passenger| %>
+                    <%= "#{passenger.name} #{passenger.rank}, "%>
+                  <%end%>
+                </p>
+                <p>
+                  <% truck[:trailer].each do |trailer| %>
+                    <%= "#{trailer.name}"%>
+                  <%end%>
+                </p>
                 <%= check_in_btn( truck[:returned] ) %>
               </span>
             </form>
           </div>
         <%end%>
 
-          <% @mission_display[:trailers].each do |trailer| %>
+          <!-- <#% @mission_display[:trailers].each do |trailer| %>
             <div class='panel-body'>
-              <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/TrailerDispatch/#{trailer[:dispatch_id]}"%> method='post'>
+              <form action=<%#="/missions/safe_return/#{@mission_display[:mission].id}/TrailerDispatch/#{trailer[:dispatch_id]}"%> method='post'>
               <input type='hidden' name='_method' value='put'>
-                <%= stoplight( trailer[:returned] ) %>
-                  <%= "#{trailer[:dispatch].inspect}" %>
-                  <%= check_in_btn( trailer[:returned] ) %>
+                <%#= stoplight( trailer[:returned] ) %>
+                  <%#= "#{trailer[:dispatch].inspect}" %>
+                  <%#= check_in_btn( trailer[:returned] ) %>
                 </span>
               </form>
             </div>
-          <%end%>
+          <%#end%>
 
       </div>
     </div>
     <div class='col-sm-6'>
       <div class='panel panel-default'>
 
-          <% @mission_display[:soldiers].each do |soldier| %>
+          <#% @mission_display[:soldiers].each do |soldier| %>
             <div class='panel-body'>
-              <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Passenger/#{soldier[:passenger_id]}"%> method='post'>
+              <form action=<%#="/missions/safe_return/#{@mission_display[:mission].id}/Passenger/#{soldier[:passenger_id]}"%> method='post'>
               <input type='hidden' name='_method' value='put'>
-                <%= stoplight( soldier[:returned] ) %>
-                  <%= "#{soldier[:soldier].name} #{soldier[:soldier].rank}" %>
-                  <%= check_in_btn( soldier[:returned] ) %>
+                <%#= stoplight( soldier[:returned] ) %>
+                  <%#= "#{soldier[:soldier].name} #{soldier[:soldier].rank}" %>
+                  <%#= check_in_btn( soldier[:returned] ) %>
                 </span>
               </form>
             </div>
-          <%end%>
+          <%#end%> -->
 
       </div>
     </div>

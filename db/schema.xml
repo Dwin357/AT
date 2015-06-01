@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- SQL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
-<!-- Active URL: https://socrates.devbootcamp.com/sql.html? -->
+<!-- Active URL: https://socrates.devbootcamp.com/sql.html -->
 <sql>
 <datatypes db="mysql">
   <group label="Numeric" color="rgb(238,238,170)">
@@ -114,7 +114,7 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="soldiers_id" null="1" autoincrement="0">
+<row name="soldier_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="soldiers" row="id" />
 </row>

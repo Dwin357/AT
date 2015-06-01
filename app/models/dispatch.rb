@@ -78,9 +78,9 @@ class Dispatch < ActiveRecord::Base
     self.save
   end
 
-  def safe_return#(params[:ck_in_tk])
+  def has_returned#(params[:ck_in_tk])
     # self.check_in_truck(params)
-    self.returned = true
+    self.safe_return = true
     self.save
   end
 
@@ -94,16 +94,15 @@ class Dispatch < ActiveRecord::Base
   #   Soldier.find_by_id(self.a_driver).update_miles(driven_miles)
   # end
 
-  # def generate_truck
-  #   truck = Truck.find_by_id( self.truck )
-  #   driver = Soldier.find_by_id( self.driver )
-  #   a_driver = Soldier.find_by_id( self.a_driver )
-  #   {truck:         truck,
-  #     driver:       driver,
-  #     a_driver:     a_driver,
-  #     returned:     self.returned,
-  #     dispatch_id:  self.id}
-  # end
+  def generate_display_truck
+    {truck:         truck,
+      driver:       soldier_assignments.find_by(role: "Driver").soldier,
+      a_driver:     soldier_assignments.find_by(role: "A-Driver").soldier,
+      passengers:   soldier_assignments.where(role: "Passenger").map{ |s| s.soldier},
+      trailer:      trailer_assignments.map{|t| t.trailer},
+      safe_return:  self.safe_return,
+      dispatch_id:  self.id}
+  end
 
   # def active_time
   #   self.mission.active_time_window

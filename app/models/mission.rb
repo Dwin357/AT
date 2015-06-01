@@ -40,7 +40,6 @@ class Mission < ActiveRecord::Base
       unit_serviced: params[:mission][:unit_serviced])
 
       mission.dispatches << self.set_up_dispatches(params[:trucks])
-      # mission.trailer_dispatches << self.set_up_trailer_dispatches(params[:trailers])
 
       SoldierAssignment.assign_passengers(params[:passengers]) if params[:passengers]
 
@@ -106,27 +105,28 @@ class Mission < ActiveRecord::Base
   def leave_wire
       self.initiated = true
       self.save
-      mission_resources.each do |resource|
+      mission_resource_assignments.each do |resource|
         resource.leave_wire
       end
   end
 
-  def generate_display
-    trucks = self.dispatches.map{ |d| d.generate_truck }
-    soldiers = self.passengers.map{ |p| p.generate_soldier }
-    trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
-    {mission: self, trucks: trucks, soldiers: soldiers, trailers: trailers}
+  def display_resources_trucks
+    trucks = []
+    dispatches.each{ |d| trucks << d.generate_display_truck }
+    # soldiers = self.passengers.map{ |p| p.generate_soldier }
+    # trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
+    {mission: self, trucks: trucks}
   end
 
   def accountability_check
-    if mission_resources.all?(&:returned)
+    if mission_resource_assignments.all?(&:has_returned)
       self.completed = true
       self.save
     end
   end
 
-  def mission_resources
-    dispatches + soldier_assignments + trailer_dispatches
+  def mission_resource_assignments
+    dispatches + soldier_assignments + trailer_assignments
   end
 
   # def active_time_window
