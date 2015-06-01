@@ -8,8 +8,15 @@ class Dispatch < ActiveRecord::Base
   #validates :mission, presence: true
   validates :miles_at_dispatch, presence: true
 
+  # validate :has_driver
   # validate :moving_forward, on: :update
   # validate :two_to_a_truck, on: :create
+
+  # def has_driver
+  #   if soldier_assignments.find_by(role: "Driver")
+  #     errors.add(:soldier_assignments, "no driver")
+  #   end
+  # end
 
   # def two_to_a_truck
   #   if driver == a_driver
@@ -27,6 +34,14 @@ class Dispatch < ActiveRecord::Base
 
     truck = Truck.find_by!(name: params[:truck_name])
     
+    # ideally this would be 'dispatch=self.new' and then saved when the mission is saved
+    # but doing such throws an error which seems to say that, "b/c soldierAssignment doesn't
+    # have an association with mission, soldierAssignment can't depend upon mission.save to 
+    # hand it the dispatch.id which is generated as part of mission.save (which happens b/c 
+    # those two have a direct relationship)"...  The work around is to just create the dispatch
+    # (so soldierAssignment can have the ID) and depend upon the fact that create mission is 
+    # wraped in a transaction which will roll-back everything if the mission doesn't go through,
+    # ...but I still don't like it.
     dispatch = self.create!(truck: truck,
                             miles_at_dispatch: truck.odometer)
 
@@ -36,10 +51,6 @@ class Dispatch < ActiveRecord::Base
     dispatch.soldier_assignments << SoldierAssignment.generate_assignment({ name: params[:a_driver_name],
                                             role: "A-Driver"})
 
-    # I want to build a hash where
-    # soldier is the soldier
-    # role is the param key name
-    # dispatch.save!
     dispatch
   end
 
