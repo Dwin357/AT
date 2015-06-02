@@ -1,4 +1,11 @@
 class SoldierAssignment < ActiveRecord::Base
+
+  # t.integer :soldier_id
+  # t.integer :dispatch_id
+  # t.string  :role
+  # t.boolean :out_wire, default: false
+  # t.boolean :safe_return, default: false
+      
   belongs_to :dispatch
   belongs_to :soldier
   # belongs_to :mission, through: :dispatch

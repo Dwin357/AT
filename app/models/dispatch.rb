@@ -1,4 +1,11 @@
 class Dispatch < ActiveRecord::Base
+  # t.integer :truck_id
+  # t.integer :mission_id
+  # t.boolean :out_wire, default: false
+  # t.boolean :safe_return, default: false
+  # t.integer :miles_at_return
+  # t.integer :miles_at_dispatch
+  
   belongs_to  :truck
   belongs_to  :mission
   has_many    :soldier_assignments
@@ -15,17 +22,17 @@ class Dispatch < ActiveRecord::Base
   # validate :moving_forward, on: :update
   # validate :two_to_a_truck, on: :create
 
-  # def has_driver
-  #   if self.soldier_assignments.find_by(role: "Driver")
-  #     errors.add(:soldier_assignments, "no driver")
-  #   end
-  # end
+  def has_driver
+    unless self.soldier_assignments.find_by(role: "Driver")
+      errors.add(:soldier_assignments, "no driver")
+    end
+  end
 
-  # def has_co_driver
-  #   if self.soldier_assignments.find_by(role: "A-Driver")
-  #     errors.add(:soldier_assignments, "no co-driver")
-  #   end
-  # end
+  def has_co_driver
+    unless self.soldier_assignments.find_by(role: "A-Driver")
+      errors.add(:soldier_assignments, "no co-driver")
+    end
+  end
 
   # def two_to_a_truck
   #   if driver == a_driver

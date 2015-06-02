@@ -1,4 +1,10 @@
 class TrailerAssignment < ActiveRecord::Base
+
+  # t.integer   :dispatch_id
+  # t.integer   :trailer_id
+  # t.boolean   :out_wire, default: false
+  # t.boolean   :safe_return, default: false
+
   belongs_to :trailer
   belongs_to :dispatch
 

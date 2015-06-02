@@ -1,6 +1,11 @@
 class Payload < ActiveRecord::Base
   belongs_to :loadable, polymorphic: true
 
+  # t.string  :payload
+  # t.integer :vehicle_id
+  # t.string  :vehicle_type
+  # t.boolean :downloaded, default: false
+
 
   def self.assign_payloads(loads)
     loads.each do |load|

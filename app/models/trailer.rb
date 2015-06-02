@@ -1,4 +1,7 @@
 class Trailer < ActiveRecord::Base
+
+  # t.string :name
+
   has_many :deficiencies, as: :breakable
   has_many :payloads, as: :loadable
   has_many :resource_statuses, as: :classification

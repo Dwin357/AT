@@ -131,6 +131,33 @@ task "console" do
 end
 
 desc "Run the specs"
+
 RSpec::Core::RakeTask.new(:spec)
 
-task :default  => :specs
+task :default => :spec 
+
+
+# When I tried writing rspec tests, it complained about not having any "at_test" db...
+# in the spec_helper file, 'RACK_ENV' is set to 'test', while it is normally set to
+# 'development' for when I am working on it, so the error is a legit complaint.
+# Below is my attempt to Frankenstein together the needed method calls to set up the
+# at_test db, but they don't seem to have worked.  Not totally sure what I am doing 
+# here or what is missing.  Next plan is to prevent it from setting ENV=test in the first place.
+
+  # desc "Run the specs"
+  # task "test" do 
+
+  #   exec("createdb at_test")
+  #   rake_migrate
+  #   RSpec::Core::RakeTask.new(:spec)
+
+  #   task :default  => :specs
+  # end
+
+  # def rake_migrate
+  #   ActiveRecord::Migrator.migrations_paths << File.dirname(__FILE__) + 'db/migrate'
+  #   ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
+  #   ActiveRecord::Migrator.migrate(ActiveRecord::Migrator.migrations_paths, ENV["VERSION"] ? ENV["VERSION"].to_i : nil) do |migration|
+  #     ENV["SCOPE"].blank? || (ENV["SCOPE"] == migration.scope)
+  #   end
+  # end
