@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+
+# These are failing, error is "Can't cast Enumerator to string"
+
 describe Mission do
 
 	missions = ["Chow", "TrX", "Ammo", "RR"]
@@ -48,7 +51,7 @@ describe Mission do
 		going = (rand(3)+1).hours.from_now
 		coming = (rand(3)+5).hours.from_now 
 
-		param={ mission: {name: missions.select, 
+		param={ "mission" => {name: missions.select, 
 											unit_serviced: units.select, 
 											step_off_time: going.strftime("%H:%M"), 
 											step_off_date: going.strftime("%Y-%m-%d"),

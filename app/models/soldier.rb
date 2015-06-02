@@ -28,4 +28,8 @@ class Soldier < ActiveRecord::Base
     self.mission_assignments.where(completed: false).map(&:active_time_range)
   end
 
+  def self.avaliable
+    all - SoldierAssignment.list_of_active_assignments.map{|sa| sa.soldier}
+  end
+
 end

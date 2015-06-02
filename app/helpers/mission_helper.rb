@@ -12,7 +12,7 @@ helpers do
   end
 
   def display_toggle(on)
-    on ?  "'visibility: hidden'": "'visibility: show'"
+    on ?  "'visibility: none'": "'visibility: show'"
   end
 
 end

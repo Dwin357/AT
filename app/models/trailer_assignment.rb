@@ -22,6 +22,11 @@ class TrailerAssignment < ActiveRecord::Base
     end
   end
 
+  def self.list_of_active_assignments
+    # all.select{ &:out_wire && !&:safe_return}
+    where(out_wire: true, safe_return: false)
+  end
+
   def leave_wire
     self.out_wire = true
     self.save

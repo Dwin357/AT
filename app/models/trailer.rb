@@ -11,4 +11,9 @@ class Trailer < ActiveRecord::Base
   has_many :missions, through: :dispatches
 
   # validates :name, presence: true
+
+	def self.avaliable
+		all - TrailerAssignment.list_of_active_assignments.map{|ta| ta.trailer}
+	end
+
 end

@@ -14,4 +14,10 @@ class Truck < ActiveRecord::Base
   validates :model, presence: true
   validates :odometer, presence: true
 
+  def self.avaliable
+    all - Dispatch.list_of_active_dispatches.map{|di| di.truck}
+  end
+
+
+
 end

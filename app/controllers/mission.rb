@@ -1,10 +1,6 @@
 get '/missions/new' do
-  #this should only provide currently avaliable ppl,
-  #off-line until the 'prevent double booking' validation is added
-  @personnel = Soldier.all
-  #as w/ ppl
-  @trucks = Truck.all
-  @trailers = Trailer.all
+  @planning_resources = Mission.make_display_resource_list
+  @display_option = params[:display_option]||"avaliable"
   erb :'planning/new_mission'
 end
 
@@ -31,6 +27,12 @@ put '/missions/safe_return/:mission_id/:type/:type_id' do
   params[:type].constantize.find_by_id(params[:type_id]).safe_return
   Mission.find_by_id(params[:mission_id]).accountability_check
   redirect "/missions/#{params[:mission_id]}"
+end
+
+get '/missions/safe_return/:mission_id/:type/:type_id' do
+  @returning_unit = params[:type].constantize.make_ck_in_display(params)
+  @mission_id = params[:mission_id]
+  erb :"dispatch/check_in_#{params[:type].downcase}"
 end
 
 

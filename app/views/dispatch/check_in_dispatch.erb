@@ -1,0 +1,35 @@
+@returning_unit =
+{truck:         truck,
+      driver:       soldier_assignments.find_by(role: "Driver").soldier,
+      a_driver:     soldier_assignments.find_by(role: "A-Driver").soldier,
+      passengers:   soldier_assignments.where(role: "Passenger").map{ |s| s.soldier},
+      trailer:      trailer_assignments.map{|t| t.trailer},
+      out_wire: 		self.out_wire,
+      safe_return:  self.safe_return,
+      dispatch_id:  self.id}
+
+<div clas="container">
+
+	<div class="jumbotron">
+		<h1><%="#{@returning_unit[:truck].name} - #{@returning_unit[:driver].name} #{@returning_unit[:driver].rank}, #{@returning_unit[:a_driver].name} #{@returning_unit[:a_driver].rank}"<%></h1>
+	</div>
+
+	<div class='row'>
+		<div class='col-sm-6'>
+			<form action=<%="/missions/safe_return/#{@mission_id}/Dispatch/#{@returning_unit[:dispatch_id]}"%> method='post'>
+		  <input type='hidden' name='_method' value='put'>
+		  	<div class="form-group">
+					<input type="text" name="miles_added" placeholder="miles">
+					<input type="text" name="gallons_added" placeholder="gallons">
+					<input type="text" name="oil_added" placeholder="truck attached to">
+					<input type="checkbox" name="keys" value="confirmed">Keys Returned
+					<br>
+					<input type="checkbox" name="dispatch" value="confirmed">Dispatch Returned
+					<br>
+				</div>
+				<button type='submit' class='btn btn-default' > Check In</button>
+			</form>
+		</div>
+	</div>
+	
+</div> <!-- close container

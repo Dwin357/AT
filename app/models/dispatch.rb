@@ -46,6 +46,9 @@ class Dispatch < ActiveRecord::Base
   #   end
   # end
 
+
+
+###############  ^-validations  v- class ###############
   def self.check_out_truck(params)
 
     truck = Truck.find_by!(name: params[:truck_name])
@@ -70,15 +73,30 @@ class Dispatch < ActiveRecord::Base
     dispatch
   end
 
+
   def self.add_passenger(params)
     tr= SoldierAssignment.generate_assignment({name:params[:passenger_name],role:"Passenger"})
     find_by(truck:Truck.find_by_name(params[:truck_name])).soldier_assignments << tr
   end
 
+
   def self.add_trailer(params)
     tl= TrailerAssignment.generate_assignment({name: params[:trailer_name]})
     find_by(truck: Truck.find_by_name(params[:truck_name])).trailer_assignments << tl
   end
+
+
+  def self.list_of_active_dispatches
+    where(out_wire: true, safe_return: false)
+  end
+
+
+  def self.make_ck_in_display(params)
+    find_by_id(params[:type_id]).generate_display_truck
+  end
+
+
+  ################ ^-class  v-instance  ###############
 
   def leave_wire
     self.out_wire = true
@@ -107,6 +125,7 @@ class Dispatch < ActiveRecord::Base
       a_driver:     soldier_assignments.find_by(role: "A-Driver").soldier,
       passengers:   soldier_assignments.where(role: "Passenger").map{ |s| s.soldier},
       trailer:      trailer_assignments.map{|t| t.trailer},
+      out_wire:     self.out_wire,
       safe_return:  self.safe_return,
       dispatch_id:  self.id}
   end

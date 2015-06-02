@@ -22,6 +22,37 @@ $(document).ready(function() {
 }) // closes doc.ready
 
 
+// script from w3 to create a pop-up box, this should be used to
+// implement the ck-in function for the TK
+// it should grab: gal added(int), oil added(int), miles@return(int), keys_returned(ck-confirm)
+// I imagine this being an ajax intercept which grabs the info and passes it along
+/*<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to demonstrate the prompt box.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var person = prompt("Please enter your name", "Harry Potter");
+    
+    if (person != null) {
+        document.getElementById("demo").innerHTML =
+        "Hello " + person + "! How are you today?";
+    }
+}
+</script>
+
+</body>
+</html>*/
+
+
+
+
 
 
 

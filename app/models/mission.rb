@@ -91,12 +91,25 @@ class Mission < ActiveRecord::Base
     missions
   end
 
+  def self.make_display_resource_list
+   { avaliable: { truck:   Truck.avaliable,
+                  soldier: Soldier.avaliable,
+                  trailer: Trailer.avaliable 
+                },
+
+     full_list: { truck:   Truck.all,
+                  soldier: Soldier.all,
+                  trailer: Trailer.all 
+                } 
+    }
+  end
+
   def self.uncompleted
-    self.where(completed: false)
+    where(completed: false)
   end
 
   def self.active
-    self.where(completed: false, out_wire: true)
+    where(completed: false, initiated: true)
   end
 
 
