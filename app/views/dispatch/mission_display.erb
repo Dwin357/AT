@@ -4,14 +4,14 @@
     <h1><%="#{@mission_display[:mission].name} - #{@mission_display[:mission].unit_serviced}"%></h1>
     <h2>TimeNow: <%=mission_time%>
       <% if is_init = @mission_display[:mission].initiated %>
-        <%=stoplight(is_init)%> Started </span>
+        <span class=<%=stoplight_class(is_init)%>> Started </span>
       <%else%>
-        <%=stoplight(is_init)%> Unstarted </span>
+        <span class=<%=stoplight_class(is_init)%>> Unstarted </span>
       <%end%>
       <% if is_comp = @mission_display[:mission].completed %>
-        <%=stoplight(is_comp)%> Finished </span>
+        <span class=<%=stoplight_class(is_comp)%>> Finished </span>
       <%else%>
-        <%=stoplight(is_comp)%> Unfinished </span>
+        <span class=<%=stoplight_class(is_comp)%>> Unfinished </span>
       <%end%>
     </h2>
     <h3>Planned for <%="#{@mission_display[:mission].show_out_datetime} - #{@mission_display[:mission].show_return_datetime}"%></h3>
@@ -25,22 +25,20 @@
           <div class='panel-body'>
             <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Dispatch/#{truck[:dispatch_id]}"%> method='post'>
             <input type='hidden' name='_method' value='put'>
-              <%= stoplight( truck[:returned] ) %>
-                <p>
-                  <%= "#{truck[:truck].name} - #{truck[:driver].name} #{truck[:driver].rank}, #{truck[:a_driver].name} #{truck[:a_driver].rank}" %>
-                </p>
-                <p>
-                  <% truck[:passengers].each do |passenger| %>
-                    <%= "#{passenger.name} #{passenger.rank}, "%>
-                  <%end%>
-                </p>
-                <p>
-                  <% truck[:trailer].each do |trailer| %>
+              <p class=<%= stoplight_class( truck[:safe_return] ) %>>
+                <%= "#{truck[:truck].name} - #{truck[:driver].name} #{truck[:driver].rank}, #{truck[:a_driver].name} #{truck[:a_driver].rank}  " %>
+                <button type='submit' class='btn btn-default' style=<%=display_toggle(truck[:safe_return])%>> Check In</button>
+              </p>
+              <p class=<%= stoplight_class( truck[:safe_return] ) %>>
+                <% truck[:passengers].each do |passenger| %>
+                    <%= "#{passenger.name} #{passenger.rank} "%>
+                <%end%>
+              </p>
+              <p class=<%= stoplight_class( truck[:safe_return] ) %>>
+                <% truck[:trailer].each do |trailer| %>
                     <%= "#{trailer.name}"%>
-                  <%end%>
-                </p>
-                <%= check_in_btn( truck[:returned] ) %>
-              </span>
+                <%end%>
+              </p>
             </form>
           </div>
         <%end%>

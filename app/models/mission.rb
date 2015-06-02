@@ -113,8 +113,6 @@ class Mission < ActiveRecord::Base
   def display_resources_trucks
     trucks = []
     dispatches.each{ |d| trucks << d.generate_display_truck }
-    # soldiers = self.passengers.map{ |p| p.generate_soldier }
-    # trailers = self.trailer_dispatches.map{ |td| td.generate_trailer }
     {mission: self, trucks: trucks}
   end
 

@@ -11,11 +11,6 @@ class SoldierAssignment < ActiveRecord::Base
 
 
 
-  # def generate_soldier
-  #   soldier = Soldier.find_by_id(self.soldier)
-  #   {soldier: soldier, returned: self.returned, passenger_id: self.id}
-  # end
-
   def self.generate_assignment(params)
     soldier = Soldier.find_by_name(params[:name])
     self.new(soldier:   soldier, 
