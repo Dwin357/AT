@@ -1,5 +1,6 @@
 get '/missions/new' do
   @planning_resources = Mission.make_display_resource_list
+  # '/missions/new/:display_option' doesn't work, it tries to go to '/missions/:id'
   @display_option = params[:display_option]||"avaliable"
   erb :'planning/new_mission'
 end
@@ -24,7 +25,7 @@ put '/missions/leave_wire/:id' do
 end
 
 put '/missions/safe_return/:mission_id/:type/:type_id' do
-  params[:type].constantize.find_by_id(params[:type_id]).safe_return
+  params[:type].constantize.find_by_id(params[:type_id]).has_returned(params)
   Mission.find_by_id(params[:mission_id]).accountability_check
   redirect "/missions/#{params[:mission_id]}"
 end

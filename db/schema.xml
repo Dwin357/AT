@@ -159,6 +159,12 @@
 <row name="safe_return" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="gallons_used" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="oil_used" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>

@@ -5,6 +5,8 @@ class Dispatch < ActiveRecord::Base
   # t.boolean :safe_return, default: false
   # t.integer :miles_at_return
   # t.integer :miles_at_dispatch
+  # t.integer :gallons_used
+  # t.integer :oil_used
   
   belongs_to  :truck
   belongs_to  :mission
@@ -103,21 +105,26 @@ class Dispatch < ActiveRecord::Base
     self.save
   end
 
-  def has_returned#(params[:ck_in_tk])
-    # self.check_in_truck(params)
-    self.safe_return = true
+  def has_returned(params)
+    check_in_truck(params)
+    safe_return = true
+
     self.save
   end
 
-  # def check_in_truck(params)
-  #   # to be flipped on when able to gather data at tk ck in
-  #   miles_at_return = params[:miles]
-  #   self.save
+  def check_in_truck(params)
+    miles_at_return = params[:ending_miles]
+    # chng is saved w/in the has_returned method
 
-  #   driven_miles = miles_at_return - miles_at_dispatch
-  #   Soldier.find_by_id(self.driver).update_miles(driven_miles)
-  #   Soldier.find_by_id(self.a_driver).update_miles(driven_miles)
-  # end
+    truck.odometer = params[:ending_miles]
+
+    Soldier.find_by_id(driver).update_miles(driven_miles)
+    Soldier.find_by_id(a_driver).update_miles(driven_miles)
+  end
+
+  def driven_miles
+    miles_at_return - miles_at_dispatch
+  end
 
   def generate_display_truck
     {truck:         truck,

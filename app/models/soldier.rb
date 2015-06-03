@@ -6,13 +6,8 @@ class Soldier < ActiveRecord::Base
   has_many  :missions, through: :dispatches
 
 
-# these are not doing what I expect and this is what I care about
-  #has_many :missions, through: :passengers
-  #has_many :missions, through: :dispatches
-
-
-  # validates :name, presence: true
-  # validates :rank, presence: true
+  validates :name, presence: true
+  validates :rank, presence: true
 
 
   def update_miles(driven_miles)

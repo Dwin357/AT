@@ -17,11 +17,6 @@ class Mission < ActiveRecord::Base
   has_many :soldiers, through: :soldier_assignments
   has_many :trailers, through: :trailer_assignments
 
-  #these are not doing what I am expecting...
-  # has_many :soldiers, through: :dispatches, source: :driver
-  # has_many :soldiers, through: :dispatches, source: :a_driver
-  # has_many :soldiers, through: :passengers
-
   validates :name, presence: true
   validates :unit_serviced, presence: true
 

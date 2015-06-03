@@ -8,10 +8,13 @@ class SoldierAssignment < ActiveRecord::Base
       
   belongs_to :dispatch
   belongs_to :soldier
+
   # belongs_to :mission, through: :dispatch
 
   validates :dispatch, presence: true
-  validates :soldier, presence: true 
+  validates :soldier, presence: true
+  
+
 
   # I want to validate that a soldier is only appearing on a mission once
   # I want to validate that a soldier is not appearing on multiple overlapping missions
@@ -31,7 +34,6 @@ class SoldierAssignment < ActiveRecord::Base
   end
 
   def self.list_of_active_assignments
-    # all.select{ &:out_wire && !&:safe_return}
     where(out_wire: true, safe_return: false)    
   end
 

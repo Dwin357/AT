@@ -7,6 +7,8 @@ class CreateDispatches < ActiveRecord::Migration
       t.boolean :safe_return, default: false
       t.integer :miles_at_return
       t.integer :miles_at_dispatch
+      t.integer :gallons_used, default: 0
+      t.integer :oil_used, default: 0
 
       t.timestamps
     end
