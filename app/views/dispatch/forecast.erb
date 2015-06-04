@@ -39,18 +39,20 @@
 				<% else %>
 					<% @unresolved_missions[:uninitiated].each do |mission| %>
 						<div class='panel-body' class=<%=stoplight_class(mission.step_off_at < Time.now)%>>
-							<form action=<%="/missions/leave_wire/#{mission.id}"%> method='post'>
-							<input type="hidden" name="_method" value="put"/>
+							<span>
+								<form action=<%="/missions/leave_wire/#{mission.id}"%> method='post'>
+								<input type="hidden" name="_method" value="put"/>
 									<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
-								<button type="submit" class="btn btn-default">
-									Leaving
-								</button>
-							</form>
-							<form action=<%="/missions/#{mission.id}"%> method='get'>
-								<button type="submit" class="btn btn-default">
-									View
-								</button>
-							</form>
+									<button type="submit" class="btn btn-default">
+										Leaving
+									</button>
+								</form>
+								<form action=<%="/missions/#{mission.id}"%> method='get'>
+									<button type="submit" class="btn btn-default">
+										View
+									</button>
+								</form>
+							</span>
 						</div>
 					<%end%>
 				<%end%>

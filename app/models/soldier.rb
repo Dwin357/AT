@@ -11,7 +11,7 @@ class Soldier < ActiveRecord::Base
 
 
   def update_miles(driven_miles)
-  	miles += driven_miles
+  	self.miles += driven_miles
   	self.save
   end
 

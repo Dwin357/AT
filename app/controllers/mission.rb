@@ -28,6 +28,7 @@ put '/missions/safe_return/:mission_id/:type/:type_id' do
   params[:type].constantize.find_by_id(params[:type_id]).has_returned(params)
   Mission.find_by_id(params[:mission_id]).accountability_check
   redirect "/missions/#{params[:mission_id]}"
+  # "#{params}"
 end
 
 get '/missions/safe_return/:mission_id/:type/:type_id' do

@@ -106,23 +106,49 @@ class Dispatch < ActiveRecord::Base
   end
 
   def has_returned(params)
-    check_in_truck(params)
-    safe_return = true
-
+    # all of these should be refactored to use
+    # Model.update(id, attr-1:value-1, attr-2:value-2...)
+    # for multiple records param={ id-1 => {attr-1:value-1, ..},
+    #                              id-2 => {attr-1:value-1, ..}}
+    self.miles_at_return = params[:ending_miles]
+    self.safe_return = true
     self.save
+
+    check_in_truck(params)
+    check_in_soldiers(params)
   end
 
   def check_in_truck(params)
-    miles_at_return = params[:ending_miles]
-    # chng is saved w/in the has_returned method
-
-    truck.odometer = params[:ending_miles]
-
-    Soldier.find_by_id(driver).update_miles(driven_miles)
-    Soldier.find_by_id(a_driver).update_miles(driven_miles)
+    # see #has_returned for refactor 
+    t = truck
+    t.odometer = params[:ending_miles]
+    t.save
   end
 
-  def driven_miles
+
+  def check_in_soldiers(params)
+    # see #has_returned for refactor 
+    driven_miles = generate_miles
+    assignments = generate_soldier_assignments
+    crew = generate_crew(assignments)
+
+    crew[:driver].update_miles(driven_miles)
+    crew[:a_driver].update_miles(driven_miles)
+  end
+
+  def generate_soldier_assignments
+    {driver_assignment: soldier_assignments.find_by(role: "Driver"),
+    a_driver_assignment: soldier_assignments.find_by(role: "A-Driver")}
+  end
+
+
+  def generate_crew(assignments)
+    {driver: Soldier.find_by_id(assignments[:driver_assignment]),
+     a_driver: Soldier.find_by_id(assignments[:a_driver_assignment])}
+  end
+
+
+  def generate_miles
     miles_at_return - miles_at_dispatch
   end
 

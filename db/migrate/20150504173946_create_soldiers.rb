@@ -5,7 +5,7 @@ class CreateSoldiers < ActiveRecord::Migration
       t.string  :rank
       t.string  :phone_number
       t.string  :weapon_number
-      t.integer :miles
+      t.integer :miles, default: 0
 
       t.timestamps
     end
