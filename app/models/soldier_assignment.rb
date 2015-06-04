@@ -43,7 +43,7 @@ class SoldierAssignment < ActiveRecord::Base
   end
 
   def has_returned
-    safe_return = true
+    self.safe_return = true
     self.save
   end
 

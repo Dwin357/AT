@@ -114,6 +114,8 @@ class Dispatch < ActiveRecord::Base
     self.safe_return = true
     self.save
 
+
+
     check_in_truck(params)
     check_in_soldiers(params)
   end
@@ -123,6 +125,7 @@ class Dispatch < ActiveRecord::Base
     t = truck
     t.odometer = params[:ending_miles]
     t.save
+
   end
 
 
@@ -131,6 +134,9 @@ class Dispatch < ActiveRecord::Base
     driven_miles = generate_miles
     assignments = generate_soldier_assignments
     crew = generate_crew(assignments)
+
+    assignments[:driver_assignment].has_returned
+    assignments[:a_driver_assignment].has_returned
 
     crew[:driver].update_miles(driven_miles)
     crew[:a_driver].update_miles(driven_miles)

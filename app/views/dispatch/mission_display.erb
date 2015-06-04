@@ -23,12 +23,20 @@
       <div class='panel panel-default'>
         <% @mission_display[:trucks].each do |truck| %>
           <div class='panel-body'>
-            <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Dispatch/#{truck[:dispatch_id]}"%> method='get'>
-            <!-- <form action=<%#="/missions/safe_return/#{@mission_display[:mission].id}/Dispatch/#{truck[:dispatch_id]}"%> method='post'> -->
-            <!-- <input type='hidden' name='_method' value='put'> -->
+          <form action=<%="/missions/safe_return/#{@mission_display[:mission].id}/Dispatch/#{truck[:dispatch_id]}"%> method='get'>
+            <!-- 
+            This is commented out b/c I am redirecting to collect ck-in info
+            
+            <form action=<%#="/missions/safe_return/#{@mission_display[:mission].id}/Dispatch/#{truck[:dispatch_id]}"%> method='post'>
+            <input type='hidden' name='_method' value='put'>
+            -->
+
               <p class=<%= stoplight_class( truck[:safe_return] ) %>>
                 <%= "#{truck[:truck].name} - #{truck[:driver].name} #{truck[:driver].rank}, #{truck[:a_driver].name} #{truck[:a_driver].rank}  " %>
-                <button type='submit' class='btn btn-default' style=<%=display_toggle(truck[:safe_return])%>> Check In</button>
+                <button type='submit' class='btn btn-default' style=<%=display_toggle(truck[:safe_return])%>>
+<!-- the display toggle isn't working here...
+the *style="visibility:none"* is showing up on the page, so...?  -->
+                 Check In</button>
               </p>
               <p class=<%= stoplight_class( truck[:safe_return] ) %>>
                 <% truck[:passengers].each do |passenger| %>
@@ -76,7 +84,7 @@
       </div>
     </div>
 
-  </div> <!--close row-->
+  </div> <!--closes row-->
 
-</div><!--close container-->
+</div><!--closes container-->
 

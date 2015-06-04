@@ -133,7 +133,14 @@ class Mission < ActiveRecord::Base
   end
 
   def accountability_check
-    if mission_resource_assignments.all?(&:has_returned)
+    #this doesn't seem to be working, not super clear on why
+    puts "************************"
+    puts "mission resources after having been saved"
+    puts "************************"
+    p mission_resource_assignments
+    puts "************************"
+    puts "************************"
+    if mission_resource_assignments.all?(&:safe_return)
       self.completed = true
       self.save
     end
