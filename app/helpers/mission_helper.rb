@@ -7,6 +7,8 @@ helpers do
     Time.now.strftime("%Y-%m-%d")
   end
 
+
+
   def stoplight_class(checked_in)
     checked_in ? 'text-success' : 'text-danger'
   end

@@ -1,4 +1,11 @@
 class Soldier < ActiveRecord::Base
+
+  # t.string  :name
+  # t.string  :rank
+  # t.string  :phone_number
+  # t.string  :weapon_number
+  # t.integer :miles, default: 0
+
   has_many  :soldier_assignments
   has_many  :resource_statuses, as: :classification 
   
