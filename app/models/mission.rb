@@ -73,10 +73,11 @@ class Mission < ActiveRecord::Base
   end
 
 
-  def self.set_up_trailer_dispatches(trailers)
-    return [] unless !!trailers
-    TrailerDispatch.check_out_trailer(trailers)
-  end
+  # def self.set_up_trailer_dispatches(trailers)
+  #   # does this still work?
+  #   return [] unless !!trailers
+  #   TrailerDispatch.check_out_trailer(trailers)
+  # end
 
   def self.unresolved_missions
     missions = Hash.new

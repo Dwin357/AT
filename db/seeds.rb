@@ -1,39 +1,67 @@
-Truck.create(name: "E2", model: "HMV", odometer: 48546)
-Truck.create(name: "E3", model: "HMV", odometer: 9783)
-Truck.create(name: "E41", model: "LHS", odometer: 6545)
-Truck.create(name: "E43", model: "LHS", odometer: 6645)
-Truck.create(name: "E44", model: "LHS", odometer: 6985)
-Truck.create(name: "E52", model: "LMTV", odometer: 25635)
-Truck.create(name: "E53", model: "LMTV", odometer: 36756)
-Truck.create(name: "E54", model: "LMTV", odometer: 46456)
-Truck.create(name: "E55", model: "LMTV", odometer: 46456)
-Truck.create(name: "E56", model: "LMTV", odometer: 46456)
-Truck.create(name: "E57", model: "LMTV", odometer: 46456)
+l;[SP - 0800 6/4/15, ck2
+G9 tenard, cortez, piveral
+G12 miravete dean
+G33 Lescaie, holt
+G30 Boege, benette
+G35 West, gavina
+G36 Gutierrez, Marrero
+G37(tk1) Smith, Maloney
 
-Soldier.create(name: "Steinmetz", phone_number: "630.880.8271", rank: "e4")
-Soldier.create(name: "Sosebe",  rank: "e4")
-Soldier.create(name: "Ramierez", rank: "e4")
-Soldier.create(name: "Wojo", rank: "e4")
-Soldier.create(name: "Smith", rank: "e5")
-Soldier.create(name: "West", rank: "e5")
-Soldier.create(name: "Avelia", rank: "e6")
-Soldier.create(name: "Lynch", rank: "e5")
-Soldier.create(name: "Dean", rank: "e4")
-Soldier.create(name: "Cortez", rank: "e4")
-Soldier.create(name: "Prado", rank: "e4")
-Soldier.create(name: "Williams", rank: "e5")
-Soldier.create(name: "Young", rank: "e4")
-Soldier.create(name: "Reyes", rank: "e5")
-Soldier.create(name: "Scrogins", rank: "e6")
-Soldier.create(name: "Wire", rank: "e8")
-Soldier.create(name: "Bennet", rank: "o2")
-Soldier.create(name: "Winn", rank: "03")
-Soldier.create(name: "Shoults", rank: "e4")
-Soldier.create(name: "Mirrevete", rank: "e4")
+Name, grade, wep_serial, wep_num, cco_serial, tk_up, phone
+Cortez, e4, W487221, E15, K2089174, G09
+Holt, e2, 182391, saw, saw, G33
 
-Trailer.create(name: "TL100")
-Trailer.create(name: "TL102")
-Trailer.create(name: "TL106")
+
+
+
+SSG       SHERMAN, THOMAS							
+SGT 	WEST, EDWARD	E23	W487674	K2091054			G35
+SGT 	MARRERO, ALEJANDRO		W487640	K2091048			G36
+SGT 	SMITH, DEREK						
+SPC	PRADO, RICHARD						
+SPC	PINTOR, EDUARDO						
+PFC	LOEZA, LUIS						
+PFC	ARANDA, ANDREW						
+	SPC	STEINMETZ, EDWIN	E38	W511819	K2093538			G01
+	SPC	MALONEY, ANTHONY	E32	W509735	K2091154			G37
+	PFC	PIVARAL, JONATHAN	E29	W508993	K2091145			G09
+	SPC	MIRAVETE/LEAL, ALEXANDRA	E24	W499022	K2091132			G12
+	PFC	DEAN, JASMINE E16	W487244	K2001381			G12
+	SPC	LESCAIE, FLORIN	E33	W509938	K2093639			G33
+	PV2	HOLT, ANTHONY	saw	182391	saw			G33
+	SPC	BOEGE, MICHAEL	saw	182395	saw			G02
+	SPC	GAVINA, JOAQUIN	E31	W509543	K2091149			G35
+	SPC	GUTIERREZ, ARMANDO	E21	W487491	K2091034			G36
+	SPC	CORTEZ, MIGUEL	E15	W487221	K2089174			G09
+	SPC	CRESPO, NIKKO	saw	182037	saw			
+PFC	TENARD, TOESHA	E39	W511821	K2093544			G02
+LT	BENNETT, MICAH	E14	W487217	K2089173			G30
+
+
+
+Soldier.new(name: "West", rank: "E5", weapon_number: "E23", weapon_serial: "W487674", cco_serial: "K2091054", phone_number: "779-456-5242")
+Soldier.new(name: "Marrero", rank: "E5", weapon_number: , weapon_serial: "W487640", cco_serial: "K2091048", phone_number:  )
+Soldier.new(name: "Steinmetz", rank: "E4", weapon_number: "E38", weapon_serial: "W511819", cco_serial: "K2093538", phone_number:"630-880-8271" )
+Soldier.new(name: "Maloney", rank: "E4", weapon_number: "E32", weapon_serial: "W509735", cco_serial: "K2091154", phone_number: "815-354-4637")
+Soldier.new(name: "Pivaral", rank: "E3", weapon_number: "E29", weapon_serial: "W508993", cco_serial: "K2091145", phone_number: )
+Soldier.new(name: "Leal", rank: "E4", weapon_number: "E24", weapon_serial: "W499022", cco_serial: "K2091132", phone_number: "815-263-5437")
+Soldier.new(name: "Dean", rank: "E3", weapon_number: "E16", weapon_serial: "W487244", cco_serial: "K2001381", phone_number: "312-731-7909")
+
+Soldier.new(name: "Lescaie", rank: "E3", weapon_number: "E33", weapon_serial: "W509938", cco_serial: "K2093639", phone_number: "773-629-4873")
+Soldier.new(name: "Holt", rank: "E2", weapon_number: "saw", weapon_serial: "182391", cco_serial: "saw", phone_number: "815-842-7693")
+
+Soldier.new(name: "Boege", rank: "E4", weapon_number: "saw", weapon_serial: "182395", cco_serial: "saw", phone_number: "815-302-0381")
+
+Soldier.new(name: "Gavina", rank: "E4", weapon_number: "E31", weapon_serial: "W509543", cco_serial: "K2091149", phone_number: "815-322-6093")
+
+Soldier.new(name: "Gutierrez", rank: "E4", weapon_number: "E21", weapon_serial: "W487491", cco_serial: "K2091034", phone_number: "773-931-5012")
+
+Soldier.new(name: "Cortez", rank: "E4", weapon_number: "E15", weapon_serial: "W487221", cco_serial: "K2089174", phone_number: "847-271-4390")
+Soldier.new(name: "Crespo", rank: "E4", weapon_number: "saw", weapon_serial: "182037", cco_serial: "saw", phone_number: "815-666-5695")
+Soldier.new(name: "Tenard", rank: "E3", weapon_number: "E39", weapon_serial: "W511821", cco_serial: "K2093544", phone_number: "773-398-9281")
+Soldier.new(name: "Bennett", rank: "O2", weapon_number: "E14", weapon_serial: "W487217", cco_serial: "K2089173", phone_number: "812-374-2263")
+Soldier.new(name: "Smith", rank: "E5", weapon_number: "E25", weapon_serial: "W499051", cco_serial: "K2091137", phone_number: "309-299-3071")
+
 
 
 units = ["Alpha", "Bravo", "Charlie", "Delta", "Golf", "HHC"]

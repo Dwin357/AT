@@ -1,4 +1,4 @@
-
+<!-- 
 What variables need to be passed into this?
 
 -Jumbotron with name, rank, ph#, wep#, #AT missions, #AT miles
@@ -15,11 +15,11 @@ display needs to be passed
 - Soldier.missions
 - Soldier.statues
 - Soldier.soldier_assignments
-
+ -->
 <div class="container">
 
   <div class='jumbotron'>
-    <h1><%="#{@soldier_display[:soldier].name} #{@soldier_display[:soldier].rank}"%><span class='text-success' style=<%=display_toggle(/*???*/)%>> - On Mission</span></h1>
+    <h1><%="#{@soldier_display[:soldier].name} #{@soldier_display[:soldier].rank}"%><span class='text-success' style=<%=display_toggle(@soldier_display[:on_mission])%>> - On Mission</span></h1>
     <br>
     <h3><%="ph: #{@soldier_display[:soldier].phone_number} wep: #{@soldier_display[:soldier].weapon_number} AT Missions: #{@soldier_display[:missions].count} AT Miles: #{@soldier_display[:soldier].miles}"%></h3>
   </div>
@@ -27,14 +27,13 @@ display needs to be passed
   <div class="row">
 
     <div class='col-sm-6'>
-      #display soldier missions
       <div class='panel panel-default'>
         <div class='panel-heading'>
           <h4>Soldier's Missions</h4>
         </div>
-        <%@soldier_display[:missions].each |mission| %>
+        <%@soldier_display[:missions].each do |mission| %>
           <form action=<%="url to the individual mission"%>>
-            <%="#{mission[:name]}-#{mission[:unit]}-#{mission[:show_out_datetime]}:  #{mission[:truck_name]} #{mission[:driver_namerank]}, #{mission[:a_driver_namerank]}"%>
+            <%="#{mission[:name]}-#{mission[:unit]}-#{mission[:show_out_datetime]}:  #{mission[:truck_name]} #{mission[:driver_namerank]}, #{mission[:a_driver_namerank]}"%> 
             <button type="submit" class="btn btn-default">
               View
             </button>
