@@ -21,6 +21,17 @@ class Soldier < ActiveRecord::Base
 
 ### v-class ####
 
+  def self.build_index_display
+    # needs to hand back an ary of display objects
+    self.all.map{ |troop|
+      { namerank: troop.namerank,
+         mission_count: troop.missions.count,
+         availible: troop.avalibility_display,
+         last_assignment: troop.last_assignment_return_time,
+         id: troop.id}
+    }
+  end
+
   def self.avaliable
     all - SoldierAssignment.list_of_active_assignments.map{|sa| sa.soldier}
   end
@@ -34,6 +45,21 @@ class Soldier < ActiveRecord::Base
   end
 
   ### ^- class  v-instance ####
+
+  def last_assignment_return_time
+    # this is two methods, a "last_mission" and a "updated_at.strft"
+    # the trouble I run into is that I don't know how to handle the 
+    # "No Missions" sudo~error
+    if last_mission = soldier_assignments.where(safe_return: true).last
+      last_mission.updated_at.strftime("%H:%M::%m/%d")
+    else
+      "No Missions"
+    end
+  end
+
+  def avalibility_display
+    on_mission? ? 'On Mission' : 'Avaliable'
+  end
 
   def update_miles(driven_miles)
   	self.miles += driven_miles
@@ -55,14 +81,15 @@ class Soldier < ActiveRecord::Base
 
   def compile_missions
     self.missions.map { |m|
-      # dispatch = m.soldier_assignments.find_by(soldier: self).dispatch
-      # dispatch.soldiers.find_by(role: "Driver").namerank
-      { name: m.name,
+      dispatch = m.soldier_assignments.find_by(soldier: self).dispatch
+      # dispatch
+      { id: m.id,
+        name: m.name,
         unit: m.unit_serviced,
-        show_out_datetime: m.show_out_datetime
-        # truck_name: dispatch.truck.name,
-        # driver_namerank: "bob E4",
-        # a_driver_namerank: "steve E5" 
+        show_out_datetime: m.show_out_datetime,
+        truck_name: dispatch.truck.name,
+        driver_namerank: dispatch.soldier_assignments.find_by(role: "Driver").soldier.namerank,
+        a_driver_namerank: dispatch.soldier_assignments.find_by(role: "A-Driver").soldier.namerank 
       }
     }
   end

@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="row">
+		<div class="panel panel-default">
+			<% @soldier_list.each do |soldier_display|%>
+				<div class='panel-body'>
+						<form action=<%="/soldiers/#{soldier_display[:id]}"%> method='get'>
+							<button type="submit" class="btn btn-default">
+		            <%="#{soldier_display[:namerank]}"%>
+		          </button>
+						</form>
+						<%=" - Last Mission: #{soldier_display[:last_assignment]} Mission Count: #{soldier_display[:mission_count]} - #{soldier_display[:availible]}"%>
+				</div>
+			<%end%>
+		</div>
+	</div>
+</div>

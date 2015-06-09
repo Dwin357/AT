@@ -1,6 +1,6 @@
 get '/soldiers'do 
-	"stuff"
-
+	@soldier_list = Soldier.build_index_display
+	erb :'/resources/soldiers_list'
 
 
 end

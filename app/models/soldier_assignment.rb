@@ -9,8 +9,6 @@ class SoldierAssignment < ActiveRecord::Base
   belongs_to :dispatch
   belongs_to :soldier
 
-  # belongs_to :mission, through: :dispatch
-
   validates :dispatch, presence: true
   validates :soldier, presence: true
   
@@ -19,6 +17,8 @@ class SoldierAssignment < ActiveRecord::Base
   # I want to validate that a soldier is only appearing on a mission once
   # I want to validate that a soldier is not appearing on multiple overlapping missions
 
+
+##########  v-class  ^-validations ########
 
 
   def self.generate_assignment(params)
@@ -36,6 +36,11 @@ class SoldierAssignment < ActiveRecord::Base
   def self.list_of_active_assignments
     where(out_wire: true, safe_return: false)    
   end
+
+
+
+#########  ^-class  v-instance  ###########
+
 
   def leave_wire
     self.out_wire = true
