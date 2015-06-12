@@ -12,7 +12,6 @@ get '/soldiers/:id' do
   # presented w/ btn to chng status
 
   @soldier_display = Soldier.build_display(params[:id])
-  # Soldier.build_display not yet built
   erb :'/resources/soldier_display'
 end
 

@@ -70,10 +70,10 @@ class Soldier < ActiveRecord::Base
     missions
   end
 
-  # def future_assignment_time_ranges
+  def unfinished_assignment_time_ranges
   # !!! a theoretical method
-  #   self.mission_assignments.where(completed: false).map(&:active_time_range)
-  # end
+    soldier_assignments.where(safe_return: false).map(&:active_time_window)
+  end
 
   def on_mission?
     self.soldier_assignments.where(safe_return: false, out_wire: true).any?

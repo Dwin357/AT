@@ -1,11 +1,13 @@
 ...k, so
 
+I'm listliss right now, I think this would be a good time to refocus.
 
-the trouble I am having is that things aren't happening at the same time, so an ID field is blank...
-my idea is to try and set up a transaction to try and do everything in one go...
-
-I'm muddled right now...  Passengers seems to be working, but trailers isn't --and yet the logic appears the same ?!?
-
+I want to get validations up and running
+in order for the double booking validation to work, what do I need in place?
+  - I need to get a method which grabs the time windows of all a soldier's current & future missions (this would be w/in soldier, truck, trailer)
+  - sine the time window information lives in the mission, there needs to be a mission method which provides this information
+  - since the information about current & future [missions] lives in the dispatch/assignments, these will need to be the ones calling missions with the querrey and compiling it into an array 
+  - I need a method which calls the above and cks to see if the time range of two passed in times overlaps it, returning t-f (this would be a method in dispatch/assignments)
 
 
 
@@ -24,33 +26,3 @@ so, given a [soldier + mission], I want to validate
     errors.add(:soldier, "double booking, #{resource.name} already on mission during this time")
   end
 
-
-class Soldier
-  has_many :assignemnts, class_name: "SoldierAssignment"
-
-  def assignments_as_passenger
-    assignments.as_passenger
-  end
-
-  def assignments_as_driver
-    assignments.as_driver
-  end
-
-  def assignments_as_assistant_driver
-    assignments.as_assistant_driver
-  end
-end
-
-class SoldierAssignment
-  def self.as_passenger
-    where(role: "passenger")
-  end
-
-  def self.as_driver
-    where(role: "driver")
-  end
-
-  def self.as_assistant_driver
-    where(role: "assistant driver")
-  end
-end

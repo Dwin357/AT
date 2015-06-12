@@ -51,7 +51,7 @@ class Dispatch < ActiveRecord::Base
 
 
 ###############  ^-validations  v- class ###############
-  def self.check_out_truck(params)
+  def self.check_out_truck(params, mission_id)
 
     truck = Truck.find_by!(name: params[:truck_name])
     
@@ -64,7 +64,8 @@ class Dispatch < ActiveRecord::Base
     # wraped in a transaction which will roll-back everything if the mission doesn't go through,
     # ...but I still don't like it.
     dispatch = self.create!(truck:             truck,
-                            miles_at_dispatch: truck.odometer)
+                            miles_at_dispatch: truck.odometer,
+                            mission_id: mission_id)
 
     driver = {name: params[:driver_name], role: "Driver"}
     dispatch.soldier_assignments << SoldierAssignment.generate_assignment(driver)
@@ -114,17 +115,16 @@ class Dispatch < ActiveRecord::Base
     self.safe_return = true
     self.save
 
-
-
     check_in_truck(params)
     check_in_soldiers(params)
   end
 
   def check_in_truck(params)
-    # see #has_returned for refactor 
-    t = truck
-    t.odometer = params[:ending_miles]
-    t.save
+    truck.update_attribute(odometer: params[:ending_miles])
+    # if the above doesn't work
+    # tk = truck
+    # tk.odometer = params[:ending_miles]
+    # tk.save
 
   end
 
@@ -169,9 +169,9 @@ class Dispatch < ActiveRecord::Base
       dispatch_id:  self.id}
   end
 
-  # def active_time
-  #   self.mission.active_time_window
-  # end
+  def active_time_window
+    mission.active_time_window
+  end
 
 
 end

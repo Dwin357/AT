@@ -42,7 +42,7 @@ class Mission < ActiveRecord::Base
       name:          params[:mission][:name],
       unit_serviced: params[:mission][:unit_serviced])
 
-      mission.dispatches << self.set_up_dispatches(params[:trucks])
+      self.set_up_dispatches(params[:trucks], mission.id)
 
       SoldierAssignment.assign_passengers(params[:passengers]) if params[:passengers]
 
@@ -66,9 +66,9 @@ class Mission < ActiveRecord::Base
 
 
 
-  def self.set_up_dispatches(trucks)
+  def self.set_up_dispatches(trucks, mission_id)
     trucks.map do |dispatch_params|
-      Dispatch.check_out_truck(dispatch_params)
+      Dispatch.check_out_truck(dispatch_params, mission_id)
     end
   end
 
@@ -134,13 +134,6 @@ class Mission < ActiveRecord::Base
   end
 
   def accountability_check
-    #this doesn't seem to be working, not super clear on why
-    puts "************************"
-    puts "mission resources after having been saved"
-    puts "************************"
-    p mission_resource_assignments
-    puts "************************"
-    puts "************************"
     if mission_resource_assignments.all?(&:safe_return)
       self.completed = true
       self.save
@@ -151,7 +144,7 @@ class Mission < ActiveRecord::Base
     dispatches + soldier_assignments + trailer_assignments
   end
 
-  # def active_time_window
-  #   (self.step_off_at..self.return_at)
-  # end
+  def active_time_window
+    (step_off_at...return_at)
+  end
 end

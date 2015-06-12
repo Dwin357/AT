@@ -11,7 +11,14 @@ class SoldierAssignment < ActiveRecord::Base
 
   validates :dispatch, presence: true
   validates :soldier, presence: true
+
   
+  validate :not_double_booked
+    # this is having chicken+egg problems
+    # it is complaining about "active_time_window"
+    # being called on a nil class (the mission)
+    # ...which actually doesn't make sense since
+    # oh wait, this is b/c the dispatch isn't saved, so therefore it doesn't have a mission yet :: so dispatch.mission returns nil, even though it will eventually exist.
 
 
   # I want to validate that a soldier is only appearing on a mission once
@@ -52,22 +59,25 @@ class SoldierAssignment < ActiveRecord::Base
     self.save
   end
 
-  # def active_time_range
-  #   self.dispatch.active_time_range
-  # end
+  # syntax: time_range_1.overlaps?(time_range_2)=>t/f
 
-  # def soldiers_future_assigment_time_ranges
-  #   self.soldier.future_assignments
-  # end
+  def active_time_window
+    dispatch.active_time_window
+  end
 
-  # def overlaps_mission_time?
-  #   self.soldiers_future_assigment_time_ranges.any? {|time_range| self.active_time_range.overlaps?(time_range) }
-  # end
+  def soldiers_unfinished_assigment_time_ranges
+    soldier.unfinished_assignment_time_ranges
+  end
 
-  # def check_availability
-  #   if overlaps_mission_time?
-  #     error.add(:soldier, "double booking")
-  #   end
-  # end
+  def overlaps_planned_mission_time?
+    proposed_window = active_time_window
+    soldiers_unfinished_assigment_time_ranges.any? {|time_range| proposed_window.overlaps?(time_range) }
+  end
+
+  def not_double_booked
+    if overlaps_planned_mission_time?
+      error.add(:soldier, "double booking")
+    end
+  end
 
 end

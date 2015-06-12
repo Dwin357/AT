@@ -18,15 +18,17 @@
   (figure out how to add pins to the map)
   (figure out the data type for storing this info: geo-object?)
 
-- on individual mission page, have google map populate with RPs
+ X - on individual mission page
+  - have google map populate with RPs
 
-- have /soldiers & /soldiers/:id pages (in R-side drop down)
+ X - have /soldiers & /soldiers/:id pages (in R-side drop down)
 - have /trucks & /trucks/:id pages (in R-side drop down)
 - have /trailers & /trailers/:id pages (in R-side drop down)
   - be able to add/download payloads from TK & TL pages
   - be able to add/edit deficiencies from TK & TL pages
   - be able to add/edit statuses from any of the pages
 
+#########################################################
 
   X - add sorting feature so that
   only uncompleted missions are displayed
