@@ -14,8 +14,20 @@ class Truck < ActiveRecord::Base
   validates :model, presence: true
   validates :odometer, presence: true
 
+### v-class ####
+
   def self.avaliable
-    all - Dispatch.list_of_active_dispatches.map{|di| di.truck}
+    all.reject(&:on_mission?)
+  end
+
+### ^- class  v-instance ####
+
+  def unfinished_dispatch_time_ranges
+    dispatches.where(safe_return: false).map(&:active_time_window)
+  end
+
+  def on_mission?
+    dispatches.where(safe_return: false, out_wire: true).any?
   end
 
 

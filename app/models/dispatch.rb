@@ -19,6 +19,7 @@ class Dispatch < ActiveRecord::Base
   #validates :mission, presence: true
   validates :miles_at_dispatch, presence: true
 
+  validate :truck_not_double_booked
   # validate :has_driver
   # validate :has_co_driver
   # validate :moving_forward, on: :update
@@ -173,5 +174,24 @@ class Dispatch < ActiveRecord::Base
     mission.active_time_window
   end
 
+  def trucks_unfinished_dispatch_time_ranges
+    # below method needs to be added to truck
+    truck.unfinished_dispatch_time_ranges
+  end
+
+  def overlaps_planned_mission_time?
+    proposed_window = active_time_window
+    trucks_unfinished_dispatch_time_ranges.any? do |time_range|
+      proposed_window.overlaps?(time_range)
+    end
+  end
+
+  def truck_not_double_booked
+    if overlaps_planned_mission_time?
+      error.add(:truck, "truck would be double booked")
+    end
+  end
+
+    
 
 end

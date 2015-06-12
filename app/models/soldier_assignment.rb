@@ -14,15 +14,10 @@ class SoldierAssignment < ActiveRecord::Base
 
   
   validate :not_double_booked
-    # this is having chicken+egg problems
-    # it is complaining about "active_time_window"
-    # being called on a nil class (the mission)
-    # ...which actually doesn't make sense since
-    # oh wait, this is b/c the dispatch isn't saved, so therefore it doesn't have a mission yet :: so dispatch.mission returns nil, even though it will eventually exist.
 
 
   # I want to validate that a soldier is only appearing on a mission once
-  # I want to validate that a soldier is not appearing on multiple overlapping missions
+
 
 
 ##########  v-class  ^-validations ########
@@ -76,7 +71,7 @@ class SoldierAssignment < ActiveRecord::Base
 
   def not_double_booked
     if overlaps_planned_mission_time?
-      error.add(:soldier, "double booking")
+      error.add(:soldier, "soldier would be double booked")
     end
   end
 

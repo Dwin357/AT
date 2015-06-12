@@ -22,18 +22,18 @@ class Soldier < ActiveRecord::Base
 ### v-class ####
 
   def self.build_index_display
-    # needs to hand back an ary of display objects
-    self.all.map{ |troop|
-      { namerank: troop.namerank,
-         mission_count: troop.missions.count,
-         availible: troop.avalibility_display,
-         last_assignment: troop.last_assignment_return_time,
-         id: troop.id}
+    self.all.map{ |soldier|
+      { namerank: soldier.namerank,
+         mission_count: soldier.missions.count,
+         availible: soldier.avalibility_display,
+         last_assignment: soldier.last_assignment_return_time,
+         id: soldier.id
+      }
     }
   end
 
   def self.avaliable
-    all - SoldierAssignment.list_of_active_assignments.map{|sa| sa.soldier}
+    all.reject(&:on_mission?)
   end
 
   def self.build_display(soldier_id)
@@ -47,9 +47,10 @@ class Soldier < ActiveRecord::Base
   ### ^- class  v-instance ####
 
   def last_assignment_return_time
-    # this is two methods, a "last_mission" and a "updated_at.strft"
-    # the trouble I run into is that I don't know how to handle the 
-    # "No Missions" sudo~error
+    # this seems like it should be two methods, 
+    # a "last_mission" and a "updated_at.strft"
+    # the trouble I run into is that  I end up calling "updated_at.strft" on 
+    # the string "No Mission" if I break it into two methods.
     if last_mission = soldier_assignments.where(safe_return: true).last
       last_mission.updated_at.strftime("%H:%M::%m/%d")
     else
@@ -71,7 +72,6 @@ class Soldier < ActiveRecord::Base
   end
 
   def unfinished_assignment_time_ranges
-  # !!! a theoretical method
     soldier_assignments.where(safe_return: false).map(&:active_time_window)
   end
 
@@ -82,7 +82,6 @@ class Soldier < ActiveRecord::Base
   def compile_missions
     self.missions.map { |m|
       dispatch = m.soldier_assignments.find_by(soldier: self).dispatch
-      # dispatch
       { id: m.id,
         name: m.name,
         unit: m.unit_serviced,
