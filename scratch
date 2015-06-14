@@ -1,28 +1,10 @@
 ...k, so
 
-I'm listliss right now, I think this would be a good time to refocus.
+plan for the day
 
-I want to get validations up and running
-in order for the double booking validation to work, what do I need in place?
-  - I need to get a method which grabs the time windows of all a soldier's current & future missions (this would be w/in soldier, truck, trailer)
-  - sine the time window information lives in the mission, there needs to be a mission method which provides this information
-  - since the information about current & future [missions] lives in the dispatch/assignments, these will need to be the ones calling missions with the querrey and compiling it into an array 
-  - I need a method which calls the above and cks to see if the time range of two passed in times overlaps it, returning t-f (this would be a method in dispatch/assignments)
+ - get the resource_truck_index, and resource_truck_id views up and running
 
+ - add some trailers back into seed data and makes sure they are working
 
-
-
-active_support (when required)
-  #.days.from_now => spits out the time object w/ appropriate calculation
-
-  #.minutes.ago
-
-I want a validation that tells me if a given resoruce (soldier/truck/trailer) has any other missions ....
-
-so, given a [soldier + mission], I want to validate
-  generate a list:  list = soldier.missions.all
-    (^-not actually a thing, but maybe it should be)
-  if list.any?{ |m|  m.return_at > soldier.mission.step_off_at } || list.any?{ |m|  m.step_of_at < soldier.mission.return_at }
-    errors.add(:soldier, "double booking, #{resource.name} already on mission during this time")
-  end
+ - get the display option switch working for _resource_list
 

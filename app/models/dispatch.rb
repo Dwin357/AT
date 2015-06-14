@@ -15,47 +15,57 @@ class Dispatch < ActiveRecord::Base
   has_many    :trailer_assignments
   has_many    :trailers, through: :trailer_assignments
 
-  validates :truck, presence: true, uniqueness: {scope: :mission}
-  #validates :mission, presence: true
-  validates :miles_at_dispatch, presence: true
+  validates :truck, presence: true, uniqueness: {scope: :mission}, on: :create
+  validates :mission, presence: true, on: :create
+  validates :miles_at_dispatch, presence: true, on: :create
 
-  validate :truck_not_double_booked
+  validate :truck_not_double_booked, on: :create
+
   # validate :has_driver
   # validate :has_co_driver
+    # b/c the dispatch is created on line 65 before soldiers are added, this fails
+    # that said, I have a note inside the create method detailing the issue about
+    # using Dispatch.new() and the problems with mission, soldier_assignment, and dispatch
+    # all needing each other's IDs.
+
+
   # validate :moving_forward, on: :update
-  # validate :two_to_a_truck, on: :create
+    # !!! for some reason this validation is preventing the dispatch from saving on update?!?  Don't know why
+
+
+  #######  v- validations  ##############  
 
   def has_driver
+    # not in use b/c dispatch is created before soldier_assignment
     unless self.soldier_assignments.find_by(role: "Driver")
       errors.add(:soldier_assignments, "no driver")
     end
   end
 
   def has_co_driver
+    # not in use b/c dispatch is created before soldier_assignment
     unless self.soldier_assignments.find_by(role: "A-Driver")
       errors.add(:soldier_assignments, "no co-driver")
     end
   end
 
-  # def two_to_a_truck
-  #   if driver == a_driver
-  #     errors.add(:a_driver, "need 2 to a truck")
-  #   end
-  # end
+  def moving_forward
+    # not in use b/c this prevents ck-in for unkn reason
+    if miles_at_return && miles_at_dispatch <= miles_at_return
+      errors.add(:miles_at_return, "someone tampered with your odometer, check that shit")
+    end
+  end
 
-  # def moving_forward
-  #   if miles_at_return && miles_at_dispatch <= miles_at_return
-  #     errors.add(:miles_at_return, "someone tampered with your odometer, check that shit")
-  #   end
-  # end
+  def truck_not_double_booked
+    if overlaps_planned_mission_time?
+      error.add(:truck, "truck would be double booked")
+    end
+  end
 
 
 
 ###############  ^-validations  v- class ###############
   def self.check_out_truck(params, mission_id)
-
-    truck = Truck.find_by!(name: params[:truck_name])
-    
     # ideally this would be 'dispatch=self.new' and then saved when the mission is saved
     # but doing such throws an error which seems to say that, "b/c soldierAssignment doesn't
     # have an association with mission, soldierAssignment can't depend upon mission.save to 
@@ -64,6 +74,7 @@ class Dispatch < ActiveRecord::Base
     # (so soldierAssignment can have the ID) and depend upon the fact that create mission is 
     # wraped in a transaction which will roll-back everything if the mission doesn't go through,
     # ...but I still don't like it.
+    truck = Truck.find_by!(name: params[:truck_name])
     dispatch = self.create!(truck:             truck,
                             miles_at_dispatch: truck.odometer,
                             mission_id: mission_id)
@@ -103,55 +114,48 @@ class Dispatch < ActiveRecord::Base
   ################ ^-class  v-instance  ###############
 
   def leave_wire
-    self.out_wire = true
-    self.save
+    update_attributes(out_wire: true)
   end
 
   def has_returned(params)
-    # all of these should be refactored to use
+    # alt
     # Model.update(id, attr-1:value-1, attr-2:value-2...)
     # for multiple records param={ id-1 => {attr-1:value-1, ..},
     #                              id-2 => {attr-1:value-1, ..}}
-    self.miles_at_return = params[:ending_miles]
-    self.safe_return = true
-    self.save
-
-    check_in_truck(params)
-    check_in_soldiers(params)
+    update_attributes(miles_at_return: params[:ending_miles],
+                      safe_return: true)
+    check_in_truck
+    check_in_soldiers
   end
 
-  def check_in_truck(params)
-    truck.update_attribute(odometer: params[:ending_miles])
-    # if the above doesn't work
-    # tk = truck
-    # tk.odometer = params[:ending_miles]
-    # tk.save
-
+  def check_in_truck
+    truck.update_attributes(odometer: miles_at_return)
   end
 
 
-  def check_in_soldiers(params)
-    # see #has_returned for refactor 
+  def check_in_soldiers
+    assignments = generate_crew_assignments
+    close_crew_assignments(assignments)
+    update_crew_miles(generate_crew(assignments))
+  end
+
+  def close_crew_assignments(crew_assignments)
+    crew_assignments.each(&:has_returned)
+  end
+
+  def update_crew_miles(crew)
     driven_miles = generate_miles
-    assignments = generate_soldier_assignments
-    crew = generate_crew(assignments)
-
-    assignments[:driver_assignment].has_returned
-    assignments[:a_driver_assignment].has_returned
-
-    crew[:driver].update_miles(driven_miles)
-    crew[:a_driver].update_miles(driven_miles)
+    crew.each{|soldier| soldier.update_miles(driven_miles)}
   end
 
-  def generate_soldier_assignments
-    {driver_assignment: soldier_assignments.find_by(role: "Driver"),
-    a_driver_assignment: soldier_assignments.find_by(role: "A-Driver")}
+  def generate_crew_assignments
+    [soldier_assignments.find_by(role: "Driver"),
+     soldier_assignments.find_by(role: "A-Driver")]
   end
 
 
   def generate_crew(assignments)
-    {driver: Soldier.find_by_id(assignments[:driver_assignment]),
-     a_driver: Soldier.find_by_id(assignments[:a_driver_assignment])}
+    assignments.map{|crew| Soldier.find_by_id(crew)}
   end
 
 
@@ -163,8 +167,8 @@ class Dispatch < ActiveRecord::Base
     {truck:         truck,
       driver:       soldier_assignments.find_by(role: "Driver").soldier,
       a_driver:     soldier_assignments.find_by(role: "A-Driver").soldier,
-      passengers:   soldier_assignments.where(role: "Passenger").map{ |s| s.soldier},
-      trailer:      trailer_assignments.map{|t| t.trailer},
+      passengers:   soldier_assignments.where(role: "Passenger").map(&:soldier),
+      trailer:      trailer_assignments.map(&:trailer),
       out_wire:     self.out_wire,
       safe_return:  self.safe_return,
       dispatch_id:  self.id}
@@ -175,7 +179,6 @@ class Dispatch < ActiveRecord::Base
   end
 
   def trucks_unfinished_dispatch_time_ranges
-    # below method needs to be added to truck
     truck.unfinished_dispatch_time_ranges
   end
 
@@ -186,11 +189,7 @@ class Dispatch < ActiveRecord::Base
     end
   end
 
-  def truck_not_double_booked
-    if overlaps_planned_mission_time?
-      error.add(:truck, "truck would be double booked")
-    end
-  end
+
 
     
 

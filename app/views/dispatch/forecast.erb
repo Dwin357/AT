@@ -14,7 +14,7 @@
 					<% @unresolved_missions[:initiated].each do |mission| %>
 						<div class='panel-body'>
 							<p class="text-success">
-								<form action=<%="/missions/#{mission.id}"%> method='get'>
+								<form action=<%="/missions/show/#{mission.id}"%> method='get'>
 									<%= "#{mission.show_out_datetime} - #{mission.name} #{mission.unit_serviced}" %>
 									<button type="submit" class="btn btn-default">
 										View
@@ -47,7 +47,7 @@
 										Leaving
 									</button>
 								</form>
-								<form action=<%="/missions/#{mission.id}"%> method='get'>
+								<form action=<%="/missions/show/#{mission.id}"%> method='get'>
 									<button type="submit" class="btn btn-default">
 										View
 									</button>

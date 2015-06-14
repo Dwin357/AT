@@ -87,15 +87,29 @@ class Mission < ActiveRecord::Base
     missions
   end
 
+  def self.selected_option(params)
+    params ? params : "available"
+  end
+
+  def self.alternative_option(selection)
+    selection == "available" ? "all" : "available"
+  end
+
+  def self.make_display_option_selector(selection)
+    selected_option = Mission.selected_option(selection)
+    {selected_option: selected_option,
+    alternative_option: Mission.alternative_option(selected_option)}
+  end
+
   def self.make_display_resource_list
-   { avaliable: { truck:   Truck.avaliable,
-                  soldier: Soldier.avaliable,
-                  trailer: Trailer.avaliable 
+   { available: { truck:   Truck.avaliable.sort_by{|tk| tk.name},
+                  soldier: Soldier.avaliable.sort_by{|tr| tr.name},
+                  trailer: Trailer.avaliable.sort_by{|tl| tl.name} 
                 },
 
-     full_list: { truck:   Truck.all,
-                  soldier: Soldier.all,
-                  trailer: Trailer.all 
+     full_list: { truck:   Truck.all.sort_by(&:name),
+                  soldier: Soldier.all.sort_by(&:name),
+                  trailer: Trailer.all.sort_by(&:name)
                 } 
     }
   end

@@ -30,6 +30,10 @@ class Truck < ActiveRecord::Base
     dispatches.where(safe_return: false, out_wire: true).any?
   end
 
+  def name_model
+    "#{name} #{model}"
+  end
+
 
 
 end

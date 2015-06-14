@@ -13,7 +13,7 @@ class SoldierAssignment < ActiveRecord::Base
   validates :soldier, presence: true
 
   
-  validate :not_double_booked
+  validate :not_double_booked, on: :create
 
 
   # I want to validate that a soldier is only appearing on a mission once

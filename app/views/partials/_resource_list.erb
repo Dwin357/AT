@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
-    <h3><%="#{display_option.capitalize}"%> Resources</h3>
+    <h3><%="#{display_option[:selected_option].capitalize}"%> Resources</h3>
+    <h4><a href=<%="/missions/new/#{display_option[:alternative_option]}"%>><%="View #{display_option[:alternative_option]} Resources"%></a></h4>
   </div>
 </div>
 
@@ -13,7 +14,7 @@
       <%else%>
         <% trucks.each do |truck| %>
           <div class="panel-body">
-            <%= "#{truck.name} - #{truck.model}" %>
+            <%= truck.name_model %>
           </div>
         <%end%>
       <%end%>
@@ -27,7 +28,7 @@
       <%else%>
         <% personnel.each do |soldier| %>
           <div class="panel-body">
-            <%= "#{soldier.name} - #{soldier.rank}" %>
+            <%= soldier.namerank %>
           </div>
         <%end%>
       <%end%>

@@ -5,13 +5,25 @@
 			<%= erb :'/partials/_new_assignment' %>
 		</div>
 		<div class='col-md-6'>
-			<% case @display_option
-				 when "avaliable" %>
-					<%= erb :'/partials/_resource_list', {layout: false, locals: { display_option: @display_option, trucks: @planning_resources[:avaliable][:truck], personnel: @planning_resources[:avaliable][:soldier], trailers: @planning_resources[:avaliable][:trailer]}} %>
+			<% case @display_option[:selected_option]
+				 when "available" %>
+					<%= erb :'/partials/_resource_list', {
+						layout: false, 
+						locals: { display_option: @display_option, 
+											trucks: @planning_resources[:available][:truck],
+											personnel: @planning_resources[:available][:soldier], 
+											trailers: @planning_resources[:available][:trailer]
+										}
+					} %>
 				<%when "all" %>
-					<%= erb :'/partials/_resource_list', {layout: false, locals: { display_option: @display_option, trucks: @planning_resources[:full_list][:truck], personnel: @planning_resources[:full_list][:soldier], trailers: @planning_resources[:full_list][:trailer]}} %>
-				<%else%>
-					<%= erb :'/partials/_resource_list', {layout: false, locals: { display_option: @display_option, trucks: @planning_resources[:avaliable][:truck], personnel: @planning_resources[:avaliable][:soldier], trailers: @planning_resources[:avaliable][:trailer]}} %>
+					<%= erb :'/partials/_resource_list', {
+						layout: false, 
+						locals: { display_option: @display_option, 
+											trucks: @planning_resources[:full_list][:truck],
+											personnel: @planning_resources[:full_list][:soldier],
+											trailers: @planning_resources[:full_list][:trailer]
+										}
+					} %>
 				<%end%>
 		</div>
 	</div>

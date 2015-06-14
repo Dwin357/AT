@@ -1,4 +1,4 @@
-- add model validations (double booking guard)
+ X - add model validations (double booking guard)
 
 - be able to pass intelligent (custom) errors to user when create mission fails (stretch::repopulate the form w/ old param after a failed submit)
 
