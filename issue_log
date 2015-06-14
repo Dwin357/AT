@@ -1,0 +1,3 @@
+- the tag [style="display: none"] isn't working in the soldier_display... not sure why.  The result is that every soldier is always being flagged as currently being on an active mission.
+
+- 
