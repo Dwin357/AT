@@ -1,0 +1,39 @@
+<div class='container'>
+
+	<div class='jumbotron'>
+		<h1>
+			<%="#{@truck_display[:truck].name_model} - "%>
+			<span  style= >
+				<%=@truck_display[:availible]%>
+			</span>
+		</h1>
+		<br>
+		<h3>
+			<%="#{@truck_display[:truck].name_model} Alias: #{ @truck_display[:truck].pen_name} Miles: #{@truck_display[:truck].odometer} AT Missions: #{@truck_display[:missions].count}"%>
+		</h3>
+	</div>
+
+	<div class='row'>
+		<div class='panel panel-default'>
+			<div class='panel-heading'>
+				<h4>Truck's Missions</h4>
+			</div>
+			<%@truck_display[:missions].each do |mission| %>
+				<form action=<%="/missions/show/#{mission[:id]}"%>
+					<button type='submit' class='btn btn-default'>
+						<%="#{mission[:name]} #{mission[:unit]}"%>
+					</button>
+					<%=" - #{mission[:show_out_datetime]} - #{mission[:truck_name]} #{mission[:driver_namerank]} #{mission[:a_driver_namerank]}"%> 
+        </form>
+       <%end%>
+		</div>
+	</div>
+
+	    <div class='col-sm-6'>
+      #display truck statues
+    </div>
+
+    </div>
+
+
+</div>

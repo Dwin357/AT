@@ -2,11 +2,9 @@
 
 plan for the day
 
- - 
-
  - get the resource_truck_index, and resource_truck_id views up and running
 
  - add some trailers back into seed data and makes sure they are working
 
- - get the display option switch working for _resource_list
+
 

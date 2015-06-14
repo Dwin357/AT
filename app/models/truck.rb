@@ -20,6 +20,26 @@ class Truck < ActiveRecord::Base
     all.reject(&:on_mission?)
   end
 
+  def self.build_index_display
+    self.all.map{ |truck|
+      {name_model:     truck.name_model,
+       id:             truck.id,
+       odometer:       truck.odometer,
+       mission_count:  truck.missions.count,
+       availible:      truck.availibility_display
+      }
+    }
+  end
+
+  def self.build_display(truck_id)
+    tk = self.find_by_id(truck_id)
+     {truck: tk,
+      on_mission: tk.on_mission?,
+      missions: tk.compile_missions
+    }
+
+  end
+
 ### ^- class  v-instance ####
 
   def unfinished_dispatch_time_ranges
@@ -33,6 +53,26 @@ class Truck < ActiveRecord::Base
   def name_model
     "#{name} #{model}"
   end
+
+  def availibility_display
+    on_mission? ? 'On Mission' : 'Availible'
+  end
+
+  def compile_missions
+    self.missions.map do |m|
+      dispatch = m.dispatches.find_by(truck: self)
+       {id: m.id,
+        name: m.name,
+        unit: m.unit_serviced,
+        show_out_datetime: m.show_out_datetime,
+        truck_name: self.name,
+        driver_namerank: dispatch.soldier_assignments.find_by(role: "Driver").soldier.namerank,
+        a_driver_namerank: dispatch.soldier_assignments.find_by(role: "A-Driver").soldier.namerank,
+      }
+    end
+  end
+
+
 
 
 

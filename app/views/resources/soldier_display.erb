@@ -19,9 +19,16 @@ display needs to be passed
 <div class="container">
 
   <div class='jumbotron' >
-    <h1 ><%="#{@soldier_display[:soldier].name} #{@soldier_display[:soldier].rank}"%><span class='text-success' style=<%#=display_toggle(@soldier_display[:on_mission])%> > - On Mission</span></h1>
+    <h1 >
+      <%=@soldier_display[:soldier].namerank%>
+      <span class='text-success' style=<%#=display_toggle(@soldier_display[:on_mission])%> >
+        - On Mission
+      </span>
+    </h1>
     <br>
-    <h3><%="ph: #{@soldier_display[:soldier].phone_number} wep: #{@soldier_display[:soldier].weapon_number} AT Missions: #{@soldier_display[:missions].count} AT Miles: #{@soldier_display[:soldier].miles}"%></h3>
+    <h3>
+      <%="ph: #{@soldier_display[:soldier].phone_number} wep: #{@soldier_display[:soldier].weapon_number} AT Missions: #{@soldier_display[:missions].count} AT Miles: #{@soldier_display[:soldier].miles}"%>
+    </h3>
   </div>
 
   <div class="row">

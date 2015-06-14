@@ -25,14 +25,14 @@ class Soldier < ActiveRecord::Base
     self.all.map{ |soldier|
       { namerank: soldier.namerank,
          mission_count: soldier.missions.count,
-         availible: soldier.avalibility_display,
+         availible: soldier.availibility_display,
          last_assignment: soldier.last_assignment_return_time,
          id: soldier.id
       }
     }
   end
 
-  def self.avaliable
+  def self.availiable
     all.reject(&:on_mission?)
   end
 
@@ -58,8 +58,8 @@ class Soldier < ActiveRecord::Base
     end
   end
 
-  def avalibility_display
-    on_mission? ? 'On Mission' : 'Avaliable'
+  def availibility_display
+    on_mission? ? 'On Mission' : 'Availible'
   end
 
   def update_miles(driven_miles)
@@ -80,7 +80,7 @@ class Soldier < ActiveRecord::Base
   end
 
   def compile_missions
-    self.missions.map { |m|
+    self.missions.map do |m|
       dispatch = m.soldier_assignments.find_by(soldier: self).dispatch
       { id: m.id,
         name: m.name,
@@ -90,7 +90,7 @@ class Soldier < ActiveRecord::Base
         driver_namerank: dispatch.soldier_assignments.find_by(role: "Driver").soldier.namerank,
         a_driver_namerank: dispatch.soldier_assignments.find_by(role: "A-Driver").soldier.namerank 
       }
-    }
+    end
   end
 
   def namerank

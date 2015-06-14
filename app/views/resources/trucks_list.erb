@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="row">
+		<div class="panel panel-default">
+			<% @truck_list.each do |truck_display| %>
+				<div class='panel-body'>
+					<form action=<%="/trucks/#{truck_display[:id]}"%> method='get'>
+						<button type='submit' class='btn btn-default'>
+							<%="#{truck_display[:name_model]}"%>
+						</button>
+					</form>
+					<%=" - Miles: #{truck_display[:odometer]}  Mission Count: #{truck_display[:mission_count]} - #{truck_display[:availible]}"%>
+				</div>
+			<%end%>
+		</div>
+	</div>
+</div>

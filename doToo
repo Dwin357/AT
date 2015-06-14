@@ -1,5 +1,3 @@
- X - add model validations (double booking guard)
-
 - be able to pass intelligent (custom) errors to user when create mission fails (stretch::repopulate the form w/ old param after a failed submit)
 
 - gather ck in data from TK ck in via a pop-up window (JQuery..?)
@@ -29,6 +27,12 @@
   - be able to add/edit statuses from any of the pages
 
 #########################################################
+
+ X - add model validations (double booking guard)
+
+ X - have _resource_list display resources in order
+
+ X - get the display option switch working for _resource_list
 
   X - add sorting feature so that
   only uncompleted missions are displayed
