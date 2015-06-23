@@ -16,7 +16,7 @@ class Truck < ActiveRecord::Base
 
 ### v-class ####
 
-  def self.avaliable
+  def self.available
     all.reject(&:on_mission?)
   end
 

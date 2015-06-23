@@ -12,7 +12,7 @@ class Trailer < ActiveRecord::Base
 
   # validates :name, presence: true
 
-	def self.avaliable
+	def self.available
 		all - TrailerAssignment.list_of_active_assignments.map{|ta| ta.trailer}
 	end
 

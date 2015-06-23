@@ -1,10 +1,35 @@
 ...k, so
 
-plan for the day
+thinking out loud
+ - so I am able to make markers on the map (w/ name)
+ - the next part is to figure out how to have the map spit-back grid coordinates for a rest-point selected by the user
+ - the final task is the object / DB stuff
 
- - get the resource_truck_index, and resource_truck_id views up and running
 
- - add some trailers back into seed data and makes sure they are working
+
+
+
+
+#################################################
+
+to bring up with mentor
+////////////////////
+
+ - rspec tests: a green field thing that I don't know where to start with
+
+ - the issues with "on: :update" validation (moving_forward: in dispatch) preventing save
+
+ - validation that cks for uniquness of a truck / soldier / trailer within the scope of a mission doesn't work (doesn't fail when it should)
+
+ - refactor of #last_assignment_return_time in soldier
+
+ - the order of operations / saving issues with #check_out_truck in dispatch
+
+ - not getting the hide toggles to work in the "mission display"...
+ 		- ck in button should not be avaliable/visible before mission has left or after it has returned.
+
+
+
 
 
 

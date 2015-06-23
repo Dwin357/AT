@@ -102,9 +102,9 @@ class Mission < ActiveRecord::Base
   end
 
   def self.make_display_resource_list
-   { available: { truck:   Truck.avaliable.sort_by{|tk| tk.name},
-                  soldier: Soldier.avaliable.sort_by{|tr| tr.name},
-                  trailer: Trailer.avaliable.sort_by{|tl| tl.name} 
+   { available: { truck:   Truck.available.sort_by{|tk| tk.name},
+                  soldier: Soldier.available.sort_by{|tr| tr.name},
+                  trailer: Trailer.available.sort_by{|tl| tl.name} 
                 },
 
      full_list: { truck:   Truck.all.sort_by(&:name),

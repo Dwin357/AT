@@ -14,11 +14,26 @@ class SoldierAssignment < ActiveRecord::Base
 
   
   validate :not_double_booked, on: :create
+  validate :only_assigned_once, on: :create
+    # for some reason this isn't failing when it should be... not sure why not
 
 
-  # I want to validate that a soldier is only appearing on a mission once
 
 
+
+##########  v-validations  ##############
+
+  def not_double_booked
+    if overlaps_planned_mission_time?
+      error.add(:soldier_assignment, "soldier would be double booked")
+    end
+  end
+
+  def only_assigned_once
+    if already_assigned_to_mission?
+      error.add(:soldier_assignment, "soldier assigned to mission multiple times")
+    end
+  end
 
 ##########  v-class  ^-validations ########
 
@@ -54,6 +69,10 @@ class SoldierAssignment < ActiveRecord::Base
     self.save
   end
 
+  def mission
+    dispatch.mission
+  end
+
   # syntax: time_range_1.overlaps?(time_range_2)=>t/f
 
   def active_time_window
@@ -66,12 +85,16 @@ class SoldierAssignment < ActiveRecord::Base
 
   def overlaps_planned_mission_time?
     proposed_window = active_time_window
-    soldiers_unfinished_assigment_time_ranges.any? {|time_range| proposed_window.overlaps?(time_range) }
+    soldiers_unfinished_assigment_time_ranges.any? do |time_range|
+      proposed_window.overlaps?(time_range) 
+    end
   end
 
-  def not_double_booked
-    if overlaps_planned_mission_time?
-      error.add(:soldier, "soldier would be double booked")
+  def already_assigned_to_mission?
+    soldiers_assigned_to_mission = mission.soldiers
+    soldier = self.soldier
+    soldiers_assigned_to_mission.any? do |soldier_on_mission| 
+      soldier == soldier_on_mission
     end
   end
 

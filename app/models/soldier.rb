@@ -25,14 +25,14 @@ class Soldier < ActiveRecord::Base
     self.all.map{ |soldier|
       { namerank: soldier.namerank,
          mission_count: soldier.missions.count,
-         availible: soldier.availibility_display,
+         available: soldier.availibility_display,
          last_assignment: soldier.last_assignment_return_time,
          id: soldier.id
       }
     }
   end
 
-  def self.availiable
+  def self.available
     all.reject(&:on_mission?)
   end
 

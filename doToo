@@ -20,7 +20,7 @@
   - have google map populate with RPs
 
  X - have /soldiers & /soldiers/:id pages (in R-side drop down)
-- have /trucks & /trucks/:id pages (in R-side drop down)
+ X - have /trucks & /trucks/:id pages (in R-side drop down)
 - have /trailers & /trailers/:id pages (in R-side drop down)
   - be able to add/download payloads from TK & TL pages
   - be able to add/edit deficiencies from TK & TL pages
