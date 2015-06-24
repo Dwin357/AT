@@ -18,6 +18,18 @@ $(document).ready(function() {
   assignment('trailer');
   assignment('payload');
 
+  $.ajax({
+    url:'/soldiers.json',
+    method: 'get',
+    dataType: 'json',
+    error: function(err) {
+      console.log(err);
+    },
+    success: function(res) {
+      soldierList = res;
+    }
+  })
+
 
 }) // closes doc.ready
 
@@ -39,7 +51,7 @@ $(document).ready(function() {
 <script>
 function myFunction() {
     var person = prompt("Please enter your name", "Harry Potter");
-    
+
     if (person != null) {
         document.getElementById("demo").innerHTML =
         "Hello " + person + "! How are you today?";

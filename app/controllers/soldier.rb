@@ -1,4 +1,4 @@
-get '/soldiers' do 
+get '/soldiers' do
 	@soldier_list = Soldier.build_index_display
 	erb :'/resources/soldiers_list'
 
@@ -17,4 +17,8 @@ end
 
 post '' do
   # add a new soldier
+end
+
+get '/soldiers.json' do
+  Soldier.all.to_json
 end

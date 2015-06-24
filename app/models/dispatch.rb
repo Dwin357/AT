@@ -7,7 +7,7 @@ class Dispatch < ActiveRecord::Base
   # t.integer :miles_at_dispatch
   # t.integer :gallons_used
   # t.integer :oil_used
-  
+
   belongs_to  :truck
   belongs_to  :mission
   has_many    :soldier_assignments
@@ -33,7 +33,7 @@ class Dispatch < ActiveRecord::Base
     # !!! for some reason this validation is preventing the dispatch from saving on update?!?  Don't know why
 
 
-  #######  v- validations  ##############  
+  #######  v- validations  ##############
 
   def has_driver
     # not in use b/c dispatch is created before soldier_assignment
@@ -68,10 +68,10 @@ class Dispatch < ActiveRecord::Base
   def self.check_out_truck(params, mission_id)
     # ideally this would be 'dispatch=self.new' and then saved when the mission is saved
     # but doing such throws an error which seems to say that, "b/c soldierAssignment doesn't
-    # have an association with mission, soldierAssignment can't depend upon mission.save to 
-    # hand it the dispatch.id which is generated as part of mission.save (which happens b/c 
+    # have an association with mission, soldierAssignment can't depend upon mission.save to
+    # hand it the dispatch.id which is generated as part of mission.save (which happens b/c
     # those two have a direct relationship)"...  The work around is to just create the dispatch
-    # (so soldierAssignment can have the ID) and depend upon the fact that create mission is 
+    # (so soldierAssignment can have the ID) and depend upon the fact that create mission is
     # wraped in a transaction which will roll-back everything if the mission doesn't go through,
     # ...but I still don't like it.
     truck = Truck.find_by!(name: params[:truck_name])
@@ -191,6 +191,6 @@ class Dispatch < ActiveRecord::Base
 
 
 
-    
+
 
 end
