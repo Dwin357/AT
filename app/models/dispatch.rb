@@ -75,14 +75,16 @@ class Dispatch < ActiveRecord::Base
     # wraped in a transaction which will roll-back everything if the mission doesn't go through,
     # ...but I still don't like it.
     truck = Truck.find_by!(name: params[:truck_name])
+    driver = {name: params[:driver_name], role: "Driver"}
+    co_driver = {name: params[:a_driver_name], role: "A-Driver"}
+
+
     dispatch = self.create!(truck:             truck,
                             miles_at_dispatch: truck.odometer,
                             mission_id: mission_id)
 
-    driver = {name: params[:driver_name], role: "Driver"}
-    dispatch.soldier_assignments << SoldierAssignment.generate_assignment(driver)
 
-    co_driver = {name: params[:a_driver_name], role: "A-Driver"}
+    dispatch.soldier_assignments << SoldierAssignment.generate_assignment(driver)
     dispatch.soldier_assignments << SoldierAssignment.generate_assignment(co_driver)
 
     dispatch
