@@ -81,7 +81,7 @@ class Mission < ActiveRecord::Base
 
   def self.unresolved_missions
     missions = Hash.new
-    unresolved = self.uncompleted.sort_by{|mission| mission.step_off_at}.group_by {|mission| mission.initiated}
+    unresolved = self.uncompleted.sort_by(&:step_off_at).group_by(&:initiated)
     missions[:uninitiated] = unresolved[false]
     missions[:initiated] = unresolved[true]
     missions
@@ -102,9 +102,9 @@ class Mission < ActiveRecord::Base
   end
 
   def self.make_display_resource_list
-   { available: { truck:   Truck.available.sort_by{|tk| tk.name},
-                  soldier: Soldier.available.sort_by{|tr| tr.name},
-                  trailer: Trailer.available.sort_by{|tl| tl.name} 
+   { available: { truck:   Truck.available.sort_by(&:name),
+                  soldier: Soldier.available.sort_by(&:name),
+                  trailer: Trailer.available.sort_by(&:name) 
                 },
 
      full_list: { truck:   Truck.all.sort_by(&:name),
@@ -121,6 +121,8 @@ class Mission < ActiveRecord::Base
   def self.active
     where(completed: false, initiated: true)
   end
+
+
 
 
 ############################### ^-class  v-instance ##############

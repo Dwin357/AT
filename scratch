@@ -1,12 +1,20 @@
 ...k, so
 
+irons in the fire are
+ - building out rspec tests
+ - getting the RP stuff up and running
+ - clean up the views now that I am able to have the display toggle working
+
+ !!!! http://itouchmap.com/latlong.html !!!
+ this does what I want, but I don't want to have to be going somewhere else in order to get this.
+
 thinking out loud
  - so I am able to make markers on the map (w/ name)
  - the next part is to figure out how to have the map spit-back grid coordinates for a rest-point selected by the user
  - the final task is the object / DB stuff
 
 
-- turn truck and soldier fields in the add section to drop-down
+
 
 
 

@@ -1,3 +1,4 @@
-- the tag [style="display: none"] isn't working in the soldier_display... not sure why.  The result is that every soldier is always being flagged as currently being on an active mission.
-
-- 
+6.25.15::0935 - I want to focus on rspec testing today.  The things I want to test are...
+- all the attributes of the the DB
+- custom validations
+- all my individual methods(?)

@@ -12,6 +12,8 @@
 
 - refactor "mission_display" and "forecast" to use more partials (like new_mission)
 
+- turn truck and soldier fields in the add section to drop-down
+
 - get the "add rp" feature up and running
   (figure out how to add pins to the map)
   (figure out the data type for storing this info: geo-object?)

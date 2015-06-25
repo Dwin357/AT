@@ -1,94 +1,90 @@
 require 'spec_helper'
 
 
-# These are failing, error is "Can't cast Enumerator to string"
+def generate_test_param(leaving=(rand(3)+1).hours.from_now.utc.to_s, returning=(rand(3)+5).hours.from_now.utc.to_s)
+	missions = ["Chow", "TrX", "Ammo", "RR"]
+	units = ["Alpha", "Bravo", "Charlie", "Delta", "Golf", "HHC"]
+	{
+	 name: missions.sample,
+	 unit_serviced: units.sample,
+	 step_off_at: leaving,
+	 return_at: returning
+	}
+end
+
+def create_mission_and_return_object_from_db(param)
+  	Mission.create(param)
+  	Mission.find_by(step_off_at: param[:step_off_at])
+end
+
+
 
 describe Mission do
 
-	missions = ["Chow", "TrX", "Ammo", "RR"]
-	units = ["Alpha", "Bravo", "Charlie", "Delta", "Golf", "HHC"]
+	describe 'DB attributes' do
 
-	it 'should save/return the name(ie type) of the mission' do
-		param={name: missions.sample,
-						unit_serviced: units.sample,
-						step_off_at: (rand(3)+1).hours.from_now,
-						return_at: (rand(3)+5).hours.from_now }
+		it 'DB has a #name attribute' do
+			param= generate_test_param
+			m= create_mission_and_return_object_from_db(param)
+	  	expect(m.name).to eq(param[:name])
+		end
 
-  	Mission.create(param)
+		it 'DB has a #unit_serviced attribute' do
+			param= generate_test_param
+			m= create_mission_and_return_object_from_db(param)
+	  	expect(m.unit_serviced).to eq(param[:unit_serviced])
+		end
 
-  	m = Mission.find_by(step_off_at: param[:step_off_at])
+		it 'DB has a #step_off_at attribute' do
+			param= generate_test_param
+			m= create_mission_and_return_object_from_db(param)
+	  	expect(m.step_off_at).to eq(param[:step_off_at])
+		end
 
-  	expect(m.name).to eq(param[:name])
+		it 'DB has a #return_at attribute' do
+			param= generate_test_param
+			m= create_mission_and_return_object_from_db(param)
+	  	expect(m.return_at).to eq(param[:return_at])
+		end
+
+		it "DB has a #initiated attribute which defaults false" do
+			param= generate_test_param
+			m= create_mission_and_return_object_from_db(param)
+			expect(m.initiated).to eq(false)
+		end
+
+		it "DB has a #completed attribute which defaults false" do
+			param= generate_test_param
+			m= create_mission_and_return_object_from_db(param)
+			expect(m.completed).to eq(false)
+		end
 	end
 
-	it 'should save/return the name of the unit the mission is for' do
-		param={name: missions.sample,
-						unit_serviced: units.sample,
-						step_off_at: (rand(3)+1).hours.from_now,
-						return_at: (rand(3)+5).hours.from_now }
 
-  	Mission.create(param)
 
-  	m = Mission.find_by(step_off_at: param[:step_off_at])
+	describe 'custom validation' do
 
-  	expect(m.unit_serviced).to eq(param[:unit_serviced])
+		it "#no_time_travel validation passes when leaving is before returning" do
+			param= generate_test_param(1.hour.from_now, 3.hours.from_now)
+			m= Mission.new(param)
+			expect(m.save).to eq(true)
+		end
+
+		it "#no_time_travel validation fails when leaving is after returning" do
+			param= generate_test_param(3.hour.from_now, 1.hours.from_now)
+			m= Mission.new(param)
+			expect(m.save).to eq(false)
+		end
+
 	end
 
-	it 'should save/return the planned start time of the mission' do
-		param={name: missions.sample,
-						unit_serviced: units.sample,
-						step_off_at: (rand(3)+1).hours.from_now,
-						return_at: (rand(3)+5).hours.from_now }
 
-  	Mission.create(param)
 
-  	m = Mission.find_by(return_at: param[:return_at])
+	# describe '' do
 
-  	expect(m.step_off_at).to eq(param[:step_off_at])
-	end
+	# end
 
-	it 'should save/return the planned return time of the mission' do
-		going = (rand(3)+1).hours.from_now
-		coming = (rand(3)+5).hours.from_now
 
-		param={ "mission" => {name: missions.sample,
-											unit_serviced: units.sample,
-											step_off_time: going.strftime("%H:%M"),
-											step_off_date: going.strftime("%Y-%m-%d"),
-											return_date: coming.strftime("%Y-%m-%d"),
-											return_time: coming.strftime("%H:%M")}}
 
-  	Mission.create_new(param)
-
-  	m = Mission.find_by(step_off_at: param["mission"][:step_off_at])
-
-  	expect(m.return_at).to eq(param["mission"][:return_at])
-	end
-
-	it "should default #initiated to 'false' when instantiated" do
-		param={name: missions.sample,
-						unit_serviced: units.sample,
-						step_off_at: (rand(3)+1).hours.from_now,
-						return_at: (rand(3)+5).hours.from_now }
-
-		Mission.create(param)
-
-		m = Mission.find_by(step_off_at: param[:step_off_at])
-
-		expect(m.initiated).to eq(false)
-	end
-
-	it "should default #completed to 'false' when instantiated" do
-		param={name: missions.sample,
-						unit_serviced: units.sample,
-						step_off_at: (rand(3)+1).hours.from_now,
-						return_at: (rand(3)+5).hours.from_now }
-
-		Mission.create(param)
-
-		m = Mission.find_by(step_off_at: param[:step_off_at])
-
-		expect(m.completed).to eq(false)
-	end
 
 end
