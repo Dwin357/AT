@@ -5,14 +5,14 @@ class SoldierAssignment < ActiveRecord::Base
   # t.string  :role
   # t.boolean :out_wire, default: false
   # t.boolean :safe_return, default: false
-      
+
   belongs_to :dispatch
   belongs_to :soldier
 
   validates :dispatch, presence: true
   validates :soldier, presence: true
 
-  
+
   validate :not_double_booked, on: :create
   validate :only_assigned_once, on: :create
     # for some reason this isn't failing when it should be... not sure why not
@@ -25,13 +25,13 @@ class SoldierAssignment < ActiveRecord::Base
 
   def not_double_booked
     if overlaps_planned_mission_time?
-      error.add(:soldier_assignment, "soldier would be double booked")
+      errors.add(:soldier_assignment, "soldier would be double booked")
     end
   end
 
   def only_assigned_once
     if already_assigned_to_mission?
-      error.add(:soldier_assignment, "soldier assigned to mission multiple times")
+      errors.add(:soldier_assignment, "soldier assigned to mission multiple times")
     end
   end
 
@@ -40,7 +40,7 @@ class SoldierAssignment < ActiveRecord::Base
 
   def self.generate_assignment(params)
     soldier = Soldier.find_by_name(params[:name])
-    self.new(soldier:   soldier, 
+    self.new(soldier:   soldier,
              role:     params[:role])
   end
 
@@ -51,7 +51,7 @@ class SoldierAssignment < ActiveRecord::Base
   end
 
   def self.list_of_active_assignments
-    where(out_wire: true, safe_return: false)    
+    where(out_wire: true, safe_return: false)
   end
 
 
@@ -86,14 +86,14 @@ class SoldierAssignment < ActiveRecord::Base
   def overlaps_planned_mission_time?
     proposed_window = active_time_window
     soldiers_unfinished_assigment_time_ranges.any? do |time_range|
-      proposed_window.overlaps?(time_range) 
+      proposed_window.overlaps?(time_range)
     end
   end
 
   def already_assigned_to_mission?
     soldiers_assigned_to_mission = mission.soldiers
     soldier = self.soldier
-    soldiers_assigned_to_mission.any? do |soldier_on_mission| 
+    soldiers_assigned_to_mission.any? do |soldier_on_mission|
       soldier == soldier_on_mission
     end
   end

@@ -58,7 +58,7 @@ class Dispatch < ActiveRecord::Base
 
   def truck_not_double_booked
     if overlaps_planned_mission_time?
-      error.add(:truck, "truck would be double booked")
+      errors.add(:truck, "truck would be double booked")
     end
   end
 

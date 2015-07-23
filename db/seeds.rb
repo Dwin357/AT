@@ -86,11 +86,15 @@ Truck.create!(name: "G36", model: "LHS", odometer: 0,radio_NSN: "false")
 Truck.create!(name: "G37", model: "LHS", odometer: 0,radio_NSN: "false")
 Truck.create!(name: "G41", pen_name: "Fueler", odometer: 0,model: "Fueler",  radio_NSN: "false")
 
-
 units = ["Alpha", "Bravo", "Charlie", "Delta", "Golf", "HHC"]
 example_missions = ["Chow", "TrX", "Ammo", "RR"]
 
-5.times do
+
+####### seed option 1 ##############
+
+# no trailers in seed
+
+1.times do
 	sl = Soldier.all
   tk = Truck.all
   # tl = Trailer.all
@@ -107,9 +111,10 @@ example_missions = ["Chow", "TrX", "Ammo", "RR"]
   	truck_list << tk.shuffle.pop.name
   end
 
-  # 3.times do
-  # 	trailer_list << tl.shuffle.pop.name
-  # end
+
+            # 3.times do
+            # 	trailer_list << tl.shuffle.pop.name
+            # end
 
 
   mission_params = {
@@ -137,6 +142,9 @@ example_missions = ["Chow", "TrX", "Ammo", "RR"]
                 {vehicle_name: truck_list[2],
                  payload: "Peas and ^, they are more important than you think"}
 
+                # ,
+                # {vehicle_name: trailer_list[2],
+                #  payload: "squashe, more than just a game"}
 
                  ],
 
@@ -167,7 +175,9 @@ example_missions = ["Chow", "TrX", "Ammo", "RR"]
   Mission.create_new(mission_params)
 end
 
+#####  end seed option 1 ####
 
+##### seed option 2 ######
 
 # 5.times do
 #   trucks = Truck.all
@@ -182,7 +192,7 @@ end
 
 #   (1..3).to_a.sample.times do
 #     dispatch = Dispatch.new
-#     # dispatch = mission.dispatches.build
+#           # dispatch = mission.dispatches.build
 #     dispatch.truck = trucks.shuffle.pop
 #     (2..5).to_a.sample.times do |i|
 #       roles = ["driver", "a_driver"] << "passenger" * 3
@@ -197,3 +207,5 @@ end
 
 #   mission.save
 # end
+
+###  end seed option 2 ######
