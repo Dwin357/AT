@@ -1,5 +1,5 @@
 require 'rake'
-require 'rspec/core/rake_task'
+# require 'rspec/core/rake_task'
 
 
 require ::File.expand_path('../config/environment', __FILE__)
@@ -134,18 +134,18 @@ desc "Run the specs"
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec 
+task :default => :spec
 
 
 # When I tried writing rspec tests, it complained about not having any "at_test" db...
 # in the spec_helper file, 'RACK_ENV' is set to 'test', while it is normally set to
 # 'development' for when I am working on it, so the error is a legit complaint.
 # Below is my attempt to Frankenstein together the needed method calls to set up the
-# at_test db, but they don't seem to have worked.  Not totally sure what I am doing 
+# at_test db, but they don't seem to have worked.  Not totally sure what I am doing
 # here or what is missing.  Next plan is to prevent it from setting ENV=test in the first place.
 
   # desc "Run the specs"
-  # task "test" do 
+  # task "test" do
 
   #   exec("createdb at_test")
   #   rake_migrate
