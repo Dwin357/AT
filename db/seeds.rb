@@ -37,10 +37,16 @@
 # PFC	TENARD, TOESHA	E39	W511821	K2093544			G02
 # LT	BENNETT, MICAH	E14	W487217	K2089173			G30
 
+Mission.destroy_all
 
 Soldier.destroy_all
+SoldierAssignment.destroy_all
+
 Truck.destroy_all
-Mission.destroy_all
+Dispatch.destroy_all
+
+Payload.destroy_all
+
 
 
 Soldier.create!(name: "West", rank: "E5", weapon_number: "E23", weapon_serial: "W487674", cco_serial: "K2091054", phone_number: "779-456-5242")
