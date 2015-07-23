@@ -14,14 +14,14 @@
 
 
 
-# SSG       SHERMAN, THOMAS							
+# SSG       SHERMAN, THOMAS
 # SGT 	WEST, EDWARD	E23	W487674	K2091054			G35
 # SGT 	MARRERO, ALEJANDRO		W487640	K2091048			G36
-# SGT 	SMITH, DEREK						
-# SPC	PRADO, RICHARD						
-# SPC	PINTOR, EDUARDO						
-# PFC	LOEZA, LUIS						
-# PFC	ARANDA, ANDREW						
+# SGT 	SMITH, DEREK
+# SPC	PRADO, RICHARD
+# SPC	PINTOR, EDUARDO
+# PFC	LOEZA, LUIS
+# PFC	ARANDA, ANDREW
 # 	SPC	STEINMETZ, EDWIN	E38	W511819	K2093538			G01
 # 	SPC	MALONEY, ANTHONY	E32	W509735	K2091154			G37
 # 	PFC	PIVARAL, JONATHAN	E29	W508993	K2091145			G09
@@ -33,10 +33,14 @@
 # 	SPC	GAVINA, JOAQUIN	E31	W509543	K2091149			G35
 # 	SPC	GUTIERREZ, ARMANDO	E21	W487491	K2091034			G36
 # 	SPC	CORTEZ, MIGUEL	E15	W487221	K2089174			G09
-# 	SPC	CRESPO, NIKKO	saw	182037	saw			
+# 	SPC	CRESPO, NIKKO	saw	182037	saw
 # PFC	TENARD, TOESHA	E39	W511821	K2093544			G02
 # LT	BENNETT, MICAH	E14	W487217	K2089173			G30
 
+
+Soldier.destroy_all
+Truck.destroy_all
+Mission.destroy_all
 
 
 Soldier.create!(name: "West", rank: "E5", weapon_number: "E23", weapon_serial: "W487674", cco_serial: "K2091054", phone_number: "779-456-5242")
@@ -77,82 +81,85 @@ Truck.create!(name: "G37", model: "LHS", odometer: 0,radio_NSN: "false")
 Truck.create!(name: "G41", pen_name: "Fueler", odometer: 0,model: "Fueler",  radio_NSN: "false")
 
 
-# units = ["Alpha", "Bravo", "Charlie", "Delta", "Golf", "HHC"]
-# example_missions = ["Chow", "TrX", "Ammo", "RR"]
+units = ["Alpha", "Bravo", "Charlie", "Delta", "Golf", "HHC"]
+example_missions = ["Chow", "TrX", "Ammo", "RR"]
 
-#5.times do
-	# sl = Soldier.all
- #  tk = Truck.all
- #  tl = Trailer.all
+5.times do
+	sl = Soldier.all
+  tk = Truck.all
+  # tl = Trailer.all
 
- #  soldier_list = []
- #  truck_list = []
- #  trailer_list = []
+  soldier_list = []
+  truck_list = []
+  # trailer_list = []
 
- #  10.times do
- #  	soldier_list << sl.shuffle.pop.name
- #  end
+  10.times do
+  	soldier_list << sl.shuffle.pop.name
+  end
 
- #  4.times do 
- #  	truck_list << tk.shuffle.pop.name
- #  end
+  4.times do
+  	truck_list << tk.shuffle.pop.name
+  end
 
- #  3.times do
- #  	trailer_list << tl.shuffle.pop.name
- #  end
-
-
- #  mission_params = {
- #    mission: {step_off_date:  1.day.from_now.strftime("%Y-%m-%d"),
- #              step_off_time:  Time.now.strftime("%H:%M"),
- #              return_date:    1.day.from_now.strftime("%Y-%m-%d"),
- #              return_time:    2.hours.from_now.strftime("%H:%M"),
- #              name:           example_missions.sample,
- #              unit_serviced:  units.sample },
+  # 3.times do
+  # 	trailer_list << tl.shuffle.pop.name
+  # end
 
 
- #    trailers: [{"trailer_name" => trailer_list[0],
- #                "truck_name" =>   truck_list[0]},
-
- #                {"trailer_name" => trailer_list[1],
- #                "truck_name" =>   truck_list[1]},
-
- #                {"trailer_name" => trailer_list[2],
- #                "truck_name" =>   truck_list[2]}],
-
-
- #    payloads: [{vehicle_name: truck_list[3],
- #                payload: "Stuff and Things and more Stuff"},
-
- #                {vehicle_name: trailer_list[2],
- #                 payload: "Peas and ^, they are more important than you think"}],
-
- #    passengers: [ {passenger_name:  soldier_list[0],
- #                   truck_name:  truck_list[0]},
-
- #              {passenger_name:  soldier_list[1],
- #               		 truck_name:  truck_list[1]} ],
+  mission_params = {
+    mission: {step_off_date:  1.day.from_now.strftime("%Y-%m-%d"),
+              step_off_time:  Time.now.strftime("%H:%M"),
+              return_date:    1.day.from_now.strftime("%Y-%m-%d"),
+              return_time:    2.hours.from_now.strftime("%H:%M"),
+              name:           example_missions.sample,
+              unit_serviced:  units.sample },
 
 
- #    trucks: [ {truck_name:   truck_list[0], 
- #    						driver_name: soldier_list[2],
- #    						a_driver_name: soldier_list[3]},
+    # trailers: [{"trailer_name" => trailer_list[0],
+    #             "truck_name" =>   truck_list[0]},
 
- #    						{truck_name:   truck_list[1], 
- #    						driver_name: soldier_list[4],
- #    						a_driver_name: soldier_list[5]},
+    #             {"trailer_name" => trailer_list[1],
+    #             "truck_name" =>   truck_list[1]},
 
- #    						{truck_name:   truck_list[2], 
- #    						driver_name: soldier_list[6],
- #    						a_driver_name: soldier_list[7]},
+    #             {"trailer_name" => trailer_list[2],
+    #             "truck_name" =>   truck_list[2]}],
 
- #     						{truck_name:   truck_list[3], 
- #    						driver_name: soldier_list[8],
- #    						a_driver_name: soldier_list[9]}]
- #  }
 
- #  Mission.create_new(mission_params)
-#end
+    payloads: [{vehicle_name: truck_list[3],
+                payload: "Stuff and Things and more Stuff"},
+
+                {vehicle_name: truck_list[2],
+                 payload: "Peas and ^, they are more important than you think"}
+
+
+                 ],
+
+    passengers: [ {passenger_name:  soldier_list[0],
+                   truck_name:  truck_list[0]},
+
+              {passenger_name:  soldier_list[1],
+               		 truck_name:  truck_list[1]} ],
+
+
+    trucks: [ {truck_name:   truck_list[0],
+    						driver_name: soldier_list[2],
+    						a_driver_name: soldier_list[3]},
+
+    						{truck_name:   truck_list[1],
+    						driver_name: soldier_list[4],
+    						a_driver_name: soldier_list[5]},
+
+    						{truck_name:   truck_list[2],
+    						driver_name: soldier_list[6],
+    						a_driver_name: soldier_list[7]},
+
+     						{truck_name:   truck_list[3],
+    						driver_name: soldier_list[8],
+    						a_driver_name: soldier_list[9]}]
+  }
+
+  Mission.create_new(mission_params)
+end
 
 
 
@@ -168,7 +175,7 @@ Truck.create!(name: "G41", pen_name: "Fueler", odometer: 0,model: "Fueler",  rad
 
 
 #   (1..3).to_a.sample.times do
-#     dispatch = Dispatch.new 
+#     dispatch = Dispatch.new
 #     # dispatch = mission.dispatches.build
 #     dispatch.truck = trucks.shuffle.pop
 #     (2..5).to_a.sample.times do |i|
@@ -181,6 +188,6 @@ Truck.create!(name: "G41", pen_name: "Fueler", odometer: 0,model: "Fueler",  rad
 #     end
 #     mission.dispatches << dispatch
 #   end
-  
+
 #   mission.save
 # end
