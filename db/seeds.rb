@@ -37,15 +37,15 @@
 # PFC	TENARD, TOESHA	E39	W511821	K2093544			G02
 # LT	BENNETT, MICAH	E14	W487217	K2089173			G30
 
-Mission.destroy_all
+Mission.destroy_all if Mission.all.length > 1
 
-Soldier.destroy_all
-SoldierAssignment.destroy_all
+Soldier.destroy_all if Soldier.all.length > 1
+SoldierAssignment.destroy_all if SoldierAssignment.all.length > 1
 
-Truck.destroy_all
-Dispatch.destroy_all
+Truck.destroy_all if Truck.all.length > 1
+Dispatch.destroy_all if Dispatch.all.length > 1
 
-Payload.destroy_all
+Payload.destroy_all if Payload.all.length > 1
 
 
 
